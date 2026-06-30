@@ -3,6 +3,7 @@ class AppStrings {
 
   static const common = CommonStrings();
   static const status = StatusStrings();
+  static const auth = AuthStrings();
 }
 
 class CommonStrings {
@@ -28,4 +29,19 @@ class StatusStrings {
   String get error => 'Error';
   String get warning => 'Warning';
   String get info => 'Info';
+}
+
+class AuthStrings {
+  const AuthStrings();
+
+  String get welcomeTitle => 'Welcome to InspirelyMD';
+  String get welcomeSubtitle => 'Sign in to manage your care, messages and prescriptions.';
+  String get phoneInputLabel => 'Mobile Number';
+  String get phoneInputHint => 'Enter mobile number';
+  String get sendOtpButton => 'Send OTP';
+  String get googleSignIn => 'Continue with Google';
+  String get appleSignIn => 'Continue with Apple';
+  String get orDivider => 'or';
+  String get selectCountry => 'Select Country';
+  String get searchCountry => 'Search country...';
 }

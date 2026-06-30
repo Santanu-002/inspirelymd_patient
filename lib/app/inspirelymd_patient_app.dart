@@ -17,7 +17,7 @@ class InspirelymdPatientApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       initialBinding: InitialBindings(),
-      initialRoute: AppRoutes.dashboard,
+      initialRoute: AppRoutes.auth,
       defaultTransition: Transition.rightToLeftWithFade,
       transitionDuration: const Duration(milliseconds: 300),
       getPages: AppPages.pages,
