@@ -10,46 +10,62 @@ class AppTextStyles {
 class LightTextStyles {
   const LightTextStyles();
 
-  TextStyle get displayLarge => GoogleFonts.manrope(
-        fontSize: 32,
-        fontWeight: FontWeight.bold,
+  /// headline-lg — 30/38, Bold, tight tracking
+  TextStyle get displayLarge => GoogleFonts.hankenGrotesk(
+        fontSize: 30,
+        fontWeight: FontWeight.w700,
+        height: 38 / 30,
+        letterSpacing: -0.6, // -0.02em × 30
         color: AppColors.light.textDefault,
-        letterSpacing: -1.0,
       );
 
-  TextStyle get headlineLarge => GoogleFonts.manrope(
+  /// headline-lg-mobile — 24/32, Bold
+  TextStyle get headlineLarge => GoogleFonts.hankenGrotesk(
         fontSize: 24,
         fontWeight: FontWeight.w700,
+        height: 32 / 24,
+        letterSpacing: -0.24, // -0.01em × 24
         color: AppColors.light.textDefault,
       );
 
-  TextStyle get titleLarge => GoogleFonts.manrope(
+  /// headline-md — 20/28, SemiBold
+  TextStyle get titleLarge => GoogleFonts.hankenGrotesk(
         fontSize: 20,
         fontWeight: FontWeight.w600,
+        height: 28 / 20,
         color: AppColors.light.textDefault,
       );
 
-  TextStyle get bodyLarge => GoogleFonts.inter(
+  /// body-lg — 18/26, Regular
+  TextStyle get bodyLarge => GoogleFonts.hankenGrotesk(
+        fontSize: 18,
+        fontWeight: FontWeight.w400,
+        height: 26 / 18,
+        color: AppColors.light.textDefault,
+      );
+
+  /// body-md — 16/24, Regular
+  TextStyle get bodyMedium => GoogleFonts.hankenGrotesk(
         fontSize: 16,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w400,
+        height: 24 / 16,
         color: AppColors.light.textDefault,
       );
 
-  TextStyle get bodyMedium => GoogleFonts.inter(
+  /// label-md — 14/20, SemiBold, slight positive tracking
+  TextStyle get labelLarge => GoogleFonts.hankenGrotesk(
         fontSize: 14,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w600,
+        height: 20 / 14,
+        letterSpacing: 0.14, // 0.01em × 14
         color: AppColors.light.textDefault,
       );
 
-  TextStyle get labelLarge => GoogleFonts.inter(
-        fontSize: 14,
+  /// label-sm — 12/16, Medium
+  TextStyle get labelSmall => GoogleFonts.hankenGrotesk(
+        fontSize: 12,
         fontWeight: FontWeight.w500,
-        color: AppColors.light.textDefault,
-      );
-
-  TextStyle get labelSmall => GoogleFonts.inter(
-        fontSize: 11,
-        fontWeight: FontWeight.w500,
+        height: 16 / 12,
         color: AppColors.light.textSubtle,
       );
 }
@@ -57,45 +73,62 @@ class LightTextStyles {
 class DarkTextStyles {
   const DarkTextStyles();
 
-  TextStyle get displayLarge => GoogleFonts.manrope(
-        fontSize: 32,
-        fontWeight: FontWeight.bold,
+  /// headline-lg — 30/38, Bold, tight tracking
+  TextStyle get displayLarge => GoogleFonts.hankenGrotesk(
+        fontSize: 30,
+        fontWeight: FontWeight.w700,
+        height: 38 / 30,
+        letterSpacing: -0.6,
         color: AppColors.dark.textDefault,
       );
 
-  TextStyle get headlineLarge => GoogleFonts.manrope(
+  /// headline-lg-mobile — 24/32, Bold
+  TextStyle get headlineLarge => GoogleFonts.hankenGrotesk(
         fontSize: 24,
         fontWeight: FontWeight.w700,
+        height: 32 / 24,
+        letterSpacing: -0.24,
         color: AppColors.dark.textDefault,
       );
 
-  TextStyle get titleLarge => GoogleFonts.manrope(
+  /// headline-md — 20/28, SemiBold
+  TextStyle get titleLarge => GoogleFonts.hankenGrotesk(
         fontSize: 20,
         fontWeight: FontWeight.w600,
+        height: 28 / 20,
         color: AppColors.dark.textDefault,
       );
 
-  TextStyle get bodyLarge => GoogleFonts.inter(
+  /// body-lg — 18/26, Regular
+  TextStyle get bodyLarge => GoogleFonts.hankenGrotesk(
+        fontSize: 18,
+        fontWeight: FontWeight.w400,
+        height: 26 / 18,
+        color: AppColors.dark.textDefault,
+      );
+
+  /// body-md — 16/24, Regular
+  TextStyle get bodyMedium => GoogleFonts.hankenGrotesk(
         fontSize: 16,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w400,
+        height: 24 / 16,
         color: AppColors.dark.textDefault,
       );
 
-  TextStyle get bodyMedium => GoogleFonts.inter(
+  /// label-md — 14/20, SemiBold
+  TextStyle get labelLarge => GoogleFonts.hankenGrotesk(
         fontSize: 14,
-        fontWeight: FontWeight.normal,
-        color: AppColors.dark.textDefault,
-      );
-      
-  TextStyle get labelLarge => GoogleFonts.inter(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
+        height: 20 / 14,
+        letterSpacing: 0.14,
         color: AppColors.dark.textDefault,
       );
 
-  TextStyle get labelSmall => GoogleFonts.inter(
-        fontSize: 11,
+  /// label-sm — 12/16, Medium
+  TextStyle get labelSmall => GoogleFonts.hankenGrotesk(
+        fontSize: 12,
         fontWeight: FontWeight.w500,
+        height: 16 / 12,
         color: AppColors.dark.textSubtle,
       );
 }
