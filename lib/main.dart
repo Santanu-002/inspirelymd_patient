@@ -1,20 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:inspirelymd_patient/app/inspirelymd_patient_app.dart';
+import 'package:inspirelymd_patient/app_initializer.dart';
 
-void main() {
-  runApp(const MainApp());
-}
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AppInitializer.initialize();
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
-    );
-  }
+  runApp(const InspirelymdPatientApp());
 }
