@@ -20,28 +20,36 @@ class PharmacyContent extends GetView<PharmacyController> {
 
     return AppScaffold(
       useScrollView: true,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      titleWidget: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          // Header titles
           Text(
             strings.headerTitle,
             style: theme.textTheme.labelMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: theme.colorScheme.primary,
               letterSpacing: 1.2,
+              height: 1.1,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 2),
           Text(
             strings.ordersTitle,
-            style: theme.textTheme.headlineMedium?.copyWith(
+            style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
               color: const Color(0xFF0D253F),
+              height: 1.1,
             ),
           ),
-          AppUIConstants.widgets.verticalBox$24,
-
+        ],
+      ),
+      centerTitle: false,
+      titleSpacing: 16,
+      automaticallyImplyLeading: false,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
           // ── Card 1: Order INSP-7841 ──────────────────────────────────────
           AppCard(
             child: Column(

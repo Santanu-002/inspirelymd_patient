@@ -19,19 +19,20 @@ class AccountContent extends GetView<AccountController> {
 
     return AppScaffold(
       useScrollView: true,
+      titleWidget: Text(
+        strings.title,
+        style: theme.textTheme.titleLarge?.copyWith(
+          fontWeight: FontWeight.bold,
+          color: const Color(0xFF0D253F),
+          fontSize: 24,
+        ),
+      ),
+      centerTitle: false,
+      titleSpacing: 16,
+      automaticallyImplyLeading: false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Header title
-          Text(
-            strings.title,
-            style: theme.textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: const Color(0xFF0D253F),
-            ),
-          ),
-          AppUIConstants.widgets.verticalBox$24,
-
           // ── Profile Card ─────────────────────────────────────────────────
           AppCard(
             child: Row(
