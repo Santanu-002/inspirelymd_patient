@@ -275,74 +275,77 @@ class DashboardContent extends GetView<DashboardController> {
             AppUIConstants.widgets.verticalBox$16,
 
             // ── Card 4: Doctor Message ───────────────────────────────────────
-            AppCard(
-              child: Row(
-                children: [
-                  // Initial circle avatar
-                  Container(
-                    width: 48,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.primary.withValues(alpha: 0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'AR',
-                        style: TextStyle(
-                          color: theme.colorScheme.primary,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+            GestureDetector(
+              onTap: () => controller.changeNavIndex(2),
+              child: AppCard(
+                child: Row(
+                  children: [
+                    // Initial circle avatar
+                    Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.primary.withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Dr. Reyes',
-                          style: theme.textTheme.titleMedium?.copyWith(
+                      child: Center(
+                        child: Text(
+                          'AR',
+                          style: TextStyle(
+                            color: theme.colorScheme.primary,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 2),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Dr. Reyes',
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            'Eat smaller meals and stay hydrated...',
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: theme.colorScheme.textMuted,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Timestamp and unread status dot
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
                         Text(
-                          'Eat smaller meals and stay hydrated...',
+                          '9:40 AM',
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: theme.colorScheme.textMuted,
+                            fontSize: 11,
                           ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 6),
+                        Container(
+                          width: 8,
+                          height: 8,
+                          decoration: BoxDecoration(
+                            color: theme.colorScheme.error,
+                            shape: BoxShape.circle,
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  // Timestamp and unread status dot
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        '9:40 AM',
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.textMuted,
-                          fontSize: 11,
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      Container(
-                        width: 8,
-                        height: 8,
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.error,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             AppUIConstants.widgets.verticalBox$16,
