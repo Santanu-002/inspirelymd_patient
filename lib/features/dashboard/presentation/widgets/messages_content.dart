@@ -17,90 +17,79 @@ class MessagesContent extends GetView<MessagesController> {
     return AppScaffold(
       useScrollView: false,
       padding: EdgeInsets.zero,
-      child: Column(
+      titleWidget: Row(
         children: [
-          // ── Custom Chat Header ───────────────────────────────────────────
+          // Avatar
           Container(
-            padding: const EdgeInsets.all(16),
+            width: 40,
+            height: 40,
             decoration: BoxDecoration(
-              color: theme.colorScheme.surface,
-              border: Border(
-                bottom: BorderSide(
-                  color: theme.colorScheme.outlineVariant,
-                  width: 1,
+              color: theme.colorScheme.primary.withValues(alpha: 0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Text(
+                'AR',
+                style: TextStyle(
+                  color: theme.colorScheme.primary,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            child: Row(
+          ),
+          const SizedBox(width: 12),
+          // Name and status
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                // Avatar
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary.withValues(alpha: 0.1),
-                    shape: BoxShape.circle,
+                Text(
+                  'Dr. Alana Reyes, MD',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
-                  child: Center(
-                    child: Text(
-                      'AR',
-                      style: TextStyle(
-                        color: theme.colorScheme.primary,
-                        fontSize: 14,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      width: 6,
+                      height: 6,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF2E7D32),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      'Online · your care team',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: const Color(0xFF2E7D32),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                // Name and status
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Dr. Alana Reyes, MD',
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            width: 6,
-                            height: 6,
-                            decoration: const BoxDecoration(
-                              color: Color(0xFF2E7D32),
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            'Online · your care team',
-                            style: theme.textTheme.bodySmall?.copyWith(
-                              color: const Color(0xFF2E7D32),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                // Video call button
-                IconButton(
-                  icon: const Icon(Icons.videocam_outlined),
-                  color: theme.colorScheme.onSurface,
-                  onPressed: () {
-                    AppSnackbar.info(
-                      'Starting secure telehealth video call...',
-                    );
-                  },
+                  ],
                 ),
               ],
             ),
           ),
-
+        ],
+      ),
+      centerTitle: false,
+      titleSpacing: 16,
+      automaticallyImplyLeading: false,
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.videocam_outlined),
+          color: theme.colorScheme.onSurface,
+          onPressed: () {
+            AppSnackbar.info('Starting secure telehealth video call...');
+          },
+        ),
+      ],
+      child: Column(
+        children: [
           // ── Message Thread List ──────────────────────────────────────────
           Expanded(
             child: Container(
