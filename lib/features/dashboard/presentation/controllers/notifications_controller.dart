@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:inspirelymd_patient/core/common/widgets/snackbar/app_snackbar.dart';
+import 'package:inspirelymd_patient/features/dashboard/presentation/controllers/dashboard_controller.dart';
 
 class NotificationsController extends GetxController {
   final notificationsList = <Map<String, dynamic>>[].obs;
@@ -84,6 +85,9 @@ class NotificationsController extends GetxController {
   }
 
   void triggerBack() {
+    try {
+      Get.find<DashboardController>().currentNavIndex.value = 0;
+    } catch (_) {}
     Get.back();
   }
 

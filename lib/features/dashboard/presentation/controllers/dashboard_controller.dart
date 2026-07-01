@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:flutter/services.dart';
 import 'package:inspirelymd_patient/core/common/usecase/usecase.dart';
 import 'package:inspirelymd_patient/core/common/widgets/snackbar/app_snackbar.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
@@ -163,5 +164,22 @@ class DashboardController extends GetxController {
         loadDashboardData();
       },
     );
+  }
+
+  DateTime? _lastPressedAt;
+
+  void handleBackPress() {
+    if (currentNavIndex.value != 0) {
+      currentNavIndex.value = 0;
+    } else {
+      final now = DateTime.now();
+      if (_lastPressedAt == null ||
+          now.difference(_lastPressedAt!) > const Duration(seconds: 2)) {
+        _lastPressedAt = now;
+        AppSnackbar.info('Press back again to exit');
+      } else {
+        SystemNavigator.pop();
+      }
+    }
   }
 }

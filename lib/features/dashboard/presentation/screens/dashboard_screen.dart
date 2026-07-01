@@ -17,14 +17,21 @@ class DashboardScreen extends GetView<DashboardController> {
     return Obx(() {
       final navIndex = controller.currentNavIndex.value;
 
-      return Scaffold(
-        bottomNavigationBar: AppBottomNavigationBar(
-          currentIndex: navIndex,
-          onTap: controller.changeNavIndex,
+      return PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) {
+          if (didPop) return;
+          controller.handleBackPress();
+        },
+        child: Scaffold(
+          bottomNavigationBar: AppBottomNavigationBar(
+            currentIndex: navIndex,
+            onTap: controller.changeNavIndex,
+          ),
+          body: controller.isLoading.value
+              ? const DashboardShimmer()
+              : _buildTabBody(navIndex),
         ),
-        body: controller.isLoading.value
-            ? const DashboardShimmer()
-            : _buildTabBody(navIndex),
       );
     });
   }
