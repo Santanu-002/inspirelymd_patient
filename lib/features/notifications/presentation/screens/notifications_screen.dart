@@ -25,9 +25,10 @@ class NotificationsScreen extends GetView<NotificationsController> {
         onBackPressed: controller.triggerBack,
         titleWidget: Text(
           'Notifications',
-          style: theme.textTheme.headlineSmall?.copyWith(
+          style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
             color: const Color(0xFF0D253F),
+            fontSize: 24,
           ),
         ),
         child: Obx(() {
