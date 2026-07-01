@@ -15,6 +15,8 @@ class _AuthIcons {
   IconData get password => Icons.lock_outline_rounded;
   IconData get user => Icons.person_outline_rounded;
   IconData get phone => Icons.phone_android_rounded;
+  String get googleLogo => 'assets/icons/google.svg';
+  String get appleLogo => 'assets/icons/apple.svg';
 }
 
 class _StatusIcons {

@@ -3,8 +3,10 @@ import 'package:get/get.dart' hide Response;
 import 'package:synchronized/synchronized.dart';
 import 'package:inspirelymd_patient/core/common/events/auth_event.dart';
 import 'package:inspirelymd_patient/core/common/models/auth_tokens/auth_tokens.dart';
-import 'package:inspirelymd_patient/core/common/repositories/i_event_bus_repository.dart';
+import 'package:inspirelymd_patient/features/event_bus/data/services/i_event_bus_service.dart';
 import 'package:inspirelymd_patient/core/network/api/api_endpoints.dart';
+
+
 import 'package:inspirelymd_patient/core/network/api/request_extras.dart';
 import 'package:inspirelymd_patient/core/network/interceptors/platform_info_interceptor.dart';
 import 'package:inspirelymd_patient/core/services/device_header/platform_info_service.dart';
@@ -91,8 +93,8 @@ class AuthInterceptor extends Interceptor {
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         await tokenService.clearTokens();
-        if (Get.isRegistered<IEventBusRepository>()) {
-          Get.find<IEventBusRepository>().fire(const SessionExpiredEvent());
+        if (Get.isRegistered<IEventBusService>()) {
+          Get.find<IEventBusService>().fire(const SessionExpiredEvent());
         }
       }
       rethrow;
@@ -105,10 +107,11 @@ class AuthInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
       await tokenService.clearTokens();
-      if (Get.isRegistered<IEventBusRepository>()) {
-        Get.find<IEventBusRepository>().fire(const SessionExpiredEvent());
+      if (Get.isRegistered<IEventBusService>()) {
+        Get.find<IEventBusService>().fire(const SessionExpiredEvent());
       }
     }
     super.onError(err, handler);
   }
 }
+

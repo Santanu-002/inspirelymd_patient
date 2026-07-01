@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:inspirelymd_patient/core/common/events/auth_event.dart';
 import 'package:inspirelymd_patient/core/common/models/auth_tokens/auth_tokens.dart';
-import 'package:inspirelymd_patient/core/common/repositories/i_event_bus_repository.dart';
+import 'package:inspirelymd_patient/features/event_bus/data/services/i_event_bus_service.dart';
 import 'package:inspirelymd_patient/core/services/token/token_service.dart';
 
 class TokenServiceImpl implements TokenService {
@@ -13,6 +13,7 @@ class TokenServiceImpl implements TokenService {
 
   static final _keys = _TokenKeys();
   final _lock = Lock();
+
 
   @override
   Future<void> saveTokens(AuthTokens tokens) async {
@@ -34,11 +35,12 @@ class TokenServiceImpl implements TokenService {
         _storage.write(key: _keys.tokenIssuedAt, value: tokens.tokenIssuedAt),
       ]);
 
-      if (Get.isRegistered<IEventBusRepository>()) {
-        Get.find<IEventBusRepository>().fire(AuthTokensUpdatedEvent(tokens));
+      if (Get.isRegistered<IEventBusService>()) {
+        Get.find<IEventBusService>().fire(AuthTokensUpdatedEvent(tokens));
       }
     });
   }
+
 
   @override
   Future<String?> getAccessToken() => _storage.read(key: _keys.accessToken);

@@ -57,9 +57,8 @@ class AppButton extends StatelessWidget {
               ? const CircularProgressIndicator()
               : Text(
                   text,
-                  style: TextStyle(
+                  style: theme.textTheme.labelLarge?.copyWith(
                     color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.w600,
                     fontSize: 16,
                   ),
                 ),
@@ -79,9 +78,8 @@ class AppButton extends StatelessWidget {
               ? const CircularProgressIndicator(color: Colors.white)
               : Text(
                   text,
-                  style: const TextStyle(
+                  style: theme.textTheme.labelLarge?.copyWith(
                     color: Colors.white,
-                    fontWeight: FontWeight.w600,
                     fontSize: 16,
                   ),
                 ),
