@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
 import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
@@ -476,7 +477,7 @@ class PharmacyContent extends GetView<PharmacyController> {
           ),
           // Download icon button
           IconButton(
-            icon: const Icon(Icons.download_rounded),
+            icon: const Icon(CupertinoIcons.arrow_down_to_line_alt),
             color: theme.colorScheme.textMuted,
             onPressed: () => controller.downloadDocument(title),
           ),
