@@ -28,6 +28,7 @@ class DashboardScreen extends GetView<DashboardController> {
 
       return AppScaffold(
         useScrollView: navIndex != 2, // Disable scroll view for Messages chat tab
+        padding: navIndex == 2 ? EdgeInsets.zero : null,
         titleWidget: showAppBar
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
