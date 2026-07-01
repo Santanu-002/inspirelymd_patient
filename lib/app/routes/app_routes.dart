@@ -5,4 +5,5 @@ class AppRoutes {
   static const dashboard = '/dashboard';
   static const auth = '/auth';
   static const verifyOtp = '/verify-otp';
+  static const notifications = '/notifications';
 }

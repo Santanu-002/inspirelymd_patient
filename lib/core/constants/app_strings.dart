@@ -155,7 +155,7 @@ class PharmacyStrings {
   String get planApproved => 'Plan approved';
   String get planApprovedSub => 'Dr. Reyes · Jun 2';
   String get paymentCharged => 'Payment charged';
-  String get paymentChargedSub => '$299 · Jun 2';
+  String get paymentChargedSub => '\$299 · Jun 2';
   String get sentToPharmacy => 'Sent to pharmacy';
   String get sentToPharmacySub => 'Hallandale 503A, FL';
   String get preparedFilled => 'Prepared & filled';
@@ -177,11 +177,11 @@ class PharmacyStrings {
 
   String get recommendedTitle => 'Recommended for you';
   String get tirzepatide => 'Tirzepatide';
-  String get tirzepatideSub => 'Upgrade your GLP-1 · from $449/mo';
+  String get tirzepatideSub => 'Upgrade your GLP-1 · from \$449/mo';
   String get nauseaKit => 'Nausea Relief Kit';
-  String get nauseaKitSub => 'Add-on · from $29/mo';
+  String get nauseaKitSub => 'Add-on · from \$29/mo';
   String get longevityPeptides => 'Longevity Peptides';
-  String get longevityPeptidesSub => 'New program · from $159/mo';
+  String get longevityPeptidesSub => 'New program · from \$159/mo';
   String get addButton => 'Add';
 }
 
@@ -196,7 +196,7 @@ class AccountStrings {
   String get paymentBilling => 'Payment & billing';
   String get paymentBillingSub => 'Visa ···· 4242 · USD';
   String get subscriptions => 'Subscriptions';
-  String get subscriptionsSub => 'Semaglutide · $299/mo';
+  String get subscriptionsSub => 'Semaglutide · \$299/mo';
   String get medicalRecords => 'Medical records';
   String get medicalRecordsSub => 'Intake, visits & Rx';
   String get consents => 'Consents on file';
