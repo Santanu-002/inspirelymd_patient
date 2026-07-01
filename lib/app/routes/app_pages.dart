@@ -6,8 +6,8 @@ import 'package:inspirelymd_patient/features/auth/presentation/bindings/auth_bin
 import 'package:inspirelymd_patient/features/auth/presentation/screens/send_otp_screen.dart';
 import 'package:inspirelymd_patient/features/auth/presentation/screens/verify_otp_screen.dart';
 import 'package:inspirelymd_patient/features/auth/presentation/screens/splash_screen.dart';
-import 'package:inspirelymd_patient/features/dashboard/presentation/screens/notifications_screen.dart';
-import 'package:inspirelymd_patient/features/dashboard/presentation/bindings/notifications_binding.dart';
+import 'package:inspirelymd_patient/features/notifications/presentation/screens/notifications_screen.dart';
+import 'package:inspirelymd_patient/features/notifications/presentation/bindings/notifications_binding.dart';
 
 class AppPages {
   const AppPages._();

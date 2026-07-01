@@ -50,14 +50,6 @@ class DashboardContent extends GetView<DashboardController> {
       titleSpacing: 16,
       automaticallyImplyLeading: false,
       actions: [
-        IconButton(
-          onPressed: () => controller.signOut(),
-          icon: Icon(
-            AppIcons.common.logout,
-            color: theme.colorScheme.textMuted,
-            size: 22,
-          ),
-        ),
         Padding(
           padding: const EdgeInsets.only(right: 16, left: 8),
           child: GestureDetector(

@@ -4,7 +4,7 @@ import 'package:inspirelymd_patient/core/common/widgets/scaffold/app_scaffold.da
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
 import 'package:inspirelymd_patient/core/common/widgets/card/app_card.dart';
 import 'package:inspirelymd_patient/core/common/widgets/icon/app_icon_box.dart';
-import 'package:inspirelymd_patient/features/dashboard/presentation/controllers/notifications_controller.dart';
+import 'package:inspirelymd_patient/features/notifications/presentation/controllers/notifications_controller.dart';
 
 class NotificationsScreen extends GetView<NotificationsController> {
   const NotificationsScreen({super.key});

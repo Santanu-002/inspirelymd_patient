@@ -8,7 +8,7 @@ import 'package:inspirelymd_patient/core/common/widgets/card/app_card.dart';
 import 'package:inspirelymd_patient/core/common/widgets/tag/app_tag.dart';
 import 'package:inspirelymd_patient/core/common/widgets/icon/app_icon_box.dart';
 import 'package:inspirelymd_patient/core/common/widgets/button/app_pill_button.dart';
-import 'package:inspirelymd_patient/features/dashboard/presentation/controllers/pharmacy_controller.dart';
+import 'package:inspirelymd_patient/features/pharmacy/presentation/controllers/pharmacy_controller.dart';
 import 'package:inspirelymd_patient/core/common/widgets/scaffold/app_scaffold.dart';
 
 class PharmacyContent extends GetView<PharmacyController> {

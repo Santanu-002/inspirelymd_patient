@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
 import 'package:inspirelymd_patient/core/common/widgets/snackbar/app_snackbar.dart';
-import 'package:inspirelymd_patient/features/dashboard/presentation/controllers/messages_controller.dart';
+import 'package:inspirelymd_patient/features/messages/presentation/controllers/messages_controller.dart';
 import 'package:inspirelymd_patient/core/common/widgets/scaffold/app_scaffold.dart';
 
 class MessagesContent extends GetView<MessagesController> {
