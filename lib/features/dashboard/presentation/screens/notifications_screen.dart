@@ -41,12 +41,6 @@ class NotificationsScreen extends GetView<NotificationsController> {
           color: const Color(0xFF0D253F),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: const Color(0xFF1C1B1F), // Dark circular FAB
-        shape: const CircleBorder(),
-        child: const Icon(Icons.auto_awesome, color: Colors.white, size: 24),
-      ),
       child: Obx(() {
         return AppCard(
           padding: EdgeInsets.zero,

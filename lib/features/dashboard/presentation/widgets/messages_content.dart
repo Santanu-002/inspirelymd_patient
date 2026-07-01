@@ -225,7 +225,7 @@ class MessagesContent extends GetView<MessagesController> {
     final theme = context.theme;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Column(
         crossAxisAlignment: isMe
             ? CrossAxisAlignment.end

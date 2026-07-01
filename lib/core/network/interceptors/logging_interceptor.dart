@@ -8,8 +8,9 @@ class LoggingInterceptor extends Interceptor {
       '\n🚀 [REQUEST] ${options.method.toUpperCase()} | ${options.uri}',
     );
     if (options.headers.isNotEmpty) debugPrint('Headers: ${options.headers}');
-    if (options.queryParameters.isNotEmpty)
+    if (options.queryParameters.isNotEmpty) {
       debugPrint('Query: ${options.queryParameters}');
+    }
     if (options.data != null) debugPrint('Body: ${options.data}');
     debugPrint('\n');
     super.onRequest(options, handler);
