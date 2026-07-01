@@ -8,8 +8,12 @@ import 'package:inspirelymd_patient/core/services/device_header/app_info_service
 import 'package:inspirelymd_patient/core/services/device_header/device_id_service.dart';
 import 'package:inspirelymd_patient/core/services/device_header/device_info_service.dart';
 import 'package:inspirelymd_patient/core/services/device_header/platform_info_service.dart';
-import 'package:inspirelymd_patient/core/common/repositories/i_event_bus_repository.dart';
-import 'package:inspirelymd_patient/core/common/repositories/event_bus_repository_impl.dart';
+import 'package:inspirelymd_patient/features/event_bus/data/services/i_event_bus_service.dart';
+import 'package:inspirelymd_patient/features/event_bus/data/services/event_bus_service_impl.dart';
+import 'package:inspirelymd_patient/features/event_bus/domain/repositories/i_event_bus_repository.dart';
+import 'package:inspirelymd_patient/features/event_bus/data/repositories/event_bus_repository_impl.dart';
+import 'package:inspirelymd_patient/features/event_bus/domain/usecases/fire_event_usecase.dart';
+import 'package:inspirelymd_patient/features/event_bus/domain/usecases/on_event_usecase.dart';
 import 'package:inspirelymd_patient/core/services/token/token_service.dart';
 import 'package:inspirelymd_patient/core/services/token/token_service_impl.dart';
 
@@ -24,8 +28,17 @@ class AppInitializer {
     Get.put<SharedPreferences>(prefs, permanent: true);
     Get.put<FlutterSecureStorage>(const FlutterSecureStorage(), permanent: true);
     
-    // Services
-    Get.put<IEventBusRepository>(EventBusRepositoryImpl(), permanent: true);
+    // Event Bus Layer (Service -> Repo -> UseCases)
+    final eventBusService = EventBusServiceImpl();
+    Get.put<IEventBusService>(eventBusService, permanent: true);
+
+    final eventBusRepository = EventBusRepositoryImpl(eventBusService);
+    Get.put<IEventBusRepository>(eventBusRepository, permanent: true);
+
+    Get.put<FireEventUseCase>(FireEventUseCase(eventBusRepository), permanent: true);
+    Get.put<OnEventUseCase>(OnEventUseCase(eventBusRepository), permanent: true);
+
+    // Token Service
     Get.put<TokenService>(TokenServiceImpl(Get.find()), permanent: true);
 
     // Device headers
@@ -47,13 +60,13 @@ class AppInitializer {
       permanent: true,
     );
 
-    // Network
+    // HTTP Client
     final networkClient = NetworkClient(
       tokenService: Get.find(),
       platformInfoService: Get.find(),
     );
     Get.put<Dio>(networkClient.dio, permanent: true);
     
-    debugPrint('INIT: AppInitializer complete.');
+    debugPrint('INIT: Completed AppInitializer.initialize()');
   }
 }

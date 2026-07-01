@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:inspirelymd_patient/core/common/events/app_event.dart';
-import 'package:inspirelymd_patient/core/common/repositories/i_event_bus_repository.dart';
+import 'package:inspirelymd_patient/features/event_bus/data/services/i_event_bus_service.dart';
 
-class EventBusRepositoryImpl implements IEventBusRepository {
+class EventBusServiceImpl implements IEventBusService {
   final _controller = StreamController<AppEvent>.broadcast();
 
   @override
