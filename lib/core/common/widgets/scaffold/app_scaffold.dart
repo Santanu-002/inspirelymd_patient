@@ -97,7 +97,7 @@ class AppScaffold extends StatelessWidget {
                 backgroundColor: theme.scaffoldBackgroundColor,
                 elevation: 0,
                 scrolledUnderElevation: 0,
-                titleSpacing: titleSpacing,
+                titleSpacing: titleSpacing ?? 0.0,
                 centerTitle: centerTitle ?? false,
                 title: titleWidget ?? (title != null ? Text(title!) : null),
                 systemOverlayStyle: theme.brightness == Brightness.light
