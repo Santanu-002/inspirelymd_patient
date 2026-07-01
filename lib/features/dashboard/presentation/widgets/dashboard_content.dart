@@ -98,55 +98,57 @@ class DashboardContent extends GetView<DashboardController> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // ── Card 1: Weight Loss Progress ─────────────────────────────────
-            AppCard(
-              child: Row(
-                children: [
-                  // Circular Progress Ring
-                  const SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: CircularProgressIndicator(
-                      value: 0.65,
-                      strokeWidth: 6,
+            GestureDetector(
+              onTap: () => controller.changeNavIndex(1),
+              child: AppCard(
+                child: Row(
+                  children: [
+                    // Circular Progress Ring
+                    const SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: CircularProgressIndicator(
+                        value: 0.65,
+                        strokeWidth: 6,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  // Text Block
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AppTag(
-                          text: 'Week 4 of 24',
-                          backgroundColor: theme.colorScheme.primary.withValues(
-                            alpha: 0.1,
+                    const SizedBox(width: 16),
+                    // Text Block
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppTag(
+                            text: 'Week 4 of 24',
+                            backgroundColor: theme.colorScheme.primary
+                                .withValues(alpha: 0.1),
+                            textColor: theme.colorScheme.primary,
                           ),
-                          textColor: theme.colorScheme.primary,
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          '14 lb lost',
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: theme.colorScheme.onSurface,
+                          const SizedBox(height: 6),
+                          Text(
+                            '14 lb lost',
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: theme.colorScheme.onSurface,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          '18 lb to your goal of 180',
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme.colorScheme.textMuted,
+                          const SizedBox(height: 2),
+                          Text(
+                            '18 lb to your goal of 180',
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: theme.colorScheme.textMuted,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  // Trailing chevron
-                  Icon(
-                    Icons.chevron_right_rounded,
-                    color: theme.colorScheme.textMuted,
-                  ),
-                ],
+                    // Trailing chevron
+                    Icon(
+                      Icons.chevron_right_rounded,
+                      color: theme.colorScheme.textMuted,
+                    ),
+                  ],
+                ),
               ),
             ),
             AppUIConstants.widgets.verticalBox$16,
@@ -219,12 +221,8 @@ class DashboardContent extends GetView<DashboardController> {
                   const SizedBox(height: 16),
                   // Dose log button
                   AppButton.filled(
-                    text: '✓ Log this week\'s dose',
-                    onPressed: () {
-                      AppSnackbar.success(
-                        'Logged this week\'s dose successfully.',
-                      );
-                    },
+                    text: '✓    Log this week\'s dose',
+                    onPressed: () => controller.changeNavIndex(2),
                   ),
                 ],
               ),
@@ -232,45 +230,46 @@ class DashboardContent extends GetView<DashboardController> {
             AppUIConstants.widgets.verticalBox$16,
 
             // ── Card 3: Refill Status ────────────────────────────────────────
-            AppCard(
-              child: Row(
-                children: [
-                  const AppIconBox(
-                    icon: Icons.local_shipping_outlined,
-                    backgroundColor: Color(0xFFE3F2FD),
-                    iconColor: Color(0xFF1E88E5),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Refill on the way',
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          'Shipped · arrives Thu, Jun 12',
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme.colorScheme.textMuted,
-                          ),
-                        ),
-                      ],
+            GestureDetector(
+              onTap: () => controller.changeNavIndex(3),
+              child: AppCard(
+                child: Row(
+                  children: [
+                    const AppIconBox(
+                      icon: Icons.local_shipping_outlined,
+                      backgroundColor: Color(0xFFE3F2FD),
+                      iconColor: Color(0xFF1E88E5),
                     ),
-                  ),
-                  // Track button
-                  AppPillButton(
-                    text: 'Track',
-                    backgroundColor: const Color(0xFFE3F2FD),
-                    textColor: const Color(0xFF1E88E5),
-                    onTap: () {
-                      AppSnackbar.info('Tracking refill order status...');
-                    },
-                  ),
-                ],
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Refill on the way',
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            'Shipped · arrives Thu, Jun 12',
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: theme.colorScheme.textMuted,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Track button
+                    AppPillButton(
+                      text: 'Track',
+                      backgroundColor: const Color(0xFFE3F2FD),
+                      textColor: const Color(0xFF1E88E5),
+                      onTap: () => controller.changeNavIndex(3),
+                    ),
+                  ],
+                ),
               ),
             ),
             AppUIConstants.widgets.verticalBox$16,
