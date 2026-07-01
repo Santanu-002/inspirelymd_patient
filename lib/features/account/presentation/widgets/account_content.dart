@@ -7,6 +7,7 @@ import 'package:inspirelymd_patient/core/common/widgets/card/app_card.dart';
 import 'package:inspirelymd_patient/core/common/widgets/tag/app_tag.dart';
 import 'package:inspirelymd_patient/core/common/widgets/icon/app_icon_box.dart';
 import 'package:inspirelymd_patient/features/account/presentation/controllers/account_controller.dart';
+import 'package:inspirelymd_patient/core/common/widgets/button/app_button.dart';
 import 'package:inspirelymd_patient/core/common/widgets/scaffold/app_scaffold.dart';
 
 class AccountContent extends GetView<AccountController> {
@@ -148,25 +149,9 @@ class AccountContent extends GetView<AccountController> {
           AppUIConstants.widgets.verticalBox$24,
 
           // ── Sign Out Button ──────────────────────────────────────────────
-          OutlinedButton(
+          AppButton.outlined(
+            text: strings.signOut,
             onPressed: controller.handleSignOut,
-            style: OutlinedButton.styleFrom(
-              minimumSize: const Size(double.infinity, 50),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(9999),
-              ),
-              side: BorderSide(
-                color: theme.colorScheme.outlineVariant,
-                width: 1.5,
-              ),
-            ),
-            child: Text(
-              strings.signOut,
-              style: theme.textTheme.labelLarge?.copyWith(
-                color: theme.colorScheme.onSurface,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
           ),
           AppUIConstants.widgets.verticalBox$24,
 

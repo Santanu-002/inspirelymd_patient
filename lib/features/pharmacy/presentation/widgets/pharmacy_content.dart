@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:inspirelymd_patient/app/routes/app_routes.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
 import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
@@ -127,7 +128,7 @@ class PharmacyContent extends GetView<PharmacyController> {
                 const SizedBox(height: 24),
                 // Reorder button
                 OutlinedButton(
-                  onPressed: controller.triggerReorder,
+                  onPressed: () => Get.toNamed(AppRoutes.chat),
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
