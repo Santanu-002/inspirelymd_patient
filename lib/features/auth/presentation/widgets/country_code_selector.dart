@@ -1,43 +1,118 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inspirelymd_patient/core/common/entities/country.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
 import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
 
-class CountryCode {
-  final String name;
-  final String code;
-  final String flag;
-
-  const CountryCode({
-    required this.name,
-    required this.code,
-    required this.flag,
-  });
-}
-
-const List<CountryCode> defaultCountries = [
-  CountryCode(name: 'United States', code: '+1', flag: '🇺🇸'),
-  CountryCode(name: 'India', code: '+91', flag: '🇮🇳'),
-  CountryCode(name: 'United Kingdom', code: '+44', flag: '🇬🇧'),
-  CountryCode(name: 'Canada', code: '+1', flag: '🇨🇦'),
-  CountryCode(name: 'Australia', code: '+61', flag: '🇦🇺'),
-  CountryCode(name: 'Germany', code: '+49', flag: '🇩🇪'),
-  CountryCode(name: 'United Arab Emirates', code: '+971', flag: '🇦🇪'),
-  CountryCode(name: 'Singapore', code: '+65', flag: '🇸🇬'),
-  CountryCode(name: 'New Zealand', code: '+64', flag: '🇳🇿'),
-  CountryCode(name: 'South Africa', code: '+27', flag: '🇿🇦'),
-  CountryCode(name: 'France', code: '+33', flag: '🇫🇷'),
-  CountryCode(name: 'Japan', code: '+81', flag: '🇯🇵'),
+const List<Country> defaultCountries = [
+  Country(
+    countryName: 'United States',
+    countryCode: '+1',
+    flag: '🇺🇸',
+    isoCode: 'US',
+    digitCount: 10,
+    timezone: 'America/New_York',
+  ),
+  Country(
+    countryName: 'India',
+    countryCode: '+91',
+    flag: '🇮🇳',
+    isoCode: 'IN',
+    digitCount: 10,
+    timezone: 'Asia/Kolkata',
+  ),
+  Country(
+    countryName: 'United Kingdom',
+    countryCode: '+44',
+    flag: '🇬🇧',
+    isoCode: 'GB',
+    digitCount: 10,
+    timezone: 'Europe/London',
+  ),
+  Country(
+    countryName: 'Canada',
+    countryCode: '+1',
+    flag: '🇨🇦',
+    isoCode: 'CA',
+    digitCount: 10,
+    timezone: 'America/Toronto',
+  ),
+  Country(
+    countryName: 'Australia',
+    countryCode: '+61',
+    flag: '🇦🇺',
+    isoCode: 'AU',
+    digitCount: 9,
+    timezone: 'Australia/Sydney',
+  ),
+  Country(
+    countryName: 'Germany',
+    countryCode: '+49',
+    flag: '🇩🇪',
+    isoCode: 'DE',
+    digitCount: 11,
+    timezone: 'Europe/Berlin',
+  ),
+  Country(
+    countryName: 'United Arab Emirates',
+    countryCode: '+971',
+    flag: '🇦🇪',
+    isoCode: 'AE',
+    digitCount: 9,
+    timezone: 'Asia/Dubai',
+  ),
+  Country(
+    countryName: 'Singapore',
+    countryCode: '+65',
+    flag: '🇸🇬',
+    isoCode: 'SG',
+    digitCount: 8,
+    timezone: 'Asia/Singapore',
+  ),
+  Country(
+    countryName: 'New Zealand',
+    countryCode: '+64',
+    flag: '🇳🇿',
+    isoCode: 'NZ',
+    digitCount: 9,
+    timezone: 'Pacific/Auckland',
+  ),
+  Country(
+    countryName: 'South Africa',
+    countryCode: '+27',
+    flag: '🇿🇦',
+    isoCode: 'ZA',
+    digitCount: 9,
+    timezone: 'Africa/Johannesburg',
+  ),
+  Country(
+    countryName: 'France',
+    countryCode: '+33',
+    flag: '🇫🇷',
+    isoCode: 'FR',
+    digitCount: 9,
+    timezone: 'Europe/Paris',
+  ),
+  Country(
+    countryName: 'Japan',
+    countryCode: '+81',
+    flag: '🇯🇵',
+    isoCode: 'JP',
+    digitCount: 10,
+    timezone: 'Asia/Tokyo',
+  ),
 ];
 
 class CountryCodeSelector extends StatefulWidget {
-  final CountryCode selectedCountry;
-  final ValueChanged<CountryCode> onCountryChanged;
+  final Country selectedCountry;
+  final List<Country> countries;
+  final ValueChanged<Country> onCountryChanged;
 
   const CountryCodeSelector({
     super.key,
     required this.selectedCountry,
+    required this.countries,
     required this.onCountryChanged,
   });
 
@@ -59,6 +134,7 @@ class _CountryCodeSelectorState extends State<CountryCodeSelector> {
         builder: (context, scrollController) => _CountryPickerSheet(
           scrollController: scrollController,
           selectedCountry: widget.selectedCountry,
+          countries: widget.countries,
           onSelect: (country) {
             widget.onCountryChanged(country);
             Navigator.pop(context);
@@ -74,36 +150,22 @@ class _CountryCodeSelectorState extends State<CountryCodeSelector> {
 
     return InkWell(
       onTap: _showCountryPicker,
-      borderRadius: BorderRadius.circular(AppUIConstants.radius.radius$8),
-      child: Container(
-        height: 56,
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceContainerLowest,
-          border: Border.all(
-            color: theme.colorScheme.outlineVariant,
-            width: 1,
-          ),
-          borderRadius: BorderRadius.circular(AppUIConstants.radius.radius$8),
-        ),
+      borderRadius: BorderRadius.circular(AppUIConstants.radius.radius$4),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              widget.selectedCountry.flag,
-              style: const TextStyle(fontSize: 22),
-            ),
-            const SizedBox(width: 6),
-            Text(
-              widget.selectedCountry.code,
+              widget.selectedCountry.countryCode,
               style: theme.textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
             ),
-            const SizedBox(width: 4),
+            const SizedBox(width: 2),
             Icon(
               Icons.keyboard_arrow_down_rounded,
-              size: 18,
+              size: 16,
               color: theme.colorScheme.textMuted,
             ),
           ],
@@ -115,12 +177,14 @@ class _CountryCodeSelectorState extends State<CountryCodeSelector> {
 
 class _CountryPickerSheet extends StatefulWidget {
   final ScrollController scrollController;
-  final CountryCode selectedCountry;
-  final ValueChanged<CountryCode> onSelect;
+  final Country selectedCountry;
+  final List<Country> countries;
+  final ValueChanged<Country> onSelect;
 
   const _CountryPickerSheet({
     required this.scrollController,
     required this.selectedCountry,
+    required this.countries,
     required this.onSelect,
   });
 
@@ -129,24 +193,25 @@ class _CountryPickerSheet extends StatefulWidget {
 }
 
 class _CountryPickerSheetState extends State<_CountryPickerSheet> {
-  late List<CountryCode> _filteredCountries;
+  late List<Country> _filteredCountries;
   final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _filteredCountries = defaultCountries;
+    _filteredCountries = widget.countries;
   }
 
   void _filterCountries(String query) {
     setState(() {
       if (query.isEmpty) {
-        _filteredCountries = defaultCountries;
+        _filteredCountries = widget.countries;
       } else {
-        _filteredCountries = defaultCountries
+        _filteredCountries = widget.countries
             .where((country) =>
-                country.name.toLowerCase().contains(query.toLowerCase()) ||
-                country.code.contains(query))
+                country.countryName.toLowerCase().contains(query.toLowerCase()) ||
+                country.countryCode.contains(query) ||
+                country.isoCode.toLowerCase().contains(query.toLowerCase()))
             .toList();
       }
     });
@@ -162,13 +227,12 @@ class _CountryPickerSheetState extends State<_CountryPickerSheet> {
   Widget build(BuildContext context) {
     final theme = context.theme;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(AppUIConstants.radius.xl),
-        ),
+    return Material(
+      color: theme.colorScheme.surface,
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(AppUIConstants.radius.xl),
       ),
+      clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
           // Drag handle
@@ -233,42 +297,45 @@ class _CountryPickerSheetState extends State<_CountryPickerSheet> {
               padding: const EdgeInsets.symmetric(horizontal: 12),
               itemBuilder: (context, index) {
                 final country = _filteredCountries[index];
-                final isSelected = country.code == widget.selectedCountry.code &&
-                    country.name == widget.selectedCountry.name;
+                final isSelected = country.countryCode == widget.selectedCountry.countryCode &&
+                    country.countryName == widget.selectedCountry.countryName;
 
                 return ListTile(
                   onTap: () => widget.onSelect(country),
-                  leading: Text(
-                    country.flag,
-                    style: const TextStyle(fontSize: 24),
+                  leading: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        width: 24,
+                        child: isSelected
+                            ? Icon(
+                                Icons.check_rounded,
+                                color: theme.colorScheme.primary,
+                                size: 20,
+                              )
+                            : null,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        country.flag,
+                        style: const TextStyle(fontSize: 24),
+                      ),
+                    ],
                   ),
                   title: Text(
-                    country.name,
+                    country.countryName,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                     ),
                   ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        country.code,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: isSelected
-                              ? theme.colorScheme.primary
-                              : theme.colorScheme.textMuted,
-                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                        ),
-                      ),
-                      if (isSelected) ...[
-                        const SizedBox(width: 8),
-                        Icon(
-                          Icons.check_rounded,
-                          color: theme.colorScheme.primary,
-                          size: 20,
-                        ),
-                      ],
-                    ],
+                  trailing: Text(
+                    country.countryCode,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: isSelected
+                          ? theme.colorScheme.primary
+                          : theme.colorScheme.textMuted,
+                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                    ),
                   ),
                 );
               },

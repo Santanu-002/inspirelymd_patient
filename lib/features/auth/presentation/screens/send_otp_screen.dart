@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:inspirelymd_patient/core/common/widgets/button/app_button.dart';
+import 'package:inspirelymd_patient/core/common/widgets/text_field/app_text_field.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
 import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
 import 'package:inspirelymd_patient/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:inspirelymd_patient/features/auth/presentation/widgets/auth_layout.dart';
 import 'package:inspirelymd_patient/features/auth/presentation/widgets/country_code_selector.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:inspirelymd_patient/core/constants/app_icons.dart';
 import 'package:inspirelymd_patient/features/auth/presentation/widgets/social_signin_button.dart';
 
-class AuthScreen extends GetView<AuthController> {
-  const AuthScreen({super.key});
+class SendOtpScreen extends GetView<AuthController> {
+  const SendOtpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,47 +26,46 @@ class AuthScreen extends GetView<AuthController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // ── Mobile Number Label ──────────────────────────────────────────
-          Text(
-            AppStrings.auth.phoneInputLabel,
-            style: theme.textTheme.labelLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: theme.colorScheme.onSurface,
-            ),
-          ),
-          AppUIConstants.widgets.verticalBox$8,
-
-          // ── Country Dropdown + Phone Input Row ────────────────────────────
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Obx(() => CountryCodeSelector(
-                    selectedCountry: controller.selectedCountry.value,
-                    onCountryChanged: controller.onCountryChanged,
-                  )),
-              AppUIConstants.widgets.horizontalBox$12,
-              Expanded(
-                child: TextFormField(
-                  controller: controller.phoneNumberController,
-                  keyboardType: TextInputType.phone,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
+          // ── Phone Input & Selector ───────────────────────────────────────
+          Obx(() => AppTextField(
+                label: AppStrings.auth.phoneInputLabel,
+                hintText: AppStrings.auth.phoneInputHint,
+                controller: controller.phoneNumberController,
+                keyboardType: TextInputType.phone,
+                errorText: controller.phoneError.value,
+                onChanged: (_) => controller.phoneError.value = null,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(
+                    controller.selectedCountry.value.digitCount,
                   ),
-                  decoration: InputDecoration(
-                    hintText: AppStrings.auth.phoneInputHint,
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.all(14.0),
-                      child: Icon(
+                ],
+                prefix: Padding(
+                  padding: const EdgeInsets.only(left: 14),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
                         Icons.phone_outlined,
                         color: theme.colorScheme.textMuted,
                         size: 20,
                       ),
-                    ),
+                      const SizedBox(width: 8),
+                      CountryCodeSelector(
+                        selectedCountry: controller.selectedCountry.value,
+                        countries: controller.countries,
+                        onCountryChanged: controller.onCountryChanged,
+                      ),
+                      Container(
+                        height: 20,
+                        width: 1,
+                        color: theme.colorScheme.outlineVariant,
+                        margin: const EdgeInsets.symmetric(horizontal: 8),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
-          ),
+              )),
           AppUIConstants.widgets.verticalBox$24,
 
           // ── Send OTP Button ──────────────────────────────────────────────
@@ -71,7 +74,7 @@ class AuthScreen extends GetView<AuthController> {
                 onPressed: controller.isLoading.value ? null : controller.sendOtp,
                 isLoading: controller.isLoading.value,
               )),
-          AppUIConstants.widgets.verticalBox$32,
+          AppUIConstants.widgets.verticalBox$24,
 
           // ── Social Divider ───────────────────────────────────────────────
           Row(
@@ -99,20 +102,13 @@ class AuthScreen extends GetView<AuthController> {
               ),
             ],
           ),
-          AppUIConstants.widgets.verticalBox$24,
+          AppUIConstants.widgets.verticalBox$16,
 
           // ── Google Sign In ───────────────────────────────────────────────
           SocialSignInButton(
             text: AppStrings.auth.googleSignIn,
-            icon: Image.network(
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1024px-Google_%22G%22_logo.svg.png',
-              errorBuilder: (context, error, stackTrace) {
-                return Icon(
-                  Icons.g_mobiledata_rounded,
-                  color: theme.colorScheme.primary,
-                  size: 24,
-                );
-              },
+            icon: SvgPicture.asset(
+              AppIcons.auth.googleLogo,
             ),
             onPressed: () => controller.loginWithGoogle(),
           ),
@@ -122,12 +118,12 @@ class AuthScreen extends GetView<AuthController> {
             AppUIConstants.widgets.verticalBox$16,
             SocialSignInButton(
               text: AppStrings.auth.appleSignIn,
-              icon: Icon(
-                Icons.apple,
-                color: theme.brightness == Brightness.light
-                    ? Colors.black
-                    : Colors.white,
-                size: 24,
+              icon: SvgPicture.asset(
+                AppIcons.auth.appleLogo,
+                colorFilter: ColorFilter.mode(
+                  theme.colorScheme.onSurface,
+                  BlendMode.srcIn,
+                ),
               ),
               onPressed: () => controller.loginWithApple(),
             ),
