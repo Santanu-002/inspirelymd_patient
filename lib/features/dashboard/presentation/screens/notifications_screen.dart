@@ -15,25 +15,8 @@ class NotificationsScreen extends GetView<NotificationsController> {
 
     return AppScaffold(
       useScrollView: true,
-      automaticallyImplyLeading: false,
-      leading: GestureDetector(
-        onTap: controller.triggerBack,
-        child: Container(
-          margin: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: theme.colorScheme.outlineVariant,
-              width: 1,
-            ),
-          ),
-          child: Icon(
-            Icons.chevron_left_rounded,
-            color: theme.colorScheme.onSurface,
-            size: 24,
-          ),
-        ),
-      ),
+      automaticallyImplyLeading: true,
+      onBackPressed: controller.triggerBack,
       titleWidget: Text(
         'Notifications',
         style: theme.textTheme.headlineSmall?.copyWith(
