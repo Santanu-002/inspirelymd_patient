@@ -8,6 +8,7 @@ import 'package:inspirelymd_patient/features/auth/presentation/screens/verify_ot
 import 'package:inspirelymd_patient/features/auth/presentation/screens/splash_screen.dart';
 import 'package:inspirelymd_patient/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:inspirelymd_patient/features/notifications/presentation/bindings/notifications_binding.dart';
+import 'package:inspirelymd_patient/features/messages/presentation/screens/chat_screen.dart';
 
 class AppPages {
   const AppPages._();
@@ -34,5 +35,6 @@ class AppPages {
       page: () => const NotificationsScreen(),
       binding: NotificationsBinding(),
     ),
+    GetPage(name: AppRoutes.chat, page: () => const ChatScreen()),
   ];
 }

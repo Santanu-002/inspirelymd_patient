@@ -222,7 +222,7 @@ class DashboardContent extends GetView<DashboardController> {
                   // Dose log button
                   AppButton.filled(
                     text: '✓    Log this week\'s dose',
-                    onPressed: () => controller.changeNavIndex(2),
+                    onPressed: () => Get.toNamed(AppRoutes.chat),
                   ),
                 ],
               ),
