@@ -3,11 +3,13 @@ import 'package:inspirelymd_patient/core/common/entities/country.dart';
 import 'package:inspirelymd_patient/core/exception/app_failures.dart';
 import 'package:inspirelymd_patient/features/auth/data/datasources/i_auth_remote_datasource.dart';
 import 'package:inspirelymd_patient/features/auth/domain/repositories/i_auth_repository.dart';
+import 'package:inspirelymd_patient/core/services/token/token_service.dart';
 
 class AuthRepositoryImpl implements IAuthRepository {
   final IAuthRemoteDataSource _remoteDataSource;
+  final TokenService _tokenService;
 
-  AuthRepositoryImpl(this._remoteDataSource);
+  AuthRepositoryImpl(this._remoteDataSource, this._tokenService);
 
   @override
   Future<Either<AppFailure, List<Country>>> getCountries({String? search}) async {
@@ -60,6 +62,16 @@ class AuthRepositoryImpl implements IAuthRepository {
       } else {
         return left(ServerFailure(response.message));
       }
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<AppFailure, void>> signOut() async {
+    try {
+      await _tokenService.clearTokens();
+      return right(null);
     } catch (e) {
       return left(ServerFailure(e.toString()));
     }

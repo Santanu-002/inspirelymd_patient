@@ -104,6 +104,12 @@ class AppTheme {
         thickness: 1,
         space: AppUIConstants.spacing.space$16,
       ),
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: colorScheme.inverseSurface,
+        contentTextStyle: AppTextStyles.light.bodyMedium.copyWith(
+          color: colorScheme.onInverseSurface,
+        ),
+      ),
 
       // ── Buttons — Capsule (rounded-full) by default ─────────────────
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -174,10 +180,7 @@ class AppTheme {
       ),
 
       // ── Progress indicator ──────────────────────────────────────────
-      progressIndicatorTheme: ProgressIndicatorThemeData(
-        color: colorScheme.primary,
-        linearTrackColor: colorScheme.outlineVariant,
-      ),
+      progressIndicatorTheme: _progressIndicatorTheme(colorScheme),
     );
   }
 
@@ -278,6 +281,12 @@ class AppTheme {
         thickness: 1,
         space: AppUIConstants.spacing.space$16,
       ),
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: colorScheme.inverseSurface,
+        contentTextStyle: AppTextStyles.dark.bodyMedium.copyWith(
+          color: colorScheme.onInverseSurface,
+        ),
+      ),
 
       // ── Buttons — Capsule (rounded-full) by default ─────────────────
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -348,10 +357,7 @@ class AppTheme {
       ),
 
       // ── Progress indicator ──────────────────────────────────────────
-      progressIndicatorTheme: ProgressIndicatorThemeData(
-        color: colorScheme.primary,
-        linearTrackColor: colorScheme.outlineVariant,
-      ),
+      progressIndicatorTheme: _progressIndicatorTheme(colorScheme),
     );
   }
 
@@ -383,6 +389,15 @@ class AppTheme {
         borderSide: BorderSide(color: colors.error, width: 1.5),
       ),
       hintStyle: TextStyle(color: colors.onSurfaceVariant),
+    );
+  }
+  static ProgressIndicatorThemeData _progressIndicatorTheme(
+    ColorScheme colors,
+  ) {
+    return ProgressIndicatorThemeData(
+      color: colors.primary,
+      circularTrackColor: colors.primary.withValues(alpha: 0.1),
+      refreshBackgroundColor: colors.surface,
     );
   }
 }

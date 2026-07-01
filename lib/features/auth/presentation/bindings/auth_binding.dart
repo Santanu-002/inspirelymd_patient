@@ -1,27 +1,14 @@
-import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:inspirelymd_patient/core/common/usecase/get_countries_usecase.dart';
-import 'package:inspirelymd_patient/features/auth/data/datasources/auth_remote_datasource_impl.dart';
-import 'package:inspirelymd_patient/features/auth/data/datasources/i_auth_remote_datasource.dart';
-import 'package:inspirelymd_patient/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:inspirelymd_patient/features/auth/domain/repositories/i_auth_repository.dart';
 import 'package:inspirelymd_patient/features/auth/domain/usecases/send_otp_usecase.dart';
 import 'package:inspirelymd_patient/features/auth/domain/usecases/verify_otp_usecase.dart';
-import 'package:inspirelymd_patient/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:inspirelymd_patient/features/auth/presentation/controllers/send_otp_controller.dart';
+import 'package:inspirelymd_patient/features/auth/presentation/controllers/verify_otp_controller.dart';
 
 class AuthBinding extends Bindings {
   @override
   void dependencies() {
-    // Data Sources
-    Get.lazyPut<IAuthRemoteDataSource>(
-      () => AuthRemoteDataSourceImpl(Get.find<Dio>()),
-    );
-
-    // Repositories
-    Get.lazyPut<IAuthRepository>(
-      () => AuthRepositoryImpl(Get.find<IAuthRemoteDataSource>()),
-    );
-
     // UseCases
     Get.lazyPut<GetCountriesUseCase>(
       () => GetCountriesUseCase(Get.find<IAuthRepository>()),
@@ -34,10 +21,14 @@ class AuthBinding extends Bindings {
     );
 
     // Controllers
-    Get.lazyPut<AuthController>(
-      () => AuthController(
+    Get.lazyPut<SendOtpController>(
+      () => SendOtpController(
         Get.find<GetCountriesUseCase>(),
         Get.find<SendOtpUseCase>(),
+      ),
+    );
+    Get.lazyPut<VerifyOtpController>(
+      () => VerifyOtpController(
         Get.find<VerifyOtpUseCase>(),
       ),
     );

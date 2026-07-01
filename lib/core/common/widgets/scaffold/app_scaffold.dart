@@ -22,6 +22,7 @@ class AppScaffold extends StatelessWidget {
   final Widget? floatingActionButton;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final bool resizeToAvoidBottomInset;
+  final Widget? bottomNavigationBar;
 
   const AppScaffold({
     super.key,
@@ -42,6 +43,7 @@ class AppScaffold extends StatelessWidget {
     this.floatingActionButton,
     this.floatingActionButtonLocation,
     this.resizeToAvoidBottomInset = true,
+    this.bottomNavigationBar,
   });
 
   @override
@@ -82,6 +84,7 @@ class AppScaffold extends StatelessWidget {
         floatingActionButton: floatingActionButton,
         floatingActionButtonLocation: floatingActionButtonLocation,
         resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+        bottomNavigationBar: bottomNavigationBar,
         appBar: (title != null || titleWidget != null || leadingWidget != null || actions != null)
             ? AppBar(
                 backgroundColor: theme.scaffoldBackgroundColor,

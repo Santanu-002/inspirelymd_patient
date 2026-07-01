@@ -19,16 +19,17 @@ class AppSnackbar {
       content: Row(
         children: [
           if (icon != null) ...[
-            Icon(icon, color: context.theme.colorScheme.onPrimary, size: 24.0),
+            Icon(
+              icon,
+              color: context.theme.snackBarTheme.contentTextStyle?.color ?? context.theme.colorScheme.onInverseSurface,
+              size: 24.0,
+            ),
             AppUIConstants.widgets.horizontalBox$12,
           ],
           Expanded(
             child: Text(
               message,
-              style: TextStyle(
-                color: context.theme.colorScheme.onPrimary,
-                fontWeight: FontWeight.w500,
-              ),
+              style: context.theme.snackBarTheme.contentTextStyle,
             ),
           ),
         ],

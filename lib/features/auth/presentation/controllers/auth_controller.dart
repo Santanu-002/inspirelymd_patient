@@ -1,175 +1,82 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:inspirelymd_patient/app/routes/app_routes.dart';
-import 'package:inspirelymd_patient/core/common/entities/country.dart';
-import 'package:inspirelymd_patient/core/common/usecase/get_countries_usecase.dart';
+import 'package:inspirelymd_patient/core/common/usecase/usecase.dart';
 import 'package:inspirelymd_patient/core/common/widgets/snackbar/app_snackbar.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
-import 'package:inspirelymd_patient/features/auth/domain/usecases/send_otp_usecase.dart';
-import 'package:inspirelymd_patient/features/auth/domain/usecases/verify_otp_usecase.dart';
-import 'package:inspirelymd_patient/features/auth/presentation/widgets/country_code_selector.dart';
+import 'package:inspirelymd_patient/features/auth/domain/usecases/sign_out_usecase.dart';
 
 class AuthController extends GetxController {
-  final GetCountriesUseCase _getCountriesUseCase;
-  final SendOtpUseCase _sendOtpUseCase;
-  final VerifyOtpUseCase _verifyOtpUseCase;
+  final SignOutUseCase _signOutUseCase;
 
-  AuthController(
-    this._getCountriesUseCase,
-    this._sendOtpUseCase,
-    this._verifyOtpUseCase,
-  );
+  AuthController(this._signOutUseCase);
 
-  final phoneNumberController = TextEditingController();
-  final otpController = TextEditingController();
-
-  final selectedCountry = defaultCountries[0].obs; // Default to US (+1)
-  final countries = <Country>[].obs;
-
+  final isGoogleLoading = false.obs;
+  final isAppleLoading = false.obs;
   final isLoading = false.obs;
-  final isLoadingCountries = false.obs;
-  final phoneError = RxnString();
-  final otpError = RxnString();
-
-  String get title => AppStrings.auth.welcomeTitle;
-  String get subtitle => AppStrings.auth.welcomeSubtitle;
 
   @override
   void onInit() {
     super.onInit();
-    countries.assignAll(defaultCountries);
-    _autoSelectCountry();
-    _loadRemoteCountries();
+    // Bind isLoading to update when any loader changes
+    everAll([isGoogleLoading, isAppleLoading], (_) {
+      isLoading.value = isGoogleLoading.value || isAppleLoading.value;
+    });
+
+    // Run the route gatekeeping logic on startup
+    handleAuthGate();
   }
 
-  Future<void> _loadRemoteCountries() async {
-    isLoadingCountries.value = true;
-    final result = await _getCountriesUseCase(const GetCountriesParams());
-    result.fold(
-      (failure) {
-        // Silent fallback to defaultCountries
-      },
-      (fetchedCountries) {
-        if (fetchedCountries.isNotEmpty) {
-          countries.assignAll(fetchedCountries);
-          _autoSelectCountry(); // Re-select matching country from the remote list if possible
-        }
-      },
-    );
-    isLoadingCountries.value = false;
-  }
+  Future<void> handleAuthGate() async {
+    // Wait for splash transitions to render
+    await Future.delayed(const Duration(milliseconds: 1500));
 
-  void _autoSelectCountry() {
-    final locale = Get.deviceLocale;
-    final listToUse = countries.isNotEmpty ? countries : defaultCountries;
-    if (locale != null && locale.countryCode != null) {
-      final countryCodeStr = locale.countryCode!.toUpperCase();
-      for (final country in listToUse) {
-        if (country.isoCode == countryCodeStr) {
-          selectedCountry.value = country;
-          break;
-        }
-      }
+    final prefs = Get.find<SharedPreferences>();
+    final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+    if (isLoggedIn) {
+      Get.offAllNamed(AppRoutes.dashboard);
+    } else {
+      Get.offAllNamed(AppRoutes.auth);
     }
   }
 
-  void onCountryChanged(Country country) {
-    selectedCountry.value = country;
-    // Clear phone text & error if user changes country to avoid invalid length submissions
-    phoneNumberController.clear();
-    phoneError.value = null;
-  }
-
-  Future<void> sendOtp() async {
-    final phone = phoneNumberController.text.trim();
-    final expectedLength = selectedCountry.value.digitCount;
-
-    if (phone.isEmpty) {
-      phoneError.value = 'Please enter a mobile number.';
-      return;
-    }
-
-    if (phone.length != expectedLength) {
-      phoneError.value = 'Mobile number must be exactly $expectedLength digits.';
-      return;
-    }
-
-    phoneError.value = null;
-    isLoading.value = true;
-
-    final result = await _sendOtpUseCase(
-      SendOtpParams(
-        countryCode: selectedCountry.value.countryCode,
-        phoneNumber: phone,
-      ),
-    );
-
-    result.fold(
-      (failure) {
-        phoneError.value = failure.message;
-        AppSnackbar.destructive('Failed to send OTP: ${failure.message}');
-      },
-      (mockOtp) {
-        AppSnackbar.success('OTP sent successfully! Mock Code: $mockOtp');
-        otpController.clear();
-        otpError.value = null;
-        Get.toNamed(AppRoutes.verifyOtp);
-      },
-    );
-    isLoading.value = false;
-  }
-
-  Future<void> verifyOtp() async {
-    final otp = otpController.text.trim();
-    if (otp.length < 6) {
-      otpError.value = 'Please enter a valid 6-digit OTP.';
-      return;
-    }
-
-    otpError.value = null;
-    isLoading.value = true;
-
-    final result = await _verifyOtpUseCase(
-      VerifyOtpParams(
-        countryCode: selectedCountry.value.countryCode,
-        phoneNumber: phoneNumberController.text.trim(),
-        otp: otp,
-      ),
-    );
-
-    result.fold(
-      (failure) {
-        otpError.value = failure.message;
-        AppSnackbar.destructive('Verification failed: ${failure.message}');
-      },
-      (data) {
-        AppSnackbar.success('Authenticated successfully!');
-        Get.offAllNamed(AppRoutes.dashboard);
-      },
-    );
-    isLoading.value = false;
-  }
+  void navigateToDashboard() => Get.offAllNamed(AppRoutes.dashboard);
+  void navigateToAuth() => Get.offAllNamed(AppRoutes.auth);
+  void navigateBack() => Get.back();
 
   void loginWithGoogle() {
-    isLoading.value = true;
+    isGoogleLoading.value = true;
     Future.delayed(const Duration(milliseconds: 1500), () {
-      isLoading.value = false;
+      isGoogleLoading.value = false;
+      final prefs = Get.find<SharedPreferences>();
+      prefs.setBool('isLoggedIn', true);
       AppSnackbar.success('Successfully authenticated with Google.');
+      navigateToDashboard();
     });
   }
 
   void loginWithApple() {
-    isLoading.value = true;
+    isAppleLoading.value = true;
     Future.delayed(const Duration(milliseconds: 1500), () {
-      isLoading.value = false;
+      isAppleLoading.value = false;
+      final prefs = Get.find<SharedPreferences>();
+      prefs.setBool('isLoggedIn', true);
       AppSnackbar.success('Successfully authenticated with Apple.');
+      navigateToDashboard();
     });
   }
 
-  @override
-  void onClose() {
-    phoneNumberController.dispose();
-    otpController.dispose();
-    super.onClose();
+  Future<void> logout() async {
+    final result = await _signOutUseCase(NoParams());
+    result.fold(
+      (failure) => AppSnackbar.destructive('Sign out failed: ${failure.message}'),
+      (_) {
+        final prefs = Get.find<SharedPreferences>();
+        prefs.setBool('isLoggedIn', false);
+        AppSnackbar.info(AppStrings.dashboard.signOut);
+        navigateToAuth();
+      },
+    );
   }
 }

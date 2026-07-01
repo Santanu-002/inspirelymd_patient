@@ -16,6 +16,7 @@ import 'package:inspirelymd_patient/features/event_bus/domain/usecases/fire_even
 import 'package:inspirelymd_patient/features/event_bus/domain/usecases/on_event_usecase.dart';
 import 'package:inspirelymd_patient/core/services/token/token_service.dart';
 import 'package:inspirelymd_patient/core/services/token/token_service_impl.dart';
+import 'package:inspirelymd_patient/core/services/database/database_service.dart';
 
 class AppInitializer {
   const AppInitializer._();
@@ -23,6 +24,11 @@ class AppInitializer {
   static Future<void> initialize() async {
     debugPrint('INIT: Starting AppInitializer.initialize()');
     
+    // Database
+    final dbService = DatabaseService();
+    await dbService.database; // Trigger onCreate and seeding
+    Get.put<DatabaseService>(dbService, permanent: true);
+
     // Storage
     final prefs = await SharedPreferences.getInstance();
     Get.put<SharedPreferences>(prefs, permanent: true);

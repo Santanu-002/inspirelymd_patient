@@ -28,14 +28,11 @@ class AppButton extends StatelessWidget {
   }) : isOutlined = true;
 
   BorderRadius _getBorderRadius() {
-    switch (shape) {
-      case AppButtonShape.capsule:
-        return BorderRadius.circular(9999);
-      case AppButtonShape.sharpEdge:
-        return BorderRadius.zero;
-      case AppButtonShape.roundEdge:
-        return BorderRadius.circular(AppUIConstants.radius.radius$12);
-    }
+    return switch (shape) {
+      AppButtonShape.capsule => BorderRadius.circular(9999),
+      AppButtonShape.sharpEdge => BorderRadius.zero,
+      AppButtonShape.roundEdge => BorderRadius.circular(AppUIConstants.radius.radius$12),
+    };
   }
 
   @override
@@ -48,13 +45,21 @@ class AppButton extends StatelessWidget {
         width: double.infinity,
         height: 56,
         child: OutlinedButton(
-          onPressed: isLoading ? null : onPressed,
+          onPressed: isLoading ? () {} : onPressed,
           style: OutlinedButton.styleFrom(
             side: BorderSide(color: theme.colorScheme.primary, width: 1.5),
             shape: RoundedRectangleBorder(borderRadius: borderRadius),
+            splashFactory: isLoading ? NoSplash.splashFactory : null,
           ),
           child: isLoading
-              ? const CircularProgressIndicator()
+              ? SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.primary),
+                  ),
+                )
               : Text(
                   text,
                   style: theme.textTheme.labelLarge?.copyWith(
@@ -69,17 +74,25 @@ class AppButton extends StatelessWidget {
         width: double.infinity,
         height: 56,
         child: ElevatedButton(
-          onPressed: isLoading ? null : onPressed,
+          onPressed: isLoading ? () {} : onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: theme.colorScheme.primary,
             shape: RoundedRectangleBorder(borderRadius: borderRadius),
+            splashFactory: isLoading ? NoSplash.splashFactory : null,
           ),
           child: isLoading
-              ? const CircularProgressIndicator(color: Colors.white)
+              ? SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.onPrimary),
+                  ),
+                )
               : Text(
                   text,
                   style: theme.textTheme.labelLarge?.copyWith(
-                    color: Colors.white,
+                    color: theme.colorScheme.onPrimary,
                     fontSize: 16,
                   ),
                 ),

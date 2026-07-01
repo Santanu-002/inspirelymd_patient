@@ -7,13 +7,14 @@ import 'package:inspirelymd_patient/core/constants/app_strings.dart';
 import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
 import 'package:inspirelymd_patient/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:inspirelymd_patient/features/auth/presentation/controllers/send_otp_controller.dart';
 import 'package:inspirelymd_patient/features/auth/presentation/widgets/auth_layout.dart';
 import 'package:inspirelymd_patient/features/auth/presentation/widgets/country_code_selector.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inspirelymd_patient/core/constants/app_icons.dart';
 import 'package:inspirelymd_patient/features/auth/presentation/widgets/social_signin_button.dart';
 
-class SendOtpScreen extends GetView<AuthController> {
+class SendOtpScreen extends GetView<SendOtpController> {
   const SendOtpScreen({super.key});
 
   @override
@@ -28,7 +29,6 @@ class SendOtpScreen extends GetView<AuthController> {
         children: [
           // ── Phone Input & Selector ───────────────────────────────────────
           Obx(() => AppTextField(
-                label: AppStrings.auth.phoneInputLabel,
                 hintText: AppStrings.auth.phoneInputHint,
                 controller: controller.phoneNumberController,
                 keyboardType: TextInputType.phone,
@@ -71,8 +71,8 @@ class SendOtpScreen extends GetView<AuthController> {
           // ── Send OTP Button ──────────────────────────────────────────────
           Obx(() => AppButton.filled(
                 text: AppStrings.auth.sendOtpButton,
-                onPressed: controller.isLoading.value ? null : controller.sendOtp,
-                isLoading: controller.isLoading.value,
+                onPressed: controller.isLoading ? null : controller.sendOtp,
+                isLoading: controller.isOtpLoading.value,
               )),
           AppUIConstants.widgets.verticalBox$24,
 
@@ -105,28 +105,36 @@ class SendOtpScreen extends GetView<AuthController> {
           AppUIConstants.widgets.verticalBox$16,
 
           // ── Google Sign In ───────────────────────────────────────────────
-          SocialSignInButton(
-            text: AppStrings.auth.googleSignIn,
-            icon: SvgPicture.asset(
-              AppIcons.auth.googleLogo,
-            ),
-            onPressed: () => controller.loginWithGoogle(),
-          ),
+          Obx(() {
+            final authController = Get.find<AuthController>();
+            return SocialSignInButton(
+              text: AppStrings.auth.googleSignIn,
+              icon: SvgPicture.asset(
+                AppIcons.auth.googleLogo,
+              ),
+              onPressed: controller.isLoading ? null : () => authController.loginWithGoogle(),
+              isLoading: authController.isGoogleLoading.value,
+            );
+          }),
 
           // ── Apple Sign In (Platform Specific) ─────────────────────────────
           if (GetPlatform.isIOS) ...[
             AppUIConstants.widgets.verticalBox$16,
-            SocialSignInButton(
-              text: AppStrings.auth.appleSignIn,
-              icon: SvgPicture.asset(
-                AppIcons.auth.appleLogo,
-                colorFilter: ColorFilter.mode(
-                  theme.colorScheme.onSurface,
-                  BlendMode.srcIn,
+            Obx(() {
+              final authController = Get.find<AuthController>();
+              return SocialSignInButton(
+                text: AppStrings.auth.appleSignIn,
+                icon: SvgPicture.asset(
+                  AppIcons.auth.appleLogo,
+                  colorFilter: ColorFilter.mode(
+                    theme.colorScheme.onSurface,
+                    BlendMode.srcIn,
+                  ),
                 ),
-              ),
-              onPressed: () => controller.loginWithApple(),
-            ),
+                onPressed: controller.isLoading ? null : () => authController.loginWithApple(),
+                isLoading: authController.isAppleLoading.value,
+              );
+            }),
           ],
         ],
       ),

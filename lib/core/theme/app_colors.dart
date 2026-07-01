@@ -90,10 +90,10 @@ class DarkColors {
   final Color surfaceWhite = const Color(0xFF2C2C2C);
 
   // ── Primary ───────────────────────────────────────────────────────────
-  final Color brandPrimary = const Color(0xFFFFB3AD); // inverse-primary for dark
+  final Color brandPrimary = const Color(0xFFFBF9F7); // scaffold reddish-white as primary in dark mode
   final Color brandAccent = const Color(0xFFBF2729);
   final Color onPrimaryContainer = const Color(0xFFFFD9D5);
-  final Color surfaceTint = const Color(0xFFFFB3AD);
+  final Color surfaceTint = const Color(0xFFFBF9F7);
 
   // ── Inverse ───────────────────────────────────────────────────────────
   final Color inverseSurface = const Color(0xFFE4E2E0);
@@ -136,7 +136,7 @@ class DarkColors {
   final Color textDefault = const Color(0xFFE4E2E0);
   final Color textSubtle = const Color(0xB3FFFFFF);
   final Color onSurfaceVariant = const Color(0xFFD7C1BF);
-  final Color onPrimary = const Color(0xFF690005);
+  final Color onPrimary = const Color(0xFF9C0514); // brand red text color on reddish-white buttons
   final Color black = const Color(0xFF000000);
 
   // ── Primary Fixed ─────────────────────────────────────────────────────

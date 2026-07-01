@@ -15,4 +15,6 @@ abstract interface class IAuthRepository {
     required String phoneNumber,
     required String otp,
   });
+
+  Future<Either<AppFailure, void>> signOut();
 }

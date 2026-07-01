@@ -5,11 +5,16 @@ import 'package:inspirelymd_patient/features/dashboard/presentation/screens/dash
 import 'package:inspirelymd_patient/features/auth/presentation/bindings/auth_binding.dart';
 import 'package:inspirelymd_patient/features/auth/presentation/screens/send_otp_screen.dart';
 import 'package:inspirelymd_patient/features/auth/presentation/screens/verify_otp_screen.dart';
+import 'package:inspirelymd_patient/features/auth/presentation/screens/splash_screen.dart';
 
 class AppPages {
   const AppPages._();
 
   static List<GetPage> get pages => [
+        GetPage(
+          name: AppRoutes.splash,
+          page: () => const SplashScreen(),
+        ),
         GetPage(
           name: AppRoutes.dashboard,
           page: () => const DashboardScreen(),

@@ -22,4 +22,22 @@ class AppUtils {
     if (bytes < 1024 * 1024 * 1024) return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
     return '${(bytes / (1024 * 1024 * 1024)).toStringAsFixed(1)} GB';
   }
+
+  /// Maps a timezone name abbreviation (e.g. "IST") to a country ISO code (e.g. "IN")
+  static String? getIsoCodeFromTimezone(String timezoneName) {
+    final tz = timezoneName.toUpperCase().trim();
+    return switch (tz) {
+      'IST' => 'IN',
+      'GMT' || 'BST' => 'GB',
+      'EST' || 'EDT' || 'CST' || 'CDT' || 'MST' || 'MDT' || 'PST' || 'PDT' => 'US',
+      'AEST' || 'AEDT' || 'AWST' || 'ACST' || 'ACDT' => 'AU',
+      'SGT' => 'SG',
+      'JST' => 'JP',
+      'CET' || 'CEST' => 'DE',
+      'GST' => 'AE',
+      'NZST' || 'NZDT' => 'NZ',
+      'SAST' => 'ZA',
+      _ => null,
+    };
+  }
 }
