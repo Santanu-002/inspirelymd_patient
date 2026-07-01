@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
@@ -194,14 +195,14 @@ class MessagesContent extends GetView<MessagesController> {
                     width: 48,
                     height: 48,
                     decoration: BoxDecoration(
-                      color: const Color(
-                        0xFF0D253F,
-                      ), // Dark deep blue circular button
+                      color: theme
+                          .colorScheme
+                          .primary, // Brand clinical red circular button
                       shape: BoxShape.circle,
                     ),
                     child: const Center(
                       child: Icon(
-                        Icons.auto_awesome,
+                        CupertinoIcons.paperplane,
                         color: Colors.white,
                         size: 20,
                       ),
