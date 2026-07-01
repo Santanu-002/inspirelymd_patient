@@ -17,14 +17,10 @@ sealed class ApiResponse<T> with _$ApiResponse<T> {
     required bool success,
     required String message,
     int? statusCode,
-  }) =>
-      ApiResponse(
-        success: success,
-        message: message,
-        statusCode: statusCode,
-      );
+  }) => ApiResponse(success: success, message: message, statusCode: statusCode);
 
   factory ApiResponse.fromJson(
-          Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
-      _$ApiResponseFromJson(json, fromJsonT);
+    Map<String, dynamic> json,
+    T Function(Object? json) fromJsonT,
+  ) => _$ApiResponseFromJson(json, fromJsonT);
 }

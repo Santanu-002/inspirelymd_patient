@@ -55,7 +55,8 @@ class AppScaffold extends StatelessWidget {
     if (leading != null) {
       leadingWidget = leading;
     } else if (onBackPressed != null ||
-        (automaticallyImplyLeading && (ModalRoute.of(context)?.canPop ?? false))) {
+        (automaticallyImplyLeading &&
+            (ModalRoute.of(context)?.canPop ?? false))) {
       leadingWidget = IconButton(
         onPressed: onBackPressed ?? Get.back,
         icon: Icon(
@@ -66,13 +67,15 @@ class AppScaffold extends StatelessWidget {
       );
     }
 
-    final EdgeInsets defaultPadding = (padding as EdgeInsets?) ??
+    final EdgeInsets defaultPadding =
+        (padding as EdgeInsets?) ??
         EdgeInsets.all(AppUIConstants.spacing.containerPadding);
 
     return GestureDetector(
       onTap: () {
         final currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+        if (!currentFocus.hasPrimaryFocus &&
+            currentFocus.focusedChild != null) {
           FocusManager.instance.primaryFocus?.unfocus();
         }
       },
@@ -85,7 +88,11 @@ class AppScaffold extends StatelessWidget {
         floatingActionButtonLocation: floatingActionButtonLocation,
         resizeToAvoidBottomInset: resizeToAvoidBottomInset,
         bottomNavigationBar: bottomNavigationBar,
-        appBar: (title != null || titleWidget != null || leadingWidget != null || actions != null)
+        appBar:
+            (title != null ||
+                titleWidget != null ||
+                leadingWidget != null ||
+                actions != null)
             ? AppBar(
                 backgroundColor: theme.scaffoldBackgroundColor,
                 elevation: 0,
@@ -109,27 +116,24 @@ class AppScaffold extends StatelessWidget {
                     ? LayoutBuilder(
                         builder: (context, constraints) {
                           return SingleChildScrollView(
-                            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                            keyboardDismissBehavior:
+                                ScrollViewKeyboardDismissBehavior.onDrag,
                             padding: defaultPadding,
                             child: ConstrainedBox(
                               constraints: BoxConstraints(
-                                minHeight: constraints.maxHeight - defaultPadding.vertical,
+                                minHeight:
+                                    constraints.maxHeight -
+                                    defaultPadding.vertical,
                               ),
                               child: child,
                             ),
                           );
                         },
                       )
-                    : Padding(
-                        padding: defaultPadding,
-                        child: child,
-                      ),
+                    : Padding(padding: defaultPadding, child: child),
               ),
               if (footer != null)
-                Padding(
-                  padding: defaultPadding,
-                  child: footer!,
-                ),
+                Padding(padding: defaultPadding, child: footer!),
             ],
           ),
         ),

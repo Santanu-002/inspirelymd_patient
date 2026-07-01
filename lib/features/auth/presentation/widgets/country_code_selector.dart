@@ -5,8 +5,6 @@ import 'package:inspirelymd_patient/core/constants/app_strings.dart';
 import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
 
-
-
 class CountryCodeSelector extends StatefulWidget {
   final Country selectedCountry;
   final List<Country> countries;
@@ -111,10 +109,14 @@ class _CountryPickerSheetState extends State<_CountryPickerSheet> {
         _filteredCountries = widget.countries;
       } else {
         _filteredCountries = widget.countries
-            .where((country) =>
-                country.countryName.toLowerCase().contains(query.toLowerCase()) ||
-                country.countryCode.contains(query) ||
-                country.isoCode.toLowerCase().contains(query.toLowerCase()))
+            .where(
+              (country) =>
+                  country.countryName.toLowerCase().contains(
+                    query.toLowerCase(),
+                  ) ||
+                  country.countryCode.contains(query) ||
+                  country.isoCode.toLowerCase().contains(query.toLowerCase()),
+            )
             .toList();
       }
     });
@@ -186,7 +188,9 @@ class _CountryPickerSheetState extends State<_CountryPickerSheet> {
                   horizontal: 16,
                 ),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(AppUIConstants.radius.radius$12),
+                  borderRadius: BorderRadius.circular(
+                    AppUIConstants.radius.radius$12,
+                  ),
                 ),
               ),
             ),
@@ -200,7 +204,8 @@ class _CountryPickerSheetState extends State<_CountryPickerSheet> {
               padding: const EdgeInsets.symmetric(horizontal: 12),
               itemBuilder: (context, index) {
                 final country = _filteredCountries[index];
-                final isSelected = country.countryCode == widget.selectedCountry.countryCode &&
+                final isSelected =
+                    country.countryCode == widget.selectedCountry.countryCode &&
                     country.countryName == widget.selectedCountry.countryName;
 
                 return ListTile(
@@ -219,16 +224,15 @@ class _CountryPickerSheetState extends State<_CountryPickerSheet> {
                             : null,
                       ),
                       const SizedBox(width: 8),
-                      Text(
-                        country.flag,
-                        style: const TextStyle(fontSize: 24),
-                      ),
+                      Text(country.flag, style: const TextStyle(fontSize: 24)),
                     ],
                   ),
                   title: Text(
                     country.countryName,
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: isSelected
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                     ),
                   ),
                   trailing: Text(
@@ -237,7 +241,9 @@ class _CountryPickerSheetState extends State<_CountryPickerSheet> {
                       color: isSelected
                           ? theme.colorScheme.primary
                           : theme.colorScheme.textMuted,
-                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: isSelected
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                     ),
                   ),
                 );

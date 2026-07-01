@@ -37,9 +37,11 @@ mixin BaseRemoteDataSource {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.sendTimeout ||
           e.type == DioExceptionType.receiveTimeout) {
-        friendlyMessage = 'Connection timed out. Please check your internet connection.';
+        friendlyMessage =
+            'Connection timed out. Please check your internet connection.';
       } else if (e.type == DioExceptionType.connectionError) {
-        friendlyMessage = 'No internet connection. Please check your network connection.';
+        friendlyMessage =
+            'No internet connection. Please check your network connection.';
       } else if (statusCode != null) {
         if (statusCode == 404) {
           friendlyMessage = 'The requested resource was not found.';

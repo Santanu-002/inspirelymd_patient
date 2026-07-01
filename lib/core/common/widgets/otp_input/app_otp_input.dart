@@ -31,8 +31,9 @@ class AppOtpInput extends StatelessWidget {
         color: context.theme.colorScheme.onSurface,
       ),
       decoration: BoxDecoration(
-        color: context.theme.colorScheme.surfaceContainerHighest
-            .withValues(alpha: 0.5),
+        color: context.theme.colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.5,
+        ),
         borderRadius: BorderRadius.circular(AppUIConstants.radius.radius$12),
         border: Border.all(
           color: context.theme.colorScheme.outline.withValues(alpha: 0.2),
@@ -55,43 +56,54 @@ class AppOtpInput extends StatelessWidget {
         textStyle: defaultPinTheme.textStyle?.copyWith(
           color: context.theme.colorScheme.primary,
         ),
-        decoration: defaultPinTheme.decoration?.copyWith(
-          color: context.theme.colorScheme.surface,
-          border: Border.all(
-            color: context.theme.colorScheme.primary,
-            width: 2.0,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: context.theme.colorScheme.primary.withValues(alpha: 0.1),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ) as BoxDecoration,
+        decoration:
+            defaultPinTheme.decoration?.copyWith(
+                  color: context.theme.colorScheme.surface,
+                  border: Border.all(
+                    color: context.theme.colorScheme.primary,
+                    width: 2.0,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: context.theme.colorScheme.primary.withValues(
+                        alpha: 0.1,
+                      ),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                )
+                as BoxDecoration,
       ),
       submittedPinTheme: defaultPinTheme.copyWith(
-        decoration: defaultPinTheme.decoration?.copyWith(
-          color: context.theme.colorScheme.surfaceContainerHighest
-              .withValues(alpha: 0.3),
-          border: Border.all(
-            color: context.theme.colorScheme.primary.withValues(alpha: 0.5),
-            width: 1.0,
-          ),
-        ) as BoxDecoration,
+        decoration:
+            defaultPinTheme.decoration?.copyWith(
+                  color: context.theme.colorScheme.surfaceContainerHighest
+                      .withValues(alpha: 0.3),
+                  border: Border.all(
+                    color: context.theme.colorScheme.primary.withValues(
+                      alpha: 0.5,
+                    ),
+                    width: 1.0,
+                  ),
+                )
+                as BoxDecoration,
       ),
       errorPinTheme: defaultPinTheme.copyWith(
         textStyle: defaultPinTheme.textStyle?.copyWith(
           color: context.theme.colorScheme.error,
         ),
-        decoration: defaultPinTheme.decoration?.copyWith(
-          color: context.theme.colorScheme.errorContainer
-              .withValues(alpha: 0.1),
-          border: Border.all(
-            color: context.theme.colorScheme.error,
-            width: 1.0,
-          ),
-        ) as BoxDecoration,
+        decoration:
+            defaultPinTheme.decoration?.copyWith(
+                  color: context.theme.colorScheme.errorContainer.withValues(
+                    alpha: 0.1,
+                  ),
+                  border: Border.all(
+                    color: context.theme.colorScheme.error,
+                    width: 1.0,
+                  ),
+                )
+                as BoxDecoration,
       ),
       hapticFeedbackType: HapticFeedbackType.mediumImpact,
       onCompleted: onCompleted,

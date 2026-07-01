@@ -96,19 +96,16 @@ class AppTextField extends StatelessWidget {
             text: TextSpan(
               style: context.textTheme.labelLarge?.copyWith(
                 fontWeight: FontWeight.w600,
-                color:
-                    context.theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                color: context.theme.colorScheme.onSurface.withValues(
+                  alpha: 0.7,
+                ),
               ),
               children: [
-                TextSpan(
-                  text: label!.replaceAll('*', ''),
-                ),
+                TextSpan(text: label!.replaceAll('*', '')),
                 if (label!.contains('*'))
                   TextSpan(
                     text: '*',
-                    style: TextStyle(
-                      color: context.theme.colorScheme.error,
-                    ),
+                    style: TextStyle(color: context.theme.colorScheme.error),
                   ),
               ],
             ),
@@ -131,7 +128,8 @@ class AppTextField extends StatelessWidget {
           textInputAction: textInputAction,
           autofillHints: autofillHints,
           autofocus: autofocus,
-          style: textStyle ??
+          style:
+              textStyle ??
               context.textTheme.bodyLarge?.copyWith(
                 color: (readOnly || !enabled)
                     ? context.theme.colorScheme.onSurface.withValues(alpha: 0.5)
@@ -145,29 +143,30 @@ class AppTextField extends StatelessWidget {
             errorText: errorText,
             contentPadding: contentPadding,
             filled: filled,
-            fillColor: fillColor ??
+            fillColor:
+                fillColor ??
                 ((readOnly || !enabled)
                     ? context.theme.colorScheme.surfaceContainerHighest
-                        .withValues(
-                        alpha: 0.3,
-                      )
+                          .withValues(alpha: 0.3)
                     : null),
             focusedBorder: borderRadius != null
                 ? OutlineInputBorder(
                     borderRadius: borderRadius!,
-                    borderSide: borderSide ??
+                    borderSide:
+                        borderSide ??
                         BorderSide(
                           color: context.theme.colorScheme.primary,
                           width: 2,
                         ),
                   )
                 : (readOnly
-                    ? context.theme.inputDecorationTheme.enabledBorder
-                    : null),
+                      ? context.theme.inputDecorationTheme.enabledBorder
+                      : null),
             enabledBorder: borderRadius != null
                 ? OutlineInputBorder(
                     borderRadius: borderRadius!,
-                    borderSide: borderSide ??
+                    borderSide:
+                        borderSide ??
                         BorderSide(
                           color: context.theme.colorScheme.onSurfaceVariant
                               .withValues(alpha: 0.2),

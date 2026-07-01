@@ -49,17 +49,11 @@ class DashboardController extends GetxController {
   }
 
   void showBookAppointmentSheet() {
-    Get.bottomSheet(
-      const BookAppointmentSheet(),
-      isScrollControlled: true,
-    );
+    Get.bottomSheet(const BookAppointmentSheet(), isScrollControlled: true);
   }
 
   void showRecordVitalsSheet() {
-    Get.bottomSheet(
-      const RecordVitalsSheet(),
-      isScrollControlled: true,
-    );
+    Get.bottomSheet(const RecordVitalsSheet(), isScrollControlled: true);
   }
 
   @override
@@ -70,25 +64,30 @@ class DashboardController extends GetxController {
 
   Future<void> loadDashboardData() async {
     isLoading.value = true;
-    
+
     // Appointments
     final apptResult = await _getAppointmentsUseCase(NoParams());
     apptResult.fold(
-      (failure) => AppSnackbar.destructive('Failed to load appointments: ${failure.message}'),
+      (failure) => AppSnackbar.destructive(
+        'Failed to load appointments: ${failure.message}',
+      ),
       (list) => appointments.assignAll(list),
     );
 
     // Prescriptions
     final prescResult = await _getPrescriptionsUseCase(NoParams());
     prescResult.fold(
-      (failure) => AppSnackbar.destructive('Failed to load prescriptions: ${failure.message}'),
+      (failure) => AppSnackbar.destructive(
+        'Failed to load prescriptions: ${failure.message}',
+      ),
       (list) => prescriptions.assignAll(list),
     );
 
     // Vitals
     final vitalResult = await _getVitalsUseCase(NoParams());
     vitalResult.fold(
-      (failure) => AppSnackbar.destructive('Failed to load vitals: ${failure.message}'),
+      (failure) =>
+          AppSnackbar.destructive('Failed to load vitals: ${failure.message}'),
       (list) => vitals.assignAll(list),
     );
 
@@ -128,7 +127,8 @@ class DashboardController extends GetxController {
     );
 
     result.fold(
-      (failure) => AppSnackbar.destructive('Booking failed: ${failure.message}'),
+      (failure) =>
+          AppSnackbar.destructive('Booking failed: ${failure.message}'),
       (_) {
         AppSnackbar.success(AppStrings.dashboard.apptBookedSuccess);
         loadDashboardData();
@@ -156,7 +156,8 @@ class DashboardController extends GetxController {
     );
 
     result.fold(
-      (failure) => AppSnackbar.destructive('Recording failed: ${failure.message}'),
+      (failure) =>
+          AppSnackbar.destructive('Recording failed: ${failure.message}'),
       (_) {
         AppSnackbar.success(AppStrings.dashboard.vitalsRecordedSuccess);
         loadDashboardData();

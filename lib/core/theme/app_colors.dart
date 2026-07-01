@@ -58,8 +58,12 @@ class LightColors {
   final Color cancelled = const Color(0xFFBA1A1A); // reuses error
 
   // ── Shimmer ───────────────────────────────────────────────────────────
-  final Color shimmerBase = const Color(0xFFE4E2E0); // surface-container-highest
-  final Color shimmerHighlight = const Color(0xFFF5F3F1); // surface-container-low
+  final Color shimmerBase = const Color(
+    0xFFE4E2E0,
+  ); // surface-container-highest
+  final Color shimmerHighlight = const Color(
+    0xFFF5F3F1,
+  ); // surface-container-low
 
   // ── Text ──────────────────────────────────────────────────────────────
   final Color textDefault = const Color(0xFF1B1C1B); // on-surface
@@ -90,7 +94,9 @@ class DarkColors {
   final Color surfaceWhite = const Color(0xFF2C2C2C);
 
   // ── Primary ───────────────────────────────────────────────────────────
-  final Color brandPrimary = const Color(0xFFFBF9F7); // scaffold reddish-white as primary in dark mode
+  final Color brandPrimary = const Color(
+    0xFFFBF9F7,
+  ); // scaffold reddish-white as primary in dark mode
   final Color brandAccent = const Color(0xFFBF2729);
   final Color onPrimaryContainer = const Color(0xFFFFD9D5);
   final Color surfaceTint = const Color(0xFFFBF9F7);
@@ -136,7 +142,9 @@ class DarkColors {
   final Color textDefault = const Color(0xFFE4E2E0);
   final Color textSubtle = const Color(0xB3FFFFFF);
   final Color onSurfaceVariant = const Color(0xFFD7C1BF);
-  final Color onPrimary = const Color(0xFF9C0514); // brand red text color on reddish-white buttons
+  final Color onPrimary = const Color(
+    0xFF9C0514,
+  ); // brand red text color on reddish-white buttons
   final Color black = const Color(0xFF000000);
 
   // ── Primary Fixed ─────────────────────────────────────────────────────

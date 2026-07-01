@@ -4,10 +4,7 @@ import 'package:inspirelymd_patient/core/common/widgets/skeleton/app_skeleton_co
 class AppSkeletonAvatar extends StatelessWidget {
   final double size;
 
-  const AppSkeletonAvatar({
-    super.key,
-    this.size = 40,
-  });
+  const AppSkeletonAvatar({super.key, this.size = 40});
 
   @override
   Widget build(BuildContext context) {

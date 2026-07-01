@@ -27,7 +27,9 @@ class VerifyOtpScreen extends GetView<VerifyOtpController> {
 
       return AuthLayout(
         title: AppStrings.auth.verifyMobileTitle,
-        subtitle: AppStrings.auth.verifyMobileSubtitle('$countryCode ${controller.phoneNumber.value}'),
+        subtitle: AppStrings.auth.verifyMobileSubtitle(
+          '$countryCode ${controller.phoneNumber.value}',
+        ),
         showBackButton: true,
         onBackPressed: controller.navigateBack,
         child: Column(
@@ -78,11 +80,16 @@ class VerifyOtpScreen extends GetView<VerifyOtpController> {
                         : () => sendOtpController.sendOtp(isResend: true),
                     style: TextButton.styleFrom(
                       minimumSize: Size.zero,
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
                     child: Text(
-                      isTimerActive ? AppStrings.auth.resendIn(countdown) : AppStrings.auth.resend,
+                      isTimerActive
+                          ? AppStrings.auth.resendIn(countdown)
+                          : AppStrings.auth.resend,
                     ),
                   ),
                 ],

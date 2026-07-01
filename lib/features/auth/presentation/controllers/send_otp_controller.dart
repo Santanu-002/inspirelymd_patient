@@ -14,21 +14,20 @@ class SendOtpController extends GetxController {
   final GetCountriesUseCase _getCountriesUseCase;
   final SendOtpUseCase _sendOtpUseCase;
 
-  SendOtpController(
-    this._getCountriesUseCase,
-    this._sendOtpUseCase,
-  );
+  SendOtpController(this._getCountriesUseCase, this._sendOtpUseCase);
 
   final phoneNumberController = TextEditingController();
 
-  final selectedCountry = Rx<Country>(const Country(
-    countryName: 'United States',
-    countryCode: '+1',
-    flag: '🇺🇸',
-    isoCode: 'US',
-    digitCount: 10,
-    timezone: 'America/New_York',
-  ));
+  final selectedCountry = Rx<Country>(
+    const Country(
+      countryName: 'United States',
+      countryCode: '+1',
+      flag: '🇺🇸',
+      isoCode: 'US',
+      digitCount: 10,
+      timezone: 'America/New_York',
+    ),
+  );
   final countries = <Country>[].obs;
 
   final isOtpLoading = false.obs;
@@ -42,7 +41,7 @@ class SendOtpController extends GetxController {
 
   // Computed loading that includes AuthController's loading states so social login disables input as well
   final _isAuthLoading = false.obs;
-  
+
   bool get isLoading => isOtpLoading.value || _isAuthLoading.value;
 
   @override
@@ -59,22 +58,19 @@ class SendOtpController extends GetxController {
   Future<void> _loadCountriesFromDb() async {
     isLoadingCountries.value = true;
     final result = await _getCountriesUseCase(const GetCountriesParams());
-    result.fold(
-      (failure) {},
-      (fetchedCountries) {
-        if (fetchedCountries.isNotEmpty) {
-          countries.assignAll(fetchedCountries);
-          _autoSelectCountry();
-        }
-      },
-    );
+    result.fold((failure) {}, (fetchedCountries) {
+      if (fetchedCountries.isNotEmpty) {
+        countries.assignAll(fetchedCountries);
+        _autoSelectCountry();
+      }
+    });
     isLoadingCountries.value = false;
   }
 
   void _autoSelectCountry() {
     final locale = Get.deviceLocale;
     if (countries.isEmpty) return;
-    
+
     Country? matchedCountry;
 
     final tzName = DateTime.now().timeZoneName.toUpperCase();
@@ -89,7 +85,9 @@ class SendOtpController extends GetxController {
       }
     }
 
-    if (matchedCountry == null && locale != null && locale.countryCode != null) {
+    if (matchedCountry == null &&
+        locale != null &&
+        locale.countryCode != null) {
       final countryCodeStr = locale.countryCode!.toUpperCase();
       for (final country in countries) {
         if (country.isoCode == countryCodeStr) {
@@ -139,7 +137,8 @@ class SendOtpController extends GetxController {
     }
 
     if (phone.length != expectedLength) {
-      phoneError.value = 'Mobile number must be exactly $expectedLength digits.';
+      phoneError.value =
+          'Mobile number must be exactly $expectedLength digits.';
       return;
     }
 
@@ -160,7 +159,7 @@ class SendOtpController extends GetxController {
       },
       (mockOtp) {
         AppSnackbar.success('OTP sent successfully!');
-        
+
         // Find VerifyOtpController and sync the phone number to it
         if (Get.isRegistered<VerifyOtpController>()) {
           Get.find<VerifyOtpController>().setPhoneNumber(phone);

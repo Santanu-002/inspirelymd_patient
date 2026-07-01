@@ -31,7 +31,9 @@ class AppButton extends StatelessWidget {
     return switch (shape) {
       AppButtonShape.capsule => BorderRadius.circular(9999),
       AppButtonShape.sharpEdge => BorderRadius.zero,
-      AppButtonShape.roundEdge => BorderRadius.circular(AppUIConstants.radius.radius$12),
+      AppButtonShape.roundEdge => BorderRadius.circular(
+        AppUIConstants.radius.radius$12,
+      ),
     };
   }
 
@@ -57,7 +59,9 @@ class AppButton extends StatelessWidget {
                   height: 20,
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
-                    valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.primary),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      theme.colorScheme.primary,
+                    ),
                   ),
                 )
               : Text(
@@ -86,7 +90,9 @@ class AppButton extends StatelessWidget {
                   height: 20,
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
-                    valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.onPrimary),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      theme.colorScheme.onPrimary,
+                    ),
                   ),
                 )
               : Text(

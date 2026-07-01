@@ -26,10 +26,7 @@ class SocialSignInButton extends StatelessWidget {
         onPressed: isLoading ? () {} : onPressed,
         style: OutlinedButton.styleFrom(
           shape: const StadiumBorder(),
-          side: BorderSide(
-            color: theme.colorScheme.outlineVariant,
-            width: 1,
-          ),
+          side: BorderSide(color: theme.colorScheme.outlineVariant, width: 1),
           padding: const EdgeInsets.symmetric(horizontal: 24),
           backgroundColor: theme.colorScheme.surface,
           elevation: 0,
@@ -41,17 +38,15 @@ class SocialSignInButton extends StatelessWidget {
                 height: 20,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.primary),
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    theme.colorScheme.primary,
+                  ),
                 ),
               )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: icon,
-                  ),
+                  SizedBox(width: 24, height: 24, child: icon),
                   const SizedBox(width: 12),
                   Text(
                     text,

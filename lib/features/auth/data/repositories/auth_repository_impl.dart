@@ -12,7 +12,9 @@ class AuthRepositoryImpl implements IAuthRepository {
   AuthRepositoryImpl(this._remoteDataSource, this._tokenService);
 
   @override
-  Future<Either<AppFailure, List<Country>>> getCountries({String? search}) async {
+  Future<Either<AppFailure, List<Country>>> getCountries({
+    String? search,
+  }) async {
     try {
       final response = await _remoteDataSource.getCountries(search: search);
       if (response.success && response.data != null) {

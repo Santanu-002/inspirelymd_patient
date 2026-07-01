@@ -70,7 +70,8 @@ class AuthController extends GetxController {
   Future<void> logout() async {
     final result = await _signOutUseCase(NoParams());
     result.fold(
-      (failure) => AppSnackbar.destructive('Sign out failed: ${failure.message}'),
+      (failure) =>
+          AppSnackbar.destructive('Sign out failed: ${failure.message}'),
       (_) {
         final prefs = Get.find<SharedPreferences>();
         prefs.setBool('isLoggedIn', false);

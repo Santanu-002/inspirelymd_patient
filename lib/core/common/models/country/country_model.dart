@@ -23,13 +23,13 @@ sealed class CountryModel with _$CountryModel implements Country {
 
   @override
   List<Object?> get props => [
-        countryCode,
-        countryName,
-        isoCode,
-        digitCount,
-        flag,
-        timezone,
-      ];
+    countryCode,
+    countryName,
+    isoCode,
+    digitCount,
+    flag,
+    timezone,
+  ];
 
   @override
   bool? get stringify => true;

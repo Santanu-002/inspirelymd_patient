@@ -6,7 +6,6 @@ import 'package:inspirelymd_patient/core/common/models/auth_tokens/auth_tokens.d
 import 'package:inspirelymd_patient/features/event_bus/data/services/i_event_bus_service.dart';
 import 'package:inspirelymd_patient/core/network/api/api_endpoints.dart';
 
-
 import 'package:inspirelymd_patient/core/network/api/request_extras.dart';
 import 'package:inspirelymd_patient/core/network/interceptors/platform_info_interceptor.dart';
 import 'package:inspirelymd_patient/core/services/device_header/platform_info_service.dart';
@@ -114,4 +113,3 @@ class AuthInterceptor extends Interceptor {
     super.onError(err, handler);
   }
 }
-

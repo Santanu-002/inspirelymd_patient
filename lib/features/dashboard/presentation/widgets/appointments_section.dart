@@ -8,16 +8,15 @@ import 'package:inspirelymd_patient/features/dashboard/presentation/controllers/
 class AppointmentsSection extends GetView<DashboardController> {
   final VoidCallback onBookNew;
 
-  const AppointmentsSection({
-    super.key,
-    required this.onBookNew,
-  });
+  const AppointmentsSection({super.key, required this.onBookNew});
 
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Obx(() {
-      final upcoming = controller.appointments.where((a) => a['status'] == 'Upcoming').toList();
+      final upcoming = controller.appointments
+          .where((a) => a['status'] == 'Upcoming')
+          .toList();
       if (upcoming.isEmpty) {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
@@ -29,7 +28,11 @@ class AppointmentsSection extends GetView<DashboardController> {
           child: Center(
             child: Column(
               children: [
-                Icon(Icons.calendar_today_outlined, size: 40, color: theme.colorScheme.textMuted),
+                Icon(
+                  Icons.calendar_today_outlined,
+                  size: 40,
+                  color: theme.colorScheme.textMuted,
+                ),
                 const SizedBox(height: 12),
                 Text(
                   AppStrings.dashboard.noUpcomingAppts,
@@ -38,15 +41,18 @@ class AppointmentsSection extends GetView<DashboardController> {
                   ),
                 ),
                 const SizedBox(height: 12),
-                 TextButton(
+                TextButton(
                   onPressed: onBookNew,
                   style: TextButton.styleFrom(
                     minimumSize: Size.zero,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   child: Text(AppStrings.dashboard.bookNow),
-                )
+                ),
               ],
             ),
           ),
@@ -67,7 +73,9 @@ class AppointmentsSection extends GetView<DashboardController> {
             formattedDate = DateFormat('EEEE, MMM d • h:mm a').format(parsed);
           } catch (_) {}
 
-          final isVideo = (appt['type'] as String).toLowerCase().contains('video');
+          final isVideo = (appt['type'] as String).toLowerCase().contains(
+            'video',
+          );
 
           return Container(
             padding: const EdgeInsets.all(16),
@@ -85,12 +93,20 @@ class AppointmentsSection extends GetView<DashboardController> {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: (isVideo ? theme.colorScheme.tertiary : theme.colorScheme.primary).withValues(alpha: 0.1),
+                    color:
+                        (isVideo
+                                ? theme.colorScheme.tertiary
+                                : theme.colorScheme.primary)
+                            .withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    isVideo ? Icons.videocam_rounded : Icons.location_on_rounded,
-                    color: isVideo ? theme.colorScheme.tertiary : theme.colorScheme.primary,
+                    isVideo
+                        ? Icons.videocam_rounded
+                        : Icons.location_on_rounded,
+                    color: isVideo
+                        ? theme.colorScheme.tertiary
+                        : theme.colorScheme.primary,
                     size: 24,
                   ),
                 ),
@@ -115,9 +131,13 @@ class AppointmentsSection extends GetView<DashboardController> {
                       ),
                       const SizedBox(height: 8),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+                          color: theme.colorScheme.surfaceContainerHighest
+                              .withValues(alpha: 0.4),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Row(

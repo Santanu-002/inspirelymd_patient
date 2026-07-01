@@ -21,7 +21,9 @@ class AppSnackbar {
           if (icon != null) ...[
             Icon(
               icon,
-              color: context.theme.snackBarTheme.contentTextStyle?.color ?? context.theme.colorScheme.onInverseSurface,
+              color:
+                  context.theme.snackBarTheme.contentTextStyle?.color ??
+                  context.theme.colorScheme.onInverseSurface,
               size: 24.0,
             ),
             AppUIConstants.widgets.horizontalBox$12,

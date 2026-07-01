@@ -51,7 +51,9 @@ class AuthLayout extends StatelessWidget {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: theme.colorScheme.onSurface.withValues(alpha: 0.06),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.06,
+                        ),
                         blurRadius: 16,
                         spreadRadius: 2,
                         offset: const Offset(0, 4),

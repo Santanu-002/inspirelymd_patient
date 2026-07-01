@@ -39,7 +39,8 @@ class VerifyOtpController extends GetxController {
     // Find country code from SendOtpController if possible
     String countryCode = '+1';
     if (Get.isRegistered<SendOtpController>()) {
-      countryCode = Get.find<SendOtpController>().selectedCountry.value.countryCode;
+      countryCode =
+          Get.find<SendOtpController>().selectedCountry.value.countryCode;
     }
 
     final result = await _verifyOtpUseCase(

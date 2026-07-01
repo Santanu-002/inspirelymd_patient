@@ -28,9 +28,7 @@ class AuthBinding extends Bindings {
       ),
     );
     Get.lazyPut<VerifyOtpController>(
-      () => VerifyOtpController(
-        Get.find<VerifyOtpUseCase>(),
-      ),
+      () => VerifyOtpController(Get.find<VerifyOtpUseCase>()),
     );
   }
 }

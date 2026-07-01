@@ -41,7 +41,8 @@ class AuthStrings {
   const AuthStrings();
 
   String get welcomeTitle => 'Welcome to InspirelyMD';
-  String get welcomeSubtitle => 'Sign in to manage your care, messages and prescriptions.';
+  String get welcomeSubtitle =>
+      'Sign in to manage your care, messages and prescriptions.';
   String get phoneInputLabel => 'Mobile Number';
   String get phoneInputHint => 'Enter mobile number';
   String get sendOtpButton => 'Send OTP';
@@ -53,7 +54,8 @@ class AuthStrings {
 
   // OTP Verification
   String get verifyMobileTitle => 'Verify Mobile';
-  String verifyMobileSubtitle(String phone) => 'Enter the 6-digit code sent to $phone';
+  String verifyMobileSubtitle(String phone) =>
+      'Enter the 6-digit code sent to $phone';
   String get verifyAndProceed => 'Verify & Proceed';
   String get didNotReceiveCode => "Didn't receive the code? ";
   String get resendLimitReached => 'Resend limit reached';
@@ -138,11 +140,14 @@ class ProgramsStrings {
 class MessagesStrings {
   const MessagesStrings();
 
-  String get encryptedNotice => '🔒 Encrypted · messages go to your InspirelyMD care team';
+  String get encryptedNotice =>
+      '🔒 Encrypted · messages go to your InspirelyMD care team';
   String get inputHint => 'Message your provider...';
-  String get initialMsg => 'Hi Jordan — I reviewed your week-2 check-in. Your progress looks great. I\'m bumping you to 0.5mg this week.';
+  String get initialMsg =>
+      'Hi Jordan — I reviewed your week-2 check-in. Your progress looks great. I\'m bumping you to 0.5mg this week.';
   String get sentMsg => 'Thank you! Any tips for the nausea?';
-  String get replyMsg => 'Eat smaller meals and stay hydrated. It usually settles within a few days of a dose change. I\'ll check in next week.';
+  String get replyMsg =>
+      'Eat smaller meals and stay hydrated. It usually settles within a few days of a dose change. I\'ll check in next week.';
 }
 
 class PharmacyStrings {
@@ -163,7 +168,7 @@ class PharmacyStrings {
   String get shipped => 'Shipped';
   String get shippedSub => 'FedEx · arrives Jun 12';
   String get reorderButton => 'Reorder / request refill';
-  
+
   String get documentVault => 'Document vault';
   String get documentCount => '4 files';
   String get semaglutideRx => 'Semaglutide Prescription';

@@ -19,11 +19,11 @@ class Country extends Equatable {
 
   @override
   List<Object?> get props => [
-        countryCode,
-        countryName,
-        isoCode,
-        digitCount,
-        flag,
-        timezone,
-      ];
+    countryCode,
+    countryName,
+    isoCode,
+    digitCount,
+    flag,
+    timezone,
+  ];
 }

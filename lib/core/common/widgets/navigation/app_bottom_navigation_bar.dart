@@ -22,10 +22,7 @@ class AppBottomNavigationBar extends StatelessWidget {
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         border: Border(
-          top: BorderSide(
-            color: theme.colorScheme.outlineVariant,
-            width: 1,
-          ),
+          top: BorderSide(color: theme.colorScheme.outlineVariant, width: 1),
         ),
       ),
       child: SafeArea(
@@ -106,17 +103,16 @@ class AppBottomNavigationBar extends StatelessWidget {
             Stack(
               clipBehavior: Clip.none,
               children: [
-                Icon(
-                  isActive ? activeIcon : icon,
-                  color: color,
-                  size: 26,
-                ),
+                Icon(isActive ? activeIcon : icon, color: color, size: 26),
                 if (badgeValue != null && badgeValue > 0)
                   Positioned(
                     top: -4,
                     right: -6,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 4,
+                        vertical: 1,
+                      ),
                       decoration: const BoxDecoration(
                         color: Colors.red,
                         shape: BoxShape.circle,

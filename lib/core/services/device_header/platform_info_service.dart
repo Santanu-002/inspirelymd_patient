@@ -18,10 +18,7 @@ class PlatformInfoService {
     final deviceInfo = await deviceInfoService.getDeviceInfo();
     final appInfo = await appInfoService.getAppInfo();
 
-    _cache = {
-      ...deviceInfo,
-      ...appInfo,
-    };
+    _cache = {...deviceInfo, ...appInfo};
 
     return _cache!;
   }

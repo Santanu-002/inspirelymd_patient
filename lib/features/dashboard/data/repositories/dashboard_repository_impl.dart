@@ -9,7 +9,8 @@ class DashboardRepositoryImpl implements IDashboardRepository {
   DashboardRepositoryImpl(this._dbService);
 
   @override
-  Future<Either<AppFailure, List<Map<String, dynamic>>>> getAppointments() async {
+  Future<Either<AppFailure, List<Map<String, dynamic>>>>
+  getAppointments() async {
     try {
       final list = await _dbService.getAppointments();
       return right(list);
@@ -19,7 +20,8 @@ class DashboardRepositoryImpl implements IDashboardRepository {
   }
 
   @override
-  Future<Either<AppFailure, List<Map<String, dynamic>>>> getPrescriptions() async {
+  Future<Either<AppFailure, List<Map<String, dynamic>>>>
+  getPrescriptions() async {
     try {
       final list = await _dbService.getPrescriptions();
       return right(list);
@@ -39,7 +41,9 @@ class DashboardRepositoryImpl implements IDashboardRepository {
   }
 
   @override
-  Future<Either<AppFailure, void>> saveAppointment(Map<String, dynamic> appointment) async {
+  Future<Either<AppFailure, void>> saveAppointment(
+    Map<String, dynamic> appointment,
+  ) async {
     try {
       final db = await _dbService.database;
       await db.insert('appointments', appointment);
@@ -50,7 +54,9 @@ class DashboardRepositoryImpl implements IDashboardRepository {
   }
 
   @override
-  Future<Either<AppFailure, void>> saveVitals(Map<String, dynamic> vitals) async {
+  Future<Either<AppFailure, void>> saveVitals(
+    Map<String, dynamic> vitals,
+  ) async {
     try {
       final db = await _dbService.database;
       await db.insert('vitals', vitals);

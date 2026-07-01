@@ -14,7 +14,6 @@ class TokenServiceImpl implements TokenService {
   static final _keys = _TokenKeys();
   final _lock = Lock();
 
-
   @override
   Future<void> saveTokens(AuthTokens tokens) async {
     await _lock.synchronized(() async {
@@ -31,7 +30,10 @@ class TokenServiceImpl implements TokenService {
         _storage.write(key: _keys.accessToken, value: tokens.accessToken),
         _storage.write(key: _keys.refreshToken, value: tokens.refreshToken),
         _storage.write(key: _keys.accessExpireAt, value: tokens.accessExpireAt),
-        _storage.write(key: _keys.refreshExpireAt, value: tokens.refreshExpireAt),
+        _storage.write(
+          key: _keys.refreshExpireAt,
+          value: tokens.refreshExpireAt,
+        ),
         _storage.write(key: _keys.tokenIssuedAt, value: tokens.tokenIssuedAt),
       ]);
 
@@ -41,18 +43,19 @@ class TokenServiceImpl implements TokenService {
     });
   }
 
-
   @override
   Future<String?> getAccessToken() => _storage.read(key: _keys.accessToken);
 
   @override
-  Future<String?> getAccessTokenExpireAt() => _storage.read(key: _keys.accessExpireAt);
+  Future<String?> getAccessTokenExpireAt() =>
+      _storage.read(key: _keys.accessExpireAt);
 
   @override
   Future<String?> getRefreshToken() => _storage.read(key: _keys.refreshToken);
 
   @override
-  Future<String?> getRefreshTokenExpireAt() => _storage.read(key: _keys.refreshExpireAt);
+  Future<String?> getRefreshTokenExpireAt() =>
+      _storage.read(key: _keys.refreshExpireAt);
 
   @override
   Future<String?> getTokenIssuedAt() => _storage.read(key: _keys.tokenIssuedAt);

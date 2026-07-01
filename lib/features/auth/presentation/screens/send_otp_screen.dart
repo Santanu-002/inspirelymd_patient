@@ -28,52 +28,56 @@ class SendOtpScreen extends GetView<SendOtpController> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // ── Phone Input & Selector ───────────────────────────────────────
-          Obx(() => AppTextField(
-                hintText: AppStrings.auth.phoneInputHint,
-                controller: controller.phoneNumberController,
-                keyboardType: TextInputType.phone,
-                errorText: controller.phoneError.value,
-                onChanged: (_) => controller.phoneError.value = null,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(
-                    controller.selectedCountry.value.digitCount,
-                  ),
-                ],
-                prefix: Padding(
-                  padding: const EdgeInsets.only(left: 14),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.phone_outlined,
-                        color: theme.colorScheme.textMuted,
-                        size: 20,
-                      ),
-                      const SizedBox(width: 8),
-                      CountryCodeSelector(
-                        selectedCountry: controller.selectedCountry.value,
-                        countries: controller.countries,
-                        onCountryChanged: controller.onCountryChanged,
-                      ),
-                      Container(
-                        height: 20,
-                        width: 1,
-                        color: theme.colorScheme.outlineVariant,
-                        margin: const EdgeInsets.symmetric(horizontal: 8),
-                      ),
-                    ],
-                  ),
+          Obx(
+            () => AppTextField(
+              hintText: AppStrings.auth.phoneInputHint,
+              controller: controller.phoneNumberController,
+              keyboardType: TextInputType.phone,
+              errorText: controller.phoneError.value,
+              onChanged: (_) => controller.phoneError.value = null,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(
+                  controller.selectedCountry.value.digitCount,
                 ),
-              )),
+              ],
+              prefix: Padding(
+                padding: const EdgeInsets.only(left: 14),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.phone_outlined,
+                      color: theme.colorScheme.textMuted,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 8),
+                    CountryCodeSelector(
+                      selectedCountry: controller.selectedCountry.value,
+                      countries: controller.countries,
+                      onCountryChanged: controller.onCountryChanged,
+                    ),
+                    Container(
+                      height: 20,
+                      width: 1,
+                      color: theme.colorScheme.outlineVariant,
+                      margin: const EdgeInsets.symmetric(horizontal: 8),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
           AppUIConstants.widgets.verticalBox$24,
 
           // ── Send OTP Button ──────────────────────────────────────────────
-          Obx(() => AppButton.filled(
-                text: AppStrings.auth.sendOtpButton,
-                onPressed: controller.isLoading ? null : controller.sendOtp,
-                isLoading: controller.isOtpLoading.value,
-              )),
+          Obx(
+            () => AppButton.filled(
+              text: AppStrings.auth.sendOtpButton,
+              onPressed: controller.isLoading ? null : controller.sendOtp,
+              isLoading: controller.isOtpLoading.value,
+            ),
+          ),
           AppUIConstants.widgets.verticalBox$24,
 
           // ── Social Divider ───────────────────────────────────────────────
@@ -109,10 +113,10 @@ class SendOtpScreen extends GetView<SendOtpController> {
             final authController = Get.find<AuthController>();
             return SocialSignInButton(
               text: AppStrings.auth.googleSignIn,
-              icon: SvgPicture.asset(
-                AppIcons.auth.googleLogo,
-              ),
-              onPressed: controller.isLoading ? null : () => authController.loginWithGoogle(),
+              icon: SvgPicture.asset(AppIcons.auth.googleLogo),
+              onPressed: controller.isLoading
+                  ? null
+                  : () => authController.loginWithGoogle(),
               isLoading: authController.isGoogleLoading.value,
             );
           }),
@@ -131,7 +135,9 @@ class SendOtpScreen extends GetView<SendOtpController> {
                     BlendMode.srcIn,
                   ),
                 ),
-                onPressed: controller.isLoading ? null : () => authController.loginWithApple(),
+                onPressed: controller.isLoading
+                    ? null
+                    : () => authController.loginWithApple(),
                 isLoading: authController.isAppleLoading.value,
               );
             }),

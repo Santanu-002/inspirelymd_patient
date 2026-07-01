@@ -22,10 +22,7 @@ mixin BaseLocalDataSource {
       debugPrint('Stack Trace:\n$stack');
       debugPrint('================================================');
 
-      return ApiResponse.error(
-        success: false,
-        message: e.toString(),
-      );
+      return ApiResponse.error(success: false, message: e.toString());
     }
   }
 }

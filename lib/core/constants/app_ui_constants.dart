@@ -105,11 +105,11 @@ class _AppShadows {
   /// Soft floating shadow — use only for FABs and Modals per design spec.
   /// 10% opacity, no color tinting, highly diffused.
   List<BoxShadow> get normal => [
-        BoxShadow(
-          color: Get.theme.colorScheme.onSurface.withValues(alpha: 0.1),
-          blurRadius: 10,
-          spreadRadius: 0,
-          offset: const Offset(0, 4),
-        ),
-      ];
+    BoxShadow(
+      color: Get.theme.colorScheme.onSurface.withValues(alpha: 0.1),
+      blurRadius: 10,
+      spreadRadius: 0,
+      offset: const Offset(0, 4),
+    ),
+  ];
 }

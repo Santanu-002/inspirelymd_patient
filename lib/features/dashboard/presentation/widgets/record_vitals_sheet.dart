@@ -90,7 +90,9 @@ class _RecordVitalsSheetState extends State<RecordVitalsSheet> {
                   child: AppTextField(
                     label: AppStrings.dashboard.tempInputLabel,
                     controller: tempController,
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                     hintText: AppStrings.dashboard.tempInputHint,
                   ),
                 ),
@@ -99,7 +101,9 @@ class _RecordVitalsSheetState extends State<RecordVitalsSheet> {
                   child: AppTextField(
                     label: AppStrings.dashboard.weightInputLabel,
                     controller: weightController,
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                     hintText: AppStrings.dashboard.weightInputHint,
                   ),
                 ),
@@ -112,10 +116,13 @@ class _RecordVitalsSheetState extends State<RecordVitalsSheet> {
                 final hr = int.tryParse(hrController.text.trim()) ?? 0;
                 final bp = bpController.text.trim();
                 final temp = double.tryParse(tempController.text.trim()) ?? 0.0;
-                final weight = double.tryParse(weightController.text.trim()) ?? 0.0;
+                final weight =
+                    double.tryParse(weightController.text.trim()) ?? 0.0;
 
                 if (hr <= 0 || bp.isEmpty || temp <= 0 || weight <= 0) {
-                  AppSnackbar.destructive(AppStrings.dashboard.enterValidVitals);
+                  AppSnackbar.destructive(
+                    AppStrings.dashboard.enterValidVitals,
+                  );
                   return;
                 }
 

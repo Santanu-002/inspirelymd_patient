@@ -39,11 +39,7 @@ class MessagesController extends GetxController {
     if (text.isEmpty) return;
 
     final nowStr = DateFormat.jm().format(DateTime.now());
-    messagesList.add({
-      'sender': 'patient',
-      'text': text,
-      'time': nowStr,
-    });
+    messagesList.add({'sender': 'patient', 'text': text, 'time': nowStr});
     textController.clear();
     _scrollToBottom();
 
@@ -52,7 +48,8 @@ class MessagesController extends GetxController {
       final replyTime = DateFormat.jm().format(DateTime.now());
       messagesList.add({
         'sender': 'doctor',
-        'text': 'I will review this right away and check in with you if needed. Keep up the great work!',
+        'text':
+            'I will review this right away and check in with you if needed. Keep up the great work!',
         'time': replyTime,
       });
       _scrollToBottom();

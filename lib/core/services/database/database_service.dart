@@ -17,11 +17,7 @@ class DatabaseService {
     final databasesPath = await getDatabasesPath();
     final pathString = join(databasesPath, 'inspirelymd_patient.db');
 
-    return await openDatabase(
-      pathString,
-      version: 1,
-      onCreate: _onCreate,
-    );
+    return await openDatabase(pathString, version: 1, onCreate: _onCreate);
   }
 
   Future<void> _onCreate(Database db, int version) async {
@@ -135,7 +131,9 @@ class DatabaseService {
       'id': 'appt-1',
       'doctorName': 'Dr. Sarah Jenkins',
       'specialty': 'Cardiologist',
-      'dateTime': DateTime.now().add(const Duration(days: 2, hours: 3)).toIso8601String(),
+      'dateTime': DateTime.now()
+          .add(const Duration(days: 2, hours: 3))
+          .toIso8601String(),
       'status': 'Upcoming',
       'type': 'In-Person Consultation',
     });
@@ -143,7 +141,9 @@ class DatabaseService {
       'id': 'appt-2',
       'doctorName': 'Dr. Michael Chang',
       'specialty': 'Dermatologist',
-      'dateTime': DateTime.now().add(const Duration(days: 5, hours: 1)).toIso8601String(),
+      'dateTime': DateTime.now()
+          .add(const Duration(days: 5, hours: 1))
+          .toIso8601String(),
       'status': 'Upcoming',
       'type': 'Video Visit',
     });
@@ -151,7 +151,9 @@ class DatabaseService {
       'id': 'appt-3',
       'doctorName': 'Dr. Emily Watson',
       'specialty': 'Primary Care',
-      'dateTime': DateTime.now().subtract(const Duration(days: 10)).toIso8601String(),
+      'dateTime': DateTime.now()
+          .subtract(const Duration(days: 10))
+          .toIso8601String(),
       'status': 'Completed',
       'type': 'In-Person Consultation',
     });
@@ -163,7 +165,9 @@ class DatabaseService {
       'dosage': '1 Tablet',
       'frequency': 'Once daily',
       'doctorName': 'Dr. Sarah Jenkins',
-      'date': DateTime.now().subtract(const Duration(days: 5)).toIso8601String(),
+      'date': DateTime.now()
+          .subtract(const Duration(days: 5))
+          .toIso8601String(),
     });
     batch.insert('prescriptions', {
       'id': 'presc-2',
@@ -171,7 +175,9 @@ class DatabaseService {
       'dosage': '1 Tablet',
       'frequency': 'At bedtime',
       'doctorName': 'Dr. Sarah Jenkins',
-      'date': DateTime.now().subtract(const Duration(days: 5)).toIso8601String(),
+      'date': DateTime.now()
+          .subtract(const Duration(days: 5))
+          .toIso8601String(),
     });
 
     // Seed dummy vitals
@@ -200,25 +206,18 @@ class DatabaseService {
         orderBy: 'countryName ASC',
       );
     } else {
-      results = await db.query(
-        'countries',
-        orderBy: 'countryName ASC',
-      );
+      results = await db.query('countries', orderBy: 'countryName ASC');
     }
     return results.map((e) => CountryModel.fromJson(e)).toList();
   }
 
   Future<void> saveOtp(String phoneNumber, String otp) async {
     final db = await database;
-    await db.insert(
-      'otp_codes',
-      {
-        'phoneNumber': phoneNumber,
-        'otp': otp,
-        'createdAt': DateTime.now().millisecondsSinceEpoch,
-      },
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    await db.insert('otp_codes', {
+      'phoneNumber': phoneNumber,
+      'otp': otp,
+      'createdAt': DateTime.now().millisecondsSinceEpoch,
+    }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<String?> getOtp(String phoneNumber) async {
@@ -234,7 +233,10 @@ class DatabaseService {
     return null;
   }
 
-  Future<Map<String, dynamic>?> getUser(String phoneNumber, String countryCode) async {
+  Future<Map<String, dynamic>?> getUser(
+    String phoneNumber,
+    String countryCode,
+  ) async {
     final db = await database;
     final results = await db.query(
       'users',

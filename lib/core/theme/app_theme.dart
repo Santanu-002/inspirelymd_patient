@@ -10,58 +10,59 @@ class AppTheme {
   static ThemeData get lightTheme {
     final colors = AppColors.light;
 
-    final colorScheme = ColorScheme.fromSeed(
-      seedColor: colors.brandPrimary,
-      brightness: Brightness.light,
-    ).copyWith(
-      // ── Primary ─────────────────────────────────────────────────────
-      primary: colors.brandPrimary,
-      onPrimary: colors.onPrimary,
-      primaryContainer: colors.brandAccent,
-      onPrimaryContainer: colors.onPrimaryContainer,
-      primaryFixed: colors.primaryFixed,
-      primaryFixedDim: colors.primaryFixedDim,
-      onPrimaryFixed: colors.onPrimaryFixed,
-      onPrimaryFixedVariant: colors.onPrimaryFixedVariant,
-      inversePrimary: colors.inversePrimary,
+    final colorScheme =
+        ColorScheme.fromSeed(
+          seedColor: colors.brandPrimary,
+          brightness: Brightness.light,
+        ).copyWith(
+          // ── Primary ─────────────────────────────────────────────────────
+          primary: colors.brandPrimary,
+          onPrimary: colors.onPrimary,
+          primaryContainer: colors.brandAccent,
+          onPrimaryContainer: colors.onPrimaryContainer,
+          primaryFixed: colors.primaryFixed,
+          primaryFixedDim: colors.primaryFixedDim,
+          onPrimaryFixed: colors.onPrimaryFixed,
+          onPrimaryFixedVariant: colors.onPrimaryFixedVariant,
+          inversePrimary: colors.inversePrimary,
 
-      // ── Secondary ───────────────────────────────────────────────────
-      secondary: colors.secondary,
-      onSecondary: colors.onSecondary,
-      secondaryContainer: colors.secondaryContainer,
-      onSecondaryContainer: colors.onSecondaryContainer,
+          // ── Secondary ───────────────────────────────────────────────────
+          secondary: colors.secondary,
+          onSecondary: colors.onSecondary,
+          secondaryContainer: colors.secondaryContainer,
+          onSecondaryContainer: colors.onSecondaryContainer,
 
-      // ── Tertiary ────────────────────────────────────────────────────
-      tertiary: colors.tertiary,
-      onTertiary: colors.onTertiary,
-      tertiaryContainer: colors.tertiaryContainer,
-      onTertiaryContainer: colors.onTertiaryContainer,
+          // ── Tertiary ────────────────────────────────────────────────────
+          tertiary: colors.tertiary,
+          onTertiary: colors.onTertiary,
+          tertiaryContainer: colors.tertiaryContainer,
+          onTertiaryContainer: colors.onTertiaryContainer,
 
-      // ── Error ───────────────────────────────────────────────────────
-      error: colors.error,
-      onError: colors.onError,
-      errorContainer: colors.errorContainer,
-      onErrorContainer: colors.onErrorContainer,
+          // ── Error ───────────────────────────────────────────────────────
+          error: colors.error,
+          onError: colors.onError,
+          errorContainer: colors.errorContainer,
+          onErrorContainer: colors.onErrorContainer,
 
-      // ── Surface ─────────────────────────────────────────────────────
-      surface: colors.cardSurface,
-      onSurface: colors.textDefault,
-      onSurfaceVariant: colors.onSurfaceVariant,
-      surfaceContainerLowest: colors.cardSurface,
-      surfaceContainerLow: colors.surfaceContainerLow,
-      surfaceContainer: colors.tonalSurface,
-      surfaceContainerHigh: colors.surfaceContainerHigh,
-      surfaceContainerHighest: colors.surfaceContainerHighest,
-      surfaceDim: colors.surfaceDim,
-      surfaceBright: colors.background,
-      inverseSurface: colors.inverseSurface,
-      onInverseSurface: colors.inverseOnSurface,
-      surfaceTint: colors.surfaceTint,
+          // ── Surface ─────────────────────────────────────────────────────
+          surface: colors.cardSurface,
+          onSurface: colors.textDefault,
+          onSurfaceVariant: colors.onSurfaceVariant,
+          surfaceContainerLowest: colors.cardSurface,
+          surfaceContainerLow: colors.surfaceContainerLow,
+          surfaceContainer: colors.tonalSurface,
+          surfaceContainerHigh: colors.surfaceContainerHigh,
+          surfaceContainerHighest: colors.surfaceContainerHighest,
+          surfaceDim: colors.surfaceDim,
+          surfaceBright: colors.background,
+          inverseSurface: colors.inverseSurface,
+          onInverseSurface: colors.inverseOnSurface,
+          surfaceTint: colors.surfaceTint,
 
-      // ── Outline ─────────────────────────────────────────────────────
-      outline: colors.outline,
-      outlineVariant: colors.ghostBorder,
-    );
+          // ── Outline ─────────────────────────────────────────────────────
+          outline: colors.outline,
+          outlineVariant: colors.ghostBorder,
+        );
 
     return ThemeData(
       useMaterial3: true,
@@ -127,10 +128,7 @@ class AppTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: colorScheme.onSurface,
-          side: BorderSide(
-            color: colorScheme.outlineVariant,
-            width: 1,
-          ),
+          side: BorderSide(color: colorScheme.outlineVariant, width: 1),
           minimumSize: const Size.fromHeight(48),
           shape: const StadiumBorder(),
           textStyle: AppTextStyles.light.labelLarge.copyWith(
@@ -187,58 +185,59 @@ class AppTheme {
   static ThemeData get darkTheme {
     final colors = AppColors.dark;
 
-    final colorScheme = ColorScheme.fromSeed(
-      seedColor: colors.brandPrimary,
-      brightness: Brightness.dark,
-    ).copyWith(
-      // ── Primary ─────────────────────────────────────────────────────
-      primary: colors.brandPrimary,
-      onPrimary: colors.onPrimary,
-      primaryContainer: colors.brandAccent,
-      onPrimaryContainer: colors.onPrimaryContainer,
-      primaryFixed: colors.primaryFixed,
-      primaryFixedDim: colors.primaryFixedDim,
-      onPrimaryFixed: colors.onPrimaryFixed,
-      onPrimaryFixedVariant: colors.onPrimaryFixedVariant,
-      inversePrimary: colors.inversePrimary,
+    final colorScheme =
+        ColorScheme.fromSeed(
+          seedColor: colors.brandPrimary,
+          brightness: Brightness.dark,
+        ).copyWith(
+          // ── Primary ─────────────────────────────────────────────────────
+          primary: colors.brandPrimary,
+          onPrimary: colors.onPrimary,
+          primaryContainer: colors.brandAccent,
+          onPrimaryContainer: colors.onPrimaryContainer,
+          primaryFixed: colors.primaryFixed,
+          primaryFixedDim: colors.primaryFixedDim,
+          onPrimaryFixed: colors.onPrimaryFixed,
+          onPrimaryFixedVariant: colors.onPrimaryFixedVariant,
+          inversePrimary: colors.inversePrimary,
 
-      // ── Secondary ───────────────────────────────────────────────────
-      secondary: colors.secondary,
-      onSecondary: colors.onSecondary,
-      secondaryContainer: colors.secondaryContainer,
-      onSecondaryContainer: colors.onSecondaryContainer,
+          // ── Secondary ───────────────────────────────────────────────────
+          secondary: colors.secondary,
+          onSecondary: colors.onSecondary,
+          secondaryContainer: colors.secondaryContainer,
+          onSecondaryContainer: colors.onSecondaryContainer,
 
-      // ── Tertiary ────────────────────────────────────────────────────
-      tertiary: colors.tertiary,
-      onTertiary: colors.onTertiary,
-      tertiaryContainer: colors.tertiaryContainer,
-      onTertiaryContainer: colors.onTertiaryContainer,
+          // ── Tertiary ────────────────────────────────────────────────────
+          tertiary: colors.tertiary,
+          onTertiary: colors.onTertiary,
+          tertiaryContainer: colors.tertiaryContainer,
+          onTertiaryContainer: colors.onTertiaryContainer,
 
-      // ── Error ───────────────────────────────────────────────────────
-      error: colors.error,
-      onError: colors.onError,
-      errorContainer: colors.errorContainer,
-      onErrorContainer: colors.onErrorContainer,
+          // ── Error ───────────────────────────────────────────────────────
+          error: colors.error,
+          onError: colors.onError,
+          errorContainer: colors.errorContainer,
+          onErrorContainer: colors.onErrorContainer,
 
-      // ── Surface ─────────────────────────────────────────────────────
-      surface: colors.cardSurface,
-      onSurface: colors.textDefault,
-      onSurfaceVariant: colors.onSurfaceVariant,
-      surfaceContainerLowest: colors.cardSurface,
-      surfaceContainerLow: colors.surfaceContainerLow,
-      surfaceContainer: colors.tonalSurface,
-      surfaceContainerHigh: colors.surfaceContainerHigh,
-      surfaceContainerHighest: colors.surfaceContainerHighest,
-      surfaceDim: colors.surfaceDim,
-      surfaceBright: colors.background,
-      inverseSurface: colors.inverseSurface,
-      onInverseSurface: colors.inverseOnSurface,
-      surfaceTint: colors.surfaceTint,
+          // ── Surface ─────────────────────────────────────────────────────
+          surface: colors.cardSurface,
+          onSurface: colors.textDefault,
+          onSurfaceVariant: colors.onSurfaceVariant,
+          surfaceContainerLowest: colors.cardSurface,
+          surfaceContainerLow: colors.surfaceContainerLow,
+          surfaceContainer: colors.tonalSurface,
+          surfaceContainerHigh: colors.surfaceContainerHigh,
+          surfaceContainerHighest: colors.surfaceContainerHighest,
+          surfaceDim: colors.surfaceDim,
+          surfaceBright: colors.background,
+          inverseSurface: colors.inverseSurface,
+          onInverseSurface: colors.inverseOnSurface,
+          surfaceTint: colors.surfaceTint,
 
-      // ── Outline ─────────────────────────────────────────────────────
-      outline: colors.outline,
-      outlineVariant: colors.ghostBorder,
-    );
+          // ── Outline ─────────────────────────────────────────────────────
+          outline: colors.outline,
+          outlineVariant: colors.ghostBorder,
+        );
 
     return ThemeData(
       useMaterial3: true,
@@ -304,10 +303,7 @@ class AppTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: colorScheme.onSurface,
-          side: BorderSide(
-            color: colorScheme.outlineVariant,
-            width: 1,
-          ),
+          side: BorderSide(color: colorScheme.outlineVariant, width: 1),
           minimumSize: const Size.fromHeight(48),
           shape: const StadiumBorder(),
           textStyle: AppTextStyles.dark.labelLarge.copyWith(
@@ -364,10 +360,7 @@ class AppTheme {
   static InputDecorationTheme _inputDecorationTheme(ColorScheme colors) {
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppUIConstants.radius.radius$8),
-      borderSide: BorderSide(
-        color: colors.outlineVariant,
-        width: 1,
-      ),
+      borderSide: BorderSide(color: colors.outlineVariant, width: 1),
     );
 
     return InputDecorationTheme(
@@ -391,6 +384,7 @@ class AppTheme {
       hintStyle: TextStyle(color: colors.onSurfaceVariant),
     );
   }
+
   static ProgressIndicatorThemeData _progressIndicatorTheme(
     ColorScheme colors,
   ) {

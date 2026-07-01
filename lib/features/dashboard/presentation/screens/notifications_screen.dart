@@ -45,17 +45,15 @@ class NotificationsScreen extends GetView<NotificationsController> {
         onPressed: () {},
         backgroundColor: const Color(0xFF1C1B1F), // Dark circular FAB
         shape: const CircleBorder(),
-        child: const Icon(
-          Icons.auto_awesome,
-          color: Colors.white,
-          size: 24,
-        ),
+        child: const Icon(Icons.auto_awesome, color: Colors.white, size: 24),
       ),
       child: Obx(() {
         return AppCard(
           padding: EdgeInsets.zero,
           child: Column(
-            children: List.generate(controller.notificationsList.length, (index) {
+            children: List.generate(controller.notificationsList.length, (
+              index,
+            ) {
               final item = controller.notificationsList[index];
 
               IconData notifyIcon;
@@ -89,9 +87,13 @@ class NotificationsScreen extends GetView<NotificationsController> {
               return Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 14,
+                    ),
                     child: InkWell(
-                      onTap: () => controller.openNotificationAction(item['title']),
+                      onTap: () =>
+                          controller.openNotificationAction(item['title']),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

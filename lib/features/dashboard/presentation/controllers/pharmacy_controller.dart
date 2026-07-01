@@ -36,15 +36,14 @@ class PharmacyController extends GetxController {
   void toggleRecommendation(int index) {
     final item = recommendationList[index];
     final wasAdded = item['added'] as bool;
-    
+
     // Toggle added state
-    recommendationList[index] = {
-      ...item,
-      'added': !wasAdded,
-    };
+    recommendationList[index] = {...item, 'added': !wasAdded};
 
     if (!wasAdded) {
-      AppSnackbar.success('${item['title']} has been added to your care requests.');
+      AppSnackbar.success(
+        '${item['title']} has been added to your care requests.',
+      );
     } else {
       AppSnackbar.info('${item['title']} removed from requests.');
     }

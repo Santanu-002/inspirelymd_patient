@@ -21,8 +21,5 @@ class SendOtpParams {
   final String countryCode;
   final String phoneNumber;
 
-  const SendOtpParams({
-    required this.countryCode,
-    required this.phoneNumber,
-  });
+  const SendOtpParams({required this.countryCode, required this.phoneNumber});
 }

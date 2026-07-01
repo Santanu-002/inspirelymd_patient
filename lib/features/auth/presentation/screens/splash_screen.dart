@@ -11,9 +11,7 @@ class SplashScreen extends GetView<AuthController> {
     return const AppScaffold(
       useScrollView: false,
       padding: EdgeInsets.zero,
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
+      child: Center(child: CircularProgressIndicator()),
     );
   }
 }

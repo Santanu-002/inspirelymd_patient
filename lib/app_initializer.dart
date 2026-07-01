@@ -23,7 +23,7 @@ class AppInitializer {
 
   static Future<void> initialize() async {
     debugPrint('INIT: Starting AppInitializer.initialize()');
-    
+
     // Database
     final dbService = DatabaseService();
     await dbService.database; // Trigger onCreate and seeding
@@ -32,8 +32,11 @@ class AppInitializer {
     // Storage
     final prefs = await SharedPreferences.getInstance();
     Get.put<SharedPreferences>(prefs, permanent: true);
-    Get.put<FlutterSecureStorage>(const FlutterSecureStorage(), permanent: true);
-    
+    Get.put<FlutterSecureStorage>(
+      const FlutterSecureStorage(),
+      permanent: true,
+    );
+
     // Event Bus Layer (Service -> Repo -> UseCases)
     final eventBusService = EventBusServiceImpl();
     Get.put<IEventBusService>(eventBusService, permanent: true);
@@ -41,8 +44,14 @@ class AppInitializer {
     final eventBusRepository = EventBusRepositoryImpl(eventBusService);
     Get.put<IEventBusRepository>(eventBusRepository, permanent: true);
 
-    Get.put<FireEventUseCase>(FireEventUseCase(eventBusRepository), permanent: true);
-    Get.put<OnEventUseCase>(OnEventUseCase(eventBusRepository), permanent: true);
+    Get.put<FireEventUseCase>(
+      FireEventUseCase(eventBusRepository),
+      permanent: true,
+    );
+    Get.put<OnEventUseCase>(
+      OnEventUseCase(eventBusRepository),
+      permanent: true,
+    );
 
     // Token Service
     Get.put<TokenService>(TokenServiceImpl(Get.find()), permanent: true);
@@ -72,7 +81,7 @@ class AppInitializer {
       platformInfoService: Get.find(),
     );
     Get.put<Dio>(networkClient.dio, permanent: true);
-    
+
     debugPrint('INIT: Completed AppInitializer.initialize()');
   }
 }

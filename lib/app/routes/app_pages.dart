@@ -13,29 +13,26 @@ class AppPages {
   const AppPages._();
 
   static List<GetPage> get pages => [
-        GetPage(
-          name: AppRoutes.splash,
-          page: () => const SplashScreen(),
-        ),
-        GetPage(
-          name: AppRoutes.dashboard,
-          page: () => const DashboardScreen(),
-          binding: DashboardBinding(),
-        ),
-        GetPage(
-          name: AppRoutes.auth,
-          page: () => const SendOtpScreen(),
-          binding: AuthBinding(),
-        ),
-        GetPage(
-          name: AppRoutes.verifyOtp,
-          page: () => const VerifyOtpScreen(),
-          binding: AuthBinding(),
-        ),
-        GetPage(
-          name: AppRoutes.notifications,
-          page: () => const NotificationsScreen(),
-          binding: NotificationsBinding(),
-        ),
-      ];
+    GetPage(name: AppRoutes.splash, page: () => const SplashScreen()),
+    GetPage(
+      name: AppRoutes.dashboard,
+      page: () => const DashboardScreen(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.auth,
+      page: () => const SendOtpScreen(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.verifyOtp,
+      page: () => const VerifyOtpScreen(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.notifications,
+      page: () => const NotificationsScreen(),
+      binding: NotificationsBinding(),
+    ),
+  ];
 }

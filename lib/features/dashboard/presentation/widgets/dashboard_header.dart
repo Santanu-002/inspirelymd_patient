@@ -43,14 +43,16 @@ class DashboardHeader extends GetView<DashboardController> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Obx(() => Text(
-                      controller.userName.value,
-                      style: theme.textTheme.titleLarge?.copyWith(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    )),
+                Obx(
+                  () => Text(
+                    controller.userName.value,
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 8),
                 Text(
                   AppStrings.dashboard.localDbStatus,

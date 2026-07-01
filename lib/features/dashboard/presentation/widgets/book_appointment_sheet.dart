@@ -93,7 +93,9 @@ class _BookAppointmentSheetState extends State<BookAppointmentSheet> {
                       if (picked != null) {
                         setState(() {
                           selectedDate = picked;
-                          dateController.text = DateFormat('yyyy-MM-dd').format(picked);
+                          dateController.text = DateFormat(
+                            'yyyy-MM-dd',
+                          ).format(picked);
                         });
                       }
                     },
@@ -102,7 +104,10 @@ class _BookAppointmentSheetState extends State<BookAppointmentSheet> {
                         label: AppStrings.dashboard.dateLabel,
                         controller: dateController,
                         readOnly: true,
-                        suffix: const Icon(Icons.calendar_today_rounded, size: 20),
+                        suffix: const Icon(
+                          Icons.calendar_today_rounded,
+                          size: 20,
+                        ),
                       ),
                     ),
                   ),
@@ -119,8 +124,13 @@ class _BookAppointmentSheetState extends State<BookAppointmentSheet> {
                         setState(() {
                           selectedTime = picked;
                           final hourStr = picked.hourOfPeriod.toString();
-                          final minuteStr = picked.minute.toString().padLeft(2, '0');
-                          final period = picked.period == DayPeriod.am ? 'AM' : 'PM';
+                          final minuteStr = picked.minute.toString().padLeft(
+                            2,
+                            '0',
+                          );
+                          final period = picked.period == DayPeriod.am
+                              ? 'AM'
+                              : 'PM';
                           timeController.text = '$hourStr:$minuteStr $period';
                         });
                       }
@@ -144,7 +154,9 @@ class _BookAppointmentSheetState extends State<BookAppointmentSheet> {
                 final doc = doctorController.text.trim();
                 final spec = specialtyController.text.trim();
                 if (doc.isEmpty || spec.isEmpty) {
-                  AppSnackbar.destructive(AppStrings.dashboard.fillRequiredFields);
+                  AppSnackbar.destructive(
+                    AppStrings.dashboard.fillRequiredFields,
+                  );
                   return;
                 }
 

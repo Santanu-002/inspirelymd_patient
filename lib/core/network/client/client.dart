@@ -14,13 +14,13 @@ class NetworkClient {
     required TokenService tokenService,
     required PlatformInfoService platformInfoService,
   }) : dio = Dio(
-          BaseOptions(
-            baseUrl: ApiEndpoints.baseUrl,
-            connectTimeout: const Duration(seconds: 15),
-            receiveTimeout: const Duration(seconds: 15),
-            contentType: 'application/json',
-          ),
-        ) {
+         BaseOptions(
+           baseUrl: ApiEndpoints.baseUrl,
+           connectTimeout: const Duration(seconds: 15),
+           receiveTimeout: const Duration(seconds: 15),
+           contentType: 'application/json',
+         ),
+       ) {
     dio.interceptors.add(AuthInterceptor(tokenService, platformInfoService));
     dio.interceptors.add(PlatformInfoInterceptor(platformInfoService));
     dio.interceptors.add(NetworkErrorInterceptor());
