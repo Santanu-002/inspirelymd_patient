@@ -45,28 +45,28 @@ class NotificationsController extends GetxController {
         'subtitle': 'Week 4: Building lasting habits',
         'time': 'Jun 8',
         'icon': 'lesson',
-        'group': 'Earlier this week',
+        'group': 'Monday',
       },
       {
         'title': 'Weight check-in reminder',
         'subtitle': 'Please log your weight for this week',
         'time': 'Jun 6',
         'icon': 'lesson',
-        'group': 'Earlier this week',
+        'group': 'Saturday',
       },
       {
         'title': 'Appointment confirmed',
         'subtitle': 'Dr. Reyes · Jun 10 · 2:00 PM',
         'time': 'Jun 5',
         'icon': 'reply',
-        'group': 'Earlier this week',
+        'group': '05 June, 2026',
       },
       {
         'title': 'Payment successful',
         'subtitle': '\$299 charged for Semaglutide program',
         'time': 'Jun 2',
         'icon': 'shipping',
-        'group': 'Earlier this week',
+        'group': '02 June, 2026',
       },
     ]);
   }
