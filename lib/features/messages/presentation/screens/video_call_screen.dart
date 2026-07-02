@@ -153,20 +153,6 @@ class VideoCallScreen extends StatelessWidget {
               ],
             ),
           ),
-
-          // ── Bottom Right Magic Effect Button ─────────────────────────────
-          Positioned(
-            bottom: MediaQuery.of(context).padding.bottom + 40,
-            right: 28,
-            child: _buildCircularButton(
-              icon: Icons.auto_awesome,
-              size: 44,
-              iconSize: 18,
-              onPressed: () {
-                AppSnackbar.info('Telehealth video effects loading...');
-              },
-            ),
-          ),
         ],
       ),
     );
