@@ -74,23 +74,19 @@ class VerifyOtpScreen extends GetView<VerifyOtpController> {
                       color: theme.colorScheme.textMuted,
                     ),
                   ),
-                  TextButton(
+                  AppButton.ghost(
+                    text: isTimerActive
+                        ? AppStrings.auth.resendIn(sendOtpController.resendCountdown.value)
+                        : AppStrings.auth.resend,
+                    width: null,
+                    height: null,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppUIConstants.spacing.space$8,
+                      vertical: AppUIConstants.spacing.space$4,
+                    ),
                     onPressed: isTimerActive || controller.isLoading
                         ? null
                         : () => sendOtpController.sendOtp(isResend: true),
-                    style: TextButton.styleFrom(
-                      minimumSize: Size.zero,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    child: Text(
-                      isTimerActive
-                          ? AppStrings.auth.resendIn(countdown)
-                          : AppStrings.auth.resend,
-                    ),
                   ),
                 ],
               ],

@@ -45,13 +45,13 @@ class SendOtpScreen extends GetView<SendOtpController> {
                 padding: const EdgeInsets.only(left: 14),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
+                  spacing: AppUIConstants.spacing.space$8,
                   children: [
                     Icon(
                       Icons.phone_outlined,
                       color: theme.colorScheme.textMuted,
                       size: 20,
                     ),
-                    const SizedBox(width: 8),
                     CountryCodeSelector(
                       selectedCountry: controller.selectedCountry.value,
                       countries: controller.countries,
