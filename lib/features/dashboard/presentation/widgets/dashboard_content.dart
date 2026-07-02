@@ -74,12 +74,21 @@ class DashboardContent extends GetView<DashboardController> {
                   spacing: AppUIConstants.spacing.space$16,
                   children: [
                     // Circular Progress Ring
-                    const SizedBox(
+                    SizedBox(
                       width: 60,
                       height: 60,
-                      child: CircularProgressIndicator(
-                        value: 0.65,
-                        strokeWidth: 6,
+                      child: TweenAnimationBuilder<double>(
+                        duration: const Duration(milliseconds: 1500),
+                        curve: Curves.fastOutSlowIn,
+                        tween: Tween<double>(begin: 0.0, end: 0.65),
+                        builder: (context, value, child) {
+                          return CircularProgressIndicator(
+                            value: value,
+                            strokeWidth: 6,
+                            strokeCap: StrokeCap.round,
+                            backgroundColor: theme.colorScheme.outlineVariant,
+                          );
+                        },
                       ),
                     ),
                     // Text Block
