@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:inspirelymd_patient/core/common/widgets/button/app_icon_button.dart';
 import 'package:inspirelymd_patient/core/constants/app_icons.dart';
 import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 
 class AppScaffold extends StatelessWidget {
   final Widget child;
-  final String? title;
-  final Widget? titleWidget;
+  final String? titleText;
+  final Widget? title;
   final bool? centerTitle;
   final double? titleSpacing;
   final VoidCallback? onBackPressed;
@@ -18,6 +19,7 @@ class AppScaffold extends StatelessWidget {
   final Widget? drawer;
   final Widget? endDrawer;
   final Widget? leading;
+  final double? leadingWidth;
   final EdgeInsetsGeometry? padding;
   final Widget? floatingActionButton;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
@@ -27,8 +29,8 @@ class AppScaffold extends StatelessWidget {
   const AppScaffold({
     super.key,
     required this.child,
+    this.titleText,
     this.title,
-    this.titleWidget,
     this.centerTitle,
     this.titleSpacing,
     this.onBackPressed,
@@ -39,6 +41,7 @@ class AppScaffold extends StatelessWidget {
     this.drawer,
     this.endDrawer,
     this.leading,
+    this.leadingWidth,
     this.padding,
     this.floatingActionButton,
     this.floatingActionButtonLocation,
@@ -57,13 +60,11 @@ class AppScaffold extends StatelessWidget {
     } else if (onBackPressed != null ||
         (automaticallyImplyLeading &&
             (ModalRoute.of(context)?.canPop ?? false))) {
-      leadingWidget = IconButton(
+      leadingWidget = AppIconButton.ghost(
+        icon: AppIcons.common.back,
+        iconColor: theme.colorScheme.onSurface,
+        iconSize: 20,
         onPressed: onBackPressed ?? Get.back,
-        icon: Icon(
-          AppIcons.common.back,
-          color: theme.colorScheme.onSurface,
-          size: 20,
-        ),
       );
     }
 
@@ -89,8 +90,8 @@ class AppScaffold extends StatelessWidget {
         resizeToAvoidBottomInset: resizeToAvoidBottomInset,
         bottomNavigationBar: bottomNavigationBar,
         appBar:
-            (title != null ||
-                titleWidget != null ||
+            (titleText != null ||
+                title != null ||
                 leadingWidget != null ||
                 actions != null)
             ? AppBar(
@@ -99,13 +100,19 @@ class AppScaffold extends StatelessWidget {
                 scrolledUnderElevation: 0,
                 titleSpacing: titleSpacing ?? 0.0,
                 centerTitle: centerTitle ?? false,
-                title: titleWidget ?? (title != null ? Text(title!) : null),
+                title: title ?? (titleText != null ? Text(titleText!) : null),
                 systemOverlayStyle: theme.brightness == Brightness.light
                     ? SystemUiOverlayStyle.dark
                     : SystemUiOverlayStyle.light,
-                actions: actions,
+                actions: actions != null
+                    ? [
+                        ...actions!,
+                        SizedBox(width: AppUIConstants.spacing.space$12),
+                      ]
+                    : null,
                 automaticallyImplyLeading: false,
                 leading: leadingWidget,
+                leadingWidth: leadingWidth,
               )
             : null,
         body: SafeArea(

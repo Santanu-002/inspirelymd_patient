@@ -36,6 +36,7 @@ class AppTextField extends StatelessWidget {
   final int? minLines;
   final TextStyle? textStyle;
   final TextStyle? hintStyle;
+  final bool isDense;
 
   const AppTextField({
     super.key,
@@ -71,6 +72,7 @@ class AppTextField extends StatelessWidget {
     this.minLines,
     this.textStyle,
     this.hintStyle,
+    this.isDense = false,
   });
 
   @override
@@ -105,7 +107,9 @@ class AppTextField extends StatelessWidget {
                 if (label!.contains('*'))
                   TextSpan(
                     text: '*',
-                    style: TextStyle(color: context.theme.colorScheme.error),
+                    style: context.theme.textTheme.bodySmall?.copyWith(
+                      color: context.theme.colorScheme.error,
+                    ),
                   ),
               ],
             ),
@@ -142,6 +146,7 @@ class AppTextField extends StatelessWidget {
             suffixIcon: suffix,
             errorText: errorText,
             contentPadding: contentPadding,
+            isDense: isDense,
             filled: filled,
             fillColor:
                 fillColor ??

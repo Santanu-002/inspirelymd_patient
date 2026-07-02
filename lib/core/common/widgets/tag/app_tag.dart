@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 
 class AppTag extends StatelessWidget {
   final String text;
@@ -16,16 +17,22 @@ class AppTag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      padding: EdgeInsets.symmetric(
+        horizontal: AppUIConstants.spacing.space$8,
+        vertical: AppUIConstants.spacing.space$4,
+      ),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(9999),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
+        spacing: AppUIConstants.spacing.space$4,
         children: [
-          if (dotColor != null) ...[
+          if (dotColor != null)
             Container(
               width: 6,
               height: 6,
@@ -34,13 +41,10 @@ class AppTag extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
             ),
-            const SizedBox(width: 6),
-          ],
           Text(
             text,
-            style: TextStyle(
+            style: textTheme.labelSmall?.copyWith(
               color: textColor,
-              fontSize: 11,
               fontWeight: FontWeight.bold,
             ),
           ),

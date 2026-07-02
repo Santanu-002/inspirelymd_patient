@@ -47,7 +47,7 @@ class AppTheme {
           // ── Surface ─────────────────────────────────────────────────────
           surface: colors.cardSurface,
           onSurface: colors.textDefault,
-          onSurfaceVariant: colors.onSurfaceVariant,
+          onSurfaceVariant: colors.textSubtle,
           surfaceContainerLowest: colors.cardSurface,
           surfaceContainerLow: colors.surfaceContainerLow,
           surfaceContainer: colors.tonalSurface,
@@ -222,7 +222,7 @@ class AppTheme {
           // ── Surface ─────────────────────────────────────────────────────
           surface: colors.cardSurface,
           onSurface: colors.textDefault,
-          onSurfaceVariant: colors.onSurfaceVariant,
+          onSurfaceVariant: colors.textSubtle,
           surfaceContainerLowest: colors.cardSurface,
           surfaceContainerLow: colors.surfaceContainerLow,
           surfaceContainer: colors.tonalSurface,
@@ -381,7 +381,10 @@ class AppTheme {
       focusedErrorBorder: border.copyWith(
         borderSide: BorderSide(color: colors.error, width: 1.5),
       ),
-      hintStyle: TextStyle(color: colors.onSurfaceVariant),
+      hintStyle: (colors.brightness == Brightness.light
+              ? AppTextStyles.light.bodyMedium
+              : AppTextStyles.dark.bodyMedium)
+          .copyWith(color: colors.onSurfaceVariant),
     );
   }
 

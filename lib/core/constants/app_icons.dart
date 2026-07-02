@@ -42,6 +42,8 @@ class _CommonIcons {
   IconData get bellActive => Icons.notifications_rounded;
   IconData get bellInactive => Icons.notifications_none_rounded;
   IconData get sparkle => Icons.auto_awesome;
+  IconData get sync => Icons.sync_rounded;
+  IconData get capsule => Icons.medication_outlined;
 }
 
 class _NavigationIcons {

@@ -26,6 +26,13 @@ class CommonStrings {
   String get searchPlaceholder => 'Search...';
   String get noResultsFound => 'No results found';
   String get copied => 'Copied to clipboard';
+
+  // Navigation tabs
+  String get navHome => 'Home';
+  String get navPrograms => 'Programs';
+  String get navMessages => 'Messages';
+  String get navPharmacy => 'Pharmacy';
+  String get navAccount => 'Account';
 }
 
 class StatusStrings {
@@ -67,7 +74,7 @@ class DashboardStrings {
   const DashboardStrings();
 
   String get title => 'Patient Dashboard';
-  String get welcomeBack => 'Welcome Back, 👋';
+  String get welcomeBack => 'Good morning';
   String get localDbStatus => 'Local database: Offline & Secure';
   String get quickActions => 'Quick Actions';
   String get bookAppt => 'Book';
@@ -119,6 +126,9 @@ class ProgramsStrings {
 
   String get sectionTitle => 'YOUR PROGRAM';
   String get programTitle => 'GLP-1 Weight Loss';
+  String get programName => 'GLP-1 Weight Loss';
+  String get assignedProvider => 'Dr. Alana Reyes';
+  String get assignedProviderSub => 'Internal Medicine · Lic. TX';
   String get weightProgress => 'Weight progress';
   String get week4Tag => 'Week 4';
   String get startWeight => 'Start 212';
@@ -154,6 +164,7 @@ class PharmacyStrings {
   const PharmacyStrings();
 
   String get headerTitle => 'PHARMACY & RECORDS';
+  String get rxManagementSubtitle => 'PHARMACY & RECORDS';
   String get ordersTitle => 'Your orders';
   String get orderId => 'Order INSP-7841';
   String get inTransit => 'In transit';
@@ -188,6 +199,16 @@ class PharmacyStrings {
   String get longevityPeptides => 'Longevity Peptides';
   String get longevityPeptidesSub => 'New program · from \$159/mo';
   String get addButton => 'Add';
+
+  // Request Refill Screen
+  String get requestRefillTitle => 'Request refill';
+  String get semaglutideMedication => 'Semaglutide';
+  String get semaglutideDosageAndPrice => '0.5 mg / week · \$299/mo';
+  String get refillNotice =>
+      'We\'ll send a quick refill visit to your provider for clinical review. You\'re only charged once they approve.';
+  String get confirmRefillRequest => 'Confirm refill request';
+  String get refillRequestSuccess =>
+      'Refill request sent for clinical review.';
 }
 
 class AccountStrings {

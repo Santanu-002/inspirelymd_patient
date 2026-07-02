@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inspirelymd_patient/core/common/widgets/navigation/app_bottom_nav_item.dart';
 import 'package:inspirelymd_patient/core/constants/app_icons.dart';
+import 'package:inspirelymd_patient/core/constants/app_strings.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
@@ -15,136 +17,72 @@ class AppBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    final activeColor = theme.colorScheme.primary; // Brand red
-    final inactiveColor = theme.colorScheme.onSurface.withValues(alpha: 0.4);
+    final activeColor = theme.colorScheme.primary;
+    final inactiveColor = theme.colorScheme.onSurfaceVariant;
+
+    const unreadMessagesCount = 1;
+
+    final navItems = [
+      {
+        'index': 0,
+        'icon': AppIcons.navigation.home,
+        'activeIcon': AppIcons.navigation.home,
+        'label': AppStrings.common.navHome,
+      },
+      {
+        'index': 1,
+        'icon': AppIcons.navigation.programs,
+        'activeIcon': AppIcons.navigation.programs,
+        'label': AppStrings.common.navPrograms,
+      },
+      {
+        'index': 2,
+        'icon': AppIcons.navigation.messagesInactive,
+        'activeIcon': AppIcons.navigation.messagesActive,
+        'label': AppStrings.common.navMessages,
+        'badgeValue': unreadMessagesCount,
+      },
+      {
+        'index': 3,
+        'icon': AppIcons.navigation.pharmacy,
+        'activeIcon': AppIcons.navigation.pharmacy,
+        'label': AppStrings.common.navPharmacy,
+      },
+      {
+        'index': 4,
+        'icon': AppIcons.navigation.accountInactive,
+        'activeIcon': AppIcons.navigation.accountActive,
+        'label': AppStrings.common.navAccount,
+      },
+    ];
 
     return Container(
+      height: 64,
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         border: Border(
-          top: BorderSide(color: theme.colorScheme.outlineVariant, width: 1),
+          top: BorderSide(
+            color: theme.colorScheme.outlineVariant,
+            width: 1.0,
+          ),
         ),
       ),
       child: SafeArea(
         top: false,
-        child: SizedBox(
-          height: 64,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(
-                index: 0,
-                icon: AppIcons.navigation.home,
-                activeIcon: AppIcons.navigation.home,
-                label: 'Home',
-                activeColor: activeColor,
-                inactiveColor: inactiveColor,
-              ),
-              _buildNavItem(
-                index: 1,
-                icon: AppIcons.navigation.programs,
-                activeIcon: AppIcons.navigation.programs,
-                label: 'Programs',
-                activeColor: activeColor,
-                inactiveColor: inactiveColor,
-              ),
-              _buildNavItem(
-                index: 2,
-                icon: AppIcons.navigation.messagesInactive,
-                activeIcon: AppIcons.navigation.messagesActive,
-                label: 'Messages',
-                activeColor: activeColor,
-                inactiveColor: inactiveColor,
-                badgeValue: 1,
-              ),
-              _buildNavItem(
-                index: 3,
-                icon: AppIcons.navigation.pharmacy,
-                activeIcon: AppIcons.navigation.pharmacy,
-                label: 'Pharmacy',
-                activeColor: activeColor,
-                inactiveColor: inactiveColor,
-              ),
-              _buildNavItem(
-                index: 4,
-                icon: AppIcons.navigation.accountInactive,
-                activeIcon: AppIcons.navigation.accountActive,
-                label: 'Account',
-                activeColor: activeColor,
-                inactiveColor: inactiveColor,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem({
-    required int index,
-    required IconData icon,
-    required IconData activeIcon,
-    required String label,
-    required Color activeColor,
-    required Color inactiveColor,
-    int? badgeValue,
-  }) {
-    final isActive = currentIndex == index;
-    final color = isActive ? activeColor : inactiveColor;
-
-    return Expanded(
-      child: InkWell(
-        onTap: () => onTap(index),
-        splashFactory: NoSplash.splashFactory,
-        highlightColor: Colors.transparent,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Icon(isActive ? activeIcon : icon, color: color, size: 26),
-                if (badgeValue != null && badgeValue > 0)
-                  Positioned(
-                    top: -4,
-                    right: -6,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 4,
-                        vertical: 1,
-                      ),
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                      ),
-                      constraints: const BoxConstraints(
-                        minWidth: 16,
-                        minHeight: 16,
-                      ),
-                      child: Center(
-                        child: Text(
-                          badgeValue.toString(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                color: color,
-                fontSize: 11,
-                fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
-              ),
-            ),
-          ],
+        child: Row(
+          children: navItems.map((item) {
+            return AppBottomNavItem(
+              index: item['index'] as int,
+              currentIndex: currentIndex,
+              icon: item['icon'] as IconData,
+              activeIcon: item['activeIcon'] as IconData,
+              label: item['label'] as String,
+              activeColor: activeColor,
+              inactiveColor: inactiveColor,
+              badgeValue: item['badgeValue'] as int?,
+              onTap: onTap,
+            );
+          }).toList(),
         ),
       ),
     );
