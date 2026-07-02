@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:inspirelymd_patient/app/routes/app_routes.dart';
+import 'package:inspirelymd_patient/core/common/widgets/button/app_button.dart';
+import 'package:inspirelymd_patient/core/common/widgets/button/app_icon_button.dart';
+import 'package:inspirelymd_patient/core/common/widgets/card/app_card.dart';
+import 'package:inspirelymd_patient/core/common/widgets/icon/app_icon_box.dart';
+import 'package:inspirelymd_patient/core/common/widgets/scaffold/app_scaffold.dart';
+import 'package:inspirelymd_patient/core/common/widgets/tag/app_tag.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
 import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
-import 'package:inspirelymd_patient/core/common/widgets/card/app_card.dart';
-import 'package:inspirelymd_patient/core/common/widgets/tag/app_tag.dart';
-import 'package:inspirelymd_patient/core/common/widgets/icon/app_icon_box.dart';
-import 'package:inspirelymd_patient/core/common/widgets/button/app_pill_button.dart';
 import 'package:inspirelymd_patient/features/pharmacy/presentation/controllers/pharmacy_controller.dart';
-import 'package:inspirelymd_patient/core/common/widgets/scaffold/app_scaffold.dart';
+import 'package:inspirelymd_patient/features/pharmacy/presentation/widgets/pharmacy_document_item.dart';
+import 'package:inspirelymd_patient/features/pharmacy/presentation/widgets/pharmacy_timeline_step.dart';
 
 class PharmacyContent extends GetView<PharmacyController> {
   const PharmacyContent({super.key});
@@ -20,34 +22,102 @@ class PharmacyContent extends GetView<PharmacyController> {
     final theme = context.theme;
     final strings = AppStrings.pharmacy;
 
+    final timelineSteps = [
+      {
+        'title': strings.planApproved,
+        'subtitle': strings.planApprovedSub,
+        'isPassed': true,
+        'isCurrent': false,
+        'isFirst': true,
+        'isLast': false,
+      },
+      {
+        'title': strings.paymentCharged,
+        'subtitle': strings.paymentChargedSub,
+        'isPassed': true,
+        'isCurrent': false,
+        'isFirst': false,
+        'isLast': false,
+      },
+      {
+        'title': strings.sentToPharmacy,
+        'subtitle': strings.sentToPharmacySub,
+        'isPassed': true,
+        'isCurrent': false,
+        'isFirst': false,
+        'isLast': false,
+      },
+      {
+        'title': strings.preparedFilled,
+        'subtitle': strings.preparedFilledSub,
+        'isPassed': false,
+        'isCurrent': true,
+        'isFirst': false,
+        'isLast': false,
+        'currentIcon': Icons.local_shipping,
+        'currentColor': theme.colorScheme.primary,
+      },
+      {
+        'title': strings.shipped,
+        'subtitle': strings.shippedSub,
+        'isPassed': false,
+        'isCurrent': false,
+        'isFirst': false,
+        'isLast': true,
+      },
+    ];
+
+    final documents = [
+      {
+        'title': strings.semaglutideRx,
+        'subtitle': strings.semaglutideRxSub,
+        'icon': Icons.description_outlined,
+      },
+      {
+        'title': strings.visitSummary,
+        'subtitle': strings.visitSummarySub,
+        'icon': Icons.description_outlined,
+      },
+      {
+        'title': strings.hormonePanel,
+        'subtitle': strings.hormonePanelSub,
+        'icon': Icons.description_outlined,
+      },
+      {
+        'title': strings.signedConsents,
+        'subtitle': strings.signedConsentsSub,
+        'icon': Icons.shield_outlined,
+      },
+    ];
+
     return AppScaffold(
       useScrollView: true,
-      titleWidget: Column(
+      title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            strings.headerTitle,
-            style: theme.textTheme.labelMedium?.copyWith(
+            strings.rxManagementSubtitle,
+            style: theme.textTheme.labelSmall?.copyWith(
+              color: theme.colorScheme.textMuted,
               fontWeight: FontWeight.bold,
-              color: theme.colorScheme.primary,
-              letterSpacing: 1.2,
+              letterSpacing: 0.8,
               height: 1.1,
             ),
           ),
-          const SizedBox(height: 2),
+          AppUIConstants.widgets.verticalBox$4,
           Text(
             strings.ordersTitle,
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
-              color: const Color(0xFF0D253F),
+              color: theme.colorScheme.onSurface,
               height: 1.1,
             ),
           ),
         ],
       ),
       centerTitle: false,
-      titleSpacing: 16,
+      titleSpacing: AppUIConstants.spacing.space$16,
       automaticallyImplyLeading: false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -66,97 +136,44 @@ class PharmacyContent extends GetView<PharmacyController> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const AppTag(
+                    AppTag(
                       text: 'In transit',
-                      backgroundColor: Color(0xFFE3F2FD),
-                      textColor: Color(0xFF1E88E5),
-                      dotColor: Color(0xFF1E88E5),
+                      backgroundColor: theme.colorScheme.inProgress.withValues(
+                        alpha: 0.1,
+                      ),
+                      textColor: theme.colorScheme.inProgress,
+                      dotColor: theme.colorScheme.inProgress,
                     ),
                   ],
                 ),
-                const SizedBox(height: 24),
+                AppUIConstants.widgets.verticalBox$24,
 
                 // Vertical timeline list
-                _buildTimelineStep(
-                  context: context,
-                  title: strings.planApproved,
-                  subtitle: strings.planApprovedSub,
-                  isPassed: true,
-                  isCurrent: false,
-                  isFirst: true,
-                  isLast: false,
-                ),
-                _buildTimelineStep(
-                  context: context,
-                  title: strings.paymentCharged,
-                  subtitle: strings.paymentChargedSub,
-                  isPassed: true,
-                  isCurrent: false,
-                  isFirst: false,
-                  isLast: false,
-                ),
-                _buildTimelineStep(
-                  context: context,
-                  title: strings.sentToPharmacy,
-                  subtitle: strings.sentToPharmacySub,
-                  isPassed: true,
-                  isCurrent: false,
-                  isFirst: false,
-                  isLast: false,
-                ),
-                _buildTimelineStep(
-                  context: context,
-                  title: strings.preparedFilled,
-                  subtitle: strings.preparedFilledSub,
-                  isPassed: false,
-                  isCurrent: true,
-                  isFirst: false,
-                  isLast: false,
-                  currentIcon: Icons.local_shipping,
-                  currentColor: theme.colorScheme.primary,
-                ),
-                _buildTimelineStep(
-                  context: context,
-                  title: strings.shipped,
-                  subtitle: strings.shippedSub,
-                  isPassed: false,
-                  isCurrent: false,
-                  isFirst: false,
-                  isLast: true,
-                ),
+                ...timelineSteps.map((step) {
+                  return PharmacyTimelineStep(
+                    title: step['title'] as String,
+                    subtitle: step['subtitle'] as String,
+                    isPassed: step['isPassed'] as bool,
+                    isCurrent: step['isCurrent'] as bool,
+                    isFirst: step['isFirst'] as bool,
+                    isLast: step['isLast'] as bool,
+                    currentIcon: step['currentIcon'] as IconData?,
+                    currentColor: step['currentColor'] as Color?,
+                  );
+                }),
 
-                const SizedBox(height: 24),
+                AppUIConstants.widgets.verticalBox$24,
                 // Reorder button
-                OutlinedButton(
-                  onPressed: () => Get.toNamed(AppRoutes.chat),
-                  style: OutlinedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(9999),
-                    ),
-                    side: BorderSide(
-                      color: theme.colorScheme.outlineVariant,
-                      width: 1.5,
-                    ),
+                AppButton.outlined(
+                  text: strings.reorderButton,
+                  icon: Icon(
+                    Icons.sync_rounded,
+                    color: theme.colorScheme.onSurface,
+                    size: 20,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.sync_rounded,
-                        color: theme.colorScheme.onSurface,
-                        size: 20,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        strings.reorderButton,
-                        style: theme.textTheme.labelLarge?.copyWith(
-                          color: theme.colorScheme.onSurface,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
+                  borderColor: theme.colorScheme.outlineVariant,
+                  textColor: theme.colorScheme.onSurface,
+                  onPressed: () => Get.toNamed(AppRoutes.requestRefill),
                 ),
               ],
             ),
@@ -169,7 +186,9 @@ class PharmacyContent extends GetView<PharmacyController> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.all(
+                    AppUIConstants.spacing.space$16,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -190,298 +209,152 @@ class PharmacyContent extends GetView<PharmacyController> {
                 ),
                 const Divider(height: 1),
 
-                // Item 1
-                _buildDocumentItem(
-                  context: context,
-                  title: strings.semaglutideRx,
-                  subtitle: strings.semaglutideRxSub,
-                  icon: Icons.description_outlined,
-                ),
-                const Divider(height: 1),
-
-                // Item 2
-                _buildDocumentItem(
-                  context: context,
-                  title: strings.visitSummary,
-                  subtitle: strings.visitSummarySub,
-                  icon: Icons.description_outlined,
-                ),
-                const Divider(height: 1),
-
-                // Item 3
-                _buildDocumentItem(
-                  context: context,
-                  title: strings.hormonePanel,
-                  subtitle: strings.hormonePanelSub,
-                  icon: Icons.description_outlined,
-                ),
-                const Divider(height: 1),
-
-                // Item 4
-                _buildDocumentItem(
-                  context: context,
-                  title: strings.signedConsents,
-                  subtitle: strings.signedConsentsSub,
-                  icon: Icons.shield_outlined,
-                ),
+                ...List.generate(documents.length, (index) {
+                  final doc = documents[index];
+                  return Column(
+                    children: [
+                      PharmacyDocumentItem(
+                        title: doc['title'] as String,
+                        subtitle: doc['subtitle'] as String,
+                        icon: doc['icon'] as IconData,
+                        onDownload: () => controller.downloadDocument(
+                          doc['title'] as String,
+                        ),
+                      ),
+                      if (index < documents.length - 1)
+                        const Divider(height: 1),
+                    ],
+                  );
+                }),
               ],
             ),
           ),
-          AppUIConstants.widgets.verticalBox$24,
+          AppUIConstants.widgets.verticalBox$16,
 
-          // ── Title 2: Recommended for you ─────────────────────────────────
+          // ── Title: Recommended for you ───────────────────────────────────
           Text(
             strings.recommendedTitle,
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 12),
+          AppUIConstants.widgets.verticalBox$12,
 
-          // ── Recommendations Card ──────────────────────────────────────────
+          // ── Recommendations Card ─────────────────────────────────────────
           AppCard(
             padding: EdgeInsets.zero,
             child: Obx(() {
               return Column(
-                children: List.generate(controller.recommendationList.length, (
-                  index,
-                ) {
-                  final item = controller.recommendationList[index];
-                  final isAdded = item['added'] as bool;
+                children: List.generate(
+                  controller.recommendationList.length,
+                  (index) {
+                    final item = controller.recommendationList[index];
+                    final isAdded = item['added'] as bool;
 
-                  IconData itemIcon;
-                  Color iconColor;
-                  Color iconBg;
+                    IconData itemIcon;
+                    Color iconColor;
+                    Color iconBg;
 
-                  if (item['id'] == 'tirzepatide') {
-                    itemIcon = Icons.local_mall_outlined;
-                    iconColor = const Color(0xFF1E88E5);
-                    iconBg = const Color(0xFFE3F2FD);
-                  } else if (item['id'] == 'nausea_kit') {
-                    itemIcon = Icons.medical_services_outlined;
-                    iconColor = const Color(0xFF2E7D32);
-                    iconBg = const Color(0xFFE8F5E9);
-                  } else {
-                    itemIcon = Icons.auto_awesome;
-                    iconColor = theme.colorScheme.primary;
-                    iconBg = theme.colorScheme.primary.withValues(alpha: 0.1);
-                  }
+                    if (item['id'] == 'tirzepatide') {
+                      itemIcon = Icons.local_mall_outlined;
+                      iconColor = theme.colorScheme.inProgress;
+                      iconBg = theme.colorScheme.inProgress.withValues(
+                        alpha: 0.1,
+                      );
+                    } else if (item['id'] == 'nausea_kit') {
+                      itemIcon = Icons.medical_services_outlined;
+                      iconColor = theme.colorScheme.completed;
+                      iconBg = theme.colorScheme.completed.withValues(
+                        alpha: 0.1,
+                      );
+                    } else {
+                      itemIcon = Icons.auto_awesome;
+                      iconColor = theme.colorScheme.primary;
+                      iconBg = theme.colorScheme.primary.withValues(
+                        alpha: 0.1,
+                      );
+                    }
 
-                  return Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
-                        ),
-                        child: Row(
-                          children: [
-                            AppIconBox(
-                              icon: itemIcon,
-                              backgroundColor: iconBg,
-                              iconColor: iconColor,
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    item['title'],
-                                    style: theme.textTheme.bodyMedium?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 2),
-                                  Text(
-                                    item['subtitle'],
-                                    style: theme.textTheme.bodySmall?.copyWith(
-                                      color: theme.colorScheme.textMuted,
-                                    ),
-                                  ),
-                                ],
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppUIConstants.spacing.space$16,
+                            vertical: AppUIConstants.spacing.space$12,
+                          ),
+                          child: Row(
+                            spacing: AppUIConstants.spacing.space$16,
+                            children: [
+                              AppIconBox(
+                                icon: itemIcon,
+                                backgroundColor: iconBg,
+                                iconColor: iconColor,
                               ),
-                            ),
-                            // Custom Add Pill Tag button
-                            AppPillButton(
-                              text: isAdded ? 'Added' : strings.addButton,
-                              backgroundColor: isAdded
-                                  ? theme.colorScheme.outlineVariant
-                                  : theme.colorScheme.primary.withValues(
-                                      alpha: 0.1,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  spacing: AppUIConstants.spacing.space$2,
+                                  children: [
+                                    Text(
+                                      item['title'],
+                                      style: theme.textTheme.bodyMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                     ),
-                              textColor: isAdded
-                                  ? theme.colorScheme.textMuted
-                                  : theme.colorScheme.primary,
-                              onTap: () =>
-                                  controller.toggleRecommendation(index),
-                            ),
-                          ],
+                                    Text(
+                                      item['subtitle'],
+                                      style: theme.textTheme.bodySmall
+                                          ?.copyWith(
+                                            color: theme
+                                                .colorScheme
+                                                .textMuted,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              // Dynamic state button
+                              if (isAdded)
+                                AppIconButton.filled(
+                                  icon: Icons.check,
+                                  backgroundColor:
+                                      theme.colorScheme.completed,
+                                  iconColor: theme.colorScheme.onPrimary,
+                                  onPressed: null,
+                                )
+                              else
+                                AppButton.outlined(
+                                  text: strings.addButton,
+                                  backgroundColor: Colors.transparent,
+                                  textColor: theme.colorScheme.primary,
+                                  borderColor:
+                                      theme.colorScheme.outlineVariant,
+                                  width: null,
+                                  height: 36,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: AppUIConstants.spacing.space$16,
+                                    vertical: AppUIConstants.spacing.space$6,
+                                  ),
+                                  onPressed: () => controller
+                                      .toggleRecommendation(index),
+                                ),
+                            ],
+                          ),
                         ),
-                      ),
-                      if (index < controller.recommendationList.length - 1)
-                        const Divider(height: 1),
-                    ],
-                  );
-                }),
+                        if (index <
+                            controller.recommendationList.length - 1)
+                          const Divider(height: 1),
+                      ],
+                    );
+                  },
+                ),
               );
             }),
           ),
           AppUIConstants.widgets.verticalBox$32,
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTimelineStep({
-    required BuildContext context,
-    required String title,
-    required String subtitle,
-    required bool isPassed,
-    required bool isCurrent,
-    required bool isFirst,
-    required bool isLast,
-    IconData? currentIcon,
-    Color? currentColor,
-  }) {
-    final theme = context.theme;
-
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // Left timeline graphic
-          Column(
-            children: [
-              // Top line
-              Container(
-                width: 2,
-                height: 12,
-                color: isFirst
-                    ? Colors.transparent
-                    : (isPassed || isCurrent
-                          ? const Color(0xFF2E7D32)
-                          : theme.colorScheme.outlineVariant),
-              ),
-              // Circle/Icon
-              Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: isPassed
-                      ? const Color(0xFF2E7D32)
-                      : (isCurrent
-                            ? (currentColor ?? theme.colorScheme.primary)
-                            : Colors.transparent),
-                  border: isPassed || isCurrent
-                      ? null
-                      : Border.all(
-                          color: theme.colorScheme.outlineVariant,
-                          width: 2,
-                        ),
-                ),
-                child: Center(
-                  child: isPassed
-                      ? const Icon(Icons.check, color: Colors.white, size: 14)
-                      : (isCurrent && currentIcon != null
-                            ? Icon(currentIcon, color: Colors.white, size: 14)
-                            : null),
-                ),
-              ),
-              // Bottom line
-              Expanded(
-                child: Container(
-                  width: 2,
-                  color: isLast
-                      ? Colors.transparent
-                      : (isPassed
-                            ? const Color(0xFF2E7D32)
-                            : theme.colorScheme.outlineVariant),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(width: 16),
-          // Right text contents
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    title,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: isPassed || isCurrent
-                          ? theme.colorScheme.onSurface
-                          : theme.colorScheme.textMuted,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    subtitle,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.textMuted,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDocumentItem({
-    required BuildContext context,
-    required String title,
-    required String subtitle,
-    required IconData icon,
-  }) {
-    final theme = context.theme;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Row(
-        children: [
-          // Icon Container
-          AppIconBox(
-            icon: icon,
-            backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
-            iconColor: theme.colorScheme.primary,
-          ),
-          const SizedBox(width: 16),
-          // Details
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  subtitle,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.textMuted,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // Download icon button
-          IconButton(
-            icon: const Icon(CupertinoIcons.arrow_down_to_line_alt),
-            color: theme.colorScheme.textMuted,
-            onPressed: () => controller.downloadDocument(title),
-          ),
         ],
       ),
     );
