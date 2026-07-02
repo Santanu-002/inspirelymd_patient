@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:inspirelymd_patient/core/common/widgets/button/app_icon_button.dart';
+import 'package:inspirelymd_patient/core/common/widgets/text_field/app_text_field.dart';
 import 'package:inspirelymd_patient/core/common/widgets/scaffold/app_scaffold.dart';
 import 'package:inspirelymd_patient/core/common/widgets/snackbar/app_snackbar.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
+import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
 import 'package:inspirelymd_patient/features/messages/presentation/controllers/messages_controller.dart';
+import 'package:inspirelymd_patient/features/messages/presentation/widgets/chat_bubble.dart';
 
 class ChatScreen extends GetView<MessagesController> {
   const ChatScreen({super.key});
@@ -19,7 +23,8 @@ class ChatScreen extends GetView<MessagesController> {
       useScrollView: false,
       padding: EdgeInsets.zero,
       automaticallyImplyLeading: true,
-      titleWidget: Row(
+      title: Row(
+        spacing: AppUIConstants.spacing.space$12,
         children: [
           // Avatar
           Container(
@@ -32,15 +37,13 @@ class ChatScreen extends GetView<MessagesController> {
             child: Center(
               child: Text(
                 'AR',
-                style: TextStyle(
+                style: theme.textTheme.labelMedium?.copyWith(
                   color: theme.colorScheme.primary,
-                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-          const SizedBox(width: 12),
           // Name and status
           Expanded(
             child: Column(
@@ -54,20 +57,20 @@ class ChatScreen extends GetView<MessagesController> {
                   ),
                 ),
                 Row(
+                  spacing: AppUIConstants.spacing.space$6,
                   children: [
                     Container(
                       width: 6,
                       height: 6,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF2E7D32),
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.completed,
                         shape: BoxShape.circle,
                       ),
                     ),
-                    const SizedBox(width: 6),
                     Text(
                       'Online · your care team',
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: const Color(0xFF2E7D32),
+                        color: theme.colorScheme.completed,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -79,9 +82,9 @@ class ChatScreen extends GetView<MessagesController> {
         ],
       ),
       actions: [
-        IconButton(
-          icon: const Icon(Icons.videocam_outlined),
-          color: theme.colorScheme.onSurface,
+        AppIconButton.ghost(
+          icon: Icons.videocam_outlined,
+          iconColor: theme.colorScheme.onSurface,
           onPressed: () {
             AppSnackbar.info('Starting secure telehealth video call...');
           },
@@ -97,13 +100,14 @@ class ChatScreen extends GetView<MessagesController> {
                 children: [
                   // Encryption notice
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: EdgeInsets.symmetric(
+                      vertical: AppUIConstants.spacing.space$16,
+                    ),
                     child: Center(
                       child: Text(
                         strings.encryptedNotice,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.textMuted,
-                          fontSize: 11,
                         ),
                       ),
                     ),
@@ -112,12 +116,13 @@ class ChatScreen extends GetView<MessagesController> {
                   Expanded(
                     child: Obx(() {
                       return ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppUIConstants.spacing.containerPadding,
+                        ),
                         itemCount: controller.messagesList.length,
                         itemBuilder: (context, index) {
                           final msg = controller.messagesList[index];
-                          return _buildChatBubble(
-                            context: context,
+                          return ChatBubble(
                             text: msg['text'] ?? '',
                             time: msg['time'] ?? '',
                             isMe: msg['sender'] == 'patient',
@@ -133,7 +138,10 @@ class ChatScreen extends GetView<MessagesController> {
 
           // ── Bottom Message Input ─────────────────────────────────────────
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.symmetric(
+              horizontal: AppUIConstants.spacing.containerPadding,
+              vertical: AppUIConstants.spacing.space$4,
+            ),
             decoration: BoxDecoration(
               color: theme.colorScheme.surface,
               border: Border(
@@ -144,127 +152,44 @@ class ChatScreen extends GetView<MessagesController> {
               ),
             ),
             child: Row(
+              spacing: AppUIConstants.spacing.space$12,
               children: [
                 // Text Field
                 Expanded(
-                  child: TextField(
+                  child: AppTextField(
                     controller: controller.textController,
-                    decoration: InputDecoration(
-                      hintText: strings.inputHint,
-                      hintStyle: TextStyle(
-                        color: theme.colorScheme.textMuted,
-                        fontSize: 14,
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 12,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(99),
-                        borderSide: BorderSide(
-                          color: theme.colorScheme.outlineVariant,
-                          width: 1,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(99),
-                        borderSide: BorderSide(
-                          color: theme.colorScheme.outlineVariant,
-                          width: 1,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(99),
-                        borderSide: BorderSide(
-                          color: theme.colorScheme.primary,
-                          width: 1,
-                        ),
-                      ),
+                    textInputAction: TextInputAction.newline,
+                    textCapitalization: TextCapitalization.sentences,
+                    onFieldSubmitted: (_) => controller.sendMessage(),
+                    textStyle: theme.textTheme.bodyMedium,
+                    hintText: strings.inputHint,
+                    hintStyle: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.textMuted,
+                    ),
+                    isDense: true,
+                    filled: true,
+                    fillColor: theme.colorScheme.surfaceContainerLowest,
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: AppUIConstants.spacing.space$16,
+                      vertical: AppUIConstants.spacing.space$4,
+                    ),
+                    borderRadius: BorderRadius.circular(
+                      AppUIConstants.radius.full,
                     ),
                   ),
                 ),
-                const SizedBox(width: 12),
                 // Send action button
-                GestureDetector(
-                  onTap: controller.sendMessage,
-                  child: Container(
-                    width: 48,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.primary,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        CupertinoIcons.paperplane,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
+                AppIconButton.filled(
+                  iconWidget: Icon(
+                    CupertinoIcons.paperplane,
+                    color: theme.colorScheme.onPrimary,
+                    size: 16,
                   ),
+                  size: 32,
+                  backgroundColor: theme.colorScheme.primary,
+                  onPressed: controller.sendMessage,
                 ),
               ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildChatBubble({
-    required BuildContext context,
-    required String text,
-    required String time,
-    required bool isMe,
-  }) {
-    final theme = context.theme;
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Column(
-        crossAxisAlignment: isMe
-            ? CrossAxisAlignment.end
-            : CrossAxisAlignment.start,
-        children: [
-          Container(
-            constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width * 0.75,
-            ),
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: isMe
-                  ? theme.colorScheme.primary
-                  : theme.colorScheme.surfaceWhite,
-              border: isMe
-                  ? null
-                  : Border.all(
-                      color: theme.colorScheme.outlineVariant,
-                      width: 1,
-                    ),
-              borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(16),
-                topRight: const Radius.circular(16),
-                bottomLeft: Radius.circular(isMe ? 16 : 0),
-                bottomRight: Radius.circular(isMe ? 0 : 16),
-              ),
-            ),
-            child: Text(
-              text,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: isMe ? Colors.white : theme.colorScheme.onSurface,
-                height: 1.4,
-              ),
-            ),
-          ),
-          const SizedBox(height: 4),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Text(
-              time,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.textMuted,
-                fontSize: 10,
-              ),
             ),
           ),
         ],
