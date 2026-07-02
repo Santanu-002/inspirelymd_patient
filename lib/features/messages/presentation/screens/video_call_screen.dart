@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:inspirelymd_patient/core/common/widgets/snackbar/app_snackbar.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
 import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
+import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
 
 class VideoCallScreen extends StatelessWidget {
   const VideoCallScreen({super.key});
@@ -15,7 +16,7 @@ class VideoCallScreen extends StatelessWidget {
     final strings = AppStrings.messages;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
+      backgroundColor: theme.colorScheme.black,
       body: Stack(
         children: [
           // ── Centered Call Status Info ────────────────────────────────────
