@@ -8,4 +8,5 @@ class AppRoutes {
   static const notifications = '/notifications';
   static const chat = '/chat';
   static const requestRefill = '/request-refill';
+  static const videoCall = '/video-call';
 }

@@ -11,6 +11,7 @@ import 'package:inspirelymd_patient/features/notifications/presentation/bindings
 import 'package:inspirelymd_patient/features/messages/presentation/screens/chat_screen.dart';
 import 'package:inspirelymd_patient/features/pharmacy/presentation/bindings/request_refill_binding.dart';
 import 'package:inspirelymd_patient/features/pharmacy/presentation/screens/request_refill_screen.dart';
+import 'package:inspirelymd_patient/features/messages/presentation/screens/video_call_screen.dart';
 
 class AppPages {
   const AppPages._();
@@ -42,6 +43,10 @@ class AppPages {
       name: AppRoutes.requestRefill,
       page: () => const RequestRefillScreen(),
       binding: RequestRefillBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.videoCall,
+      page: () => const VideoCallScreen(),
     ),
   ];
 }

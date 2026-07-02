@@ -6,7 +6,7 @@ import 'package:inspirelymd_patient/core/common/widgets/text_field/app_text_fiel
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
 import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
-import 'package:inspirelymd_patient/core/common/widgets/snackbar/app_snackbar.dart';
+import 'package:inspirelymd_patient/app/routes/app_routes.dart';
 import 'package:inspirelymd_patient/features/messages/presentation/controllers/messages_controller.dart';
 import 'package:inspirelymd_patient/features/messages/presentation/widgets/chat_bubble.dart';
 import 'package:inspirelymd_patient/core/common/widgets/scaffold/app_scaffold.dart';
@@ -87,9 +87,7 @@ class MessagesContent extends GetView<MessagesController> {
         AppIconButton.ghost(
           icon: Icons.videocam_outlined,
           iconColor: theme.colorScheme.onSurface,
-          onPressed: () {
-            AppSnackbar.info('Starting secure telehealth video call...');
-          },
+          onPressed: () => Get.toNamed(AppRoutes.videoCall),
         ),
       ],
       child: Column(

@@ -158,6 +158,12 @@ class MessagesStrings {
   String get sentMsg => 'Thank you! Any tips for the nausea?';
   String get replyMsg =>
       'Eat smaller meals and stay hydrated. It usually settles within a few days of a dose change. I\'ll check in next week.';
+  String get videoCallConnecting => 'Telehealth video · connecting...';
+  String get videoCallDoctorName => 'Dr. Alana Reyes, MD';
+  String get videoCallAvatarInitials => 'AR';
+  String get videoCallCallEnded => 'Telehealth video call ended';
+  String get videoCallToggleCamera => 'Toggle camera';
+  String get videoCallToggleMute => 'Toggle mute';
 }
 
 class PharmacyStrings {
