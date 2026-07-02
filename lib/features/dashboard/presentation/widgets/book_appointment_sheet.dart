@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:inspirelymd_patient/core/common/widgets/button/app_button.dart';
-import 'package:inspirelymd_patient/core/common/widgets/text_field/app_text_field.dart';
+import 'package:inspirelymd_patient/core/common/widgets/button/app_icon_button.dart';
 import 'package:inspirelymd_patient/core/common/widgets/snackbar/app_snackbar.dart';
+import 'package:inspirelymd_patient/core/common/widgets/text_field/app_text_field.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
+import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/features/dashboard/presentation/controllers/dashboard_controller.dart';
 
 class BookAppointmentSheet extends StatefulWidget {
@@ -38,12 +40,12 @@ class _BookAppointmentSheetState extends State<BookAppointmentSheet> {
     final controller = Get.find<DashboardController>();
 
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.all(AppUIConstants.spacing.space$24),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(AppUIConstants.radius.xl),
+          topRight: Radius.circular(AppUIConstants.radius.xl),
         ),
       ),
       child: SingleChildScrollView(
@@ -60,26 +62,28 @@ class _BookAppointmentSheetState extends State<BookAppointmentSheet> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                IconButton(
+                AppIconButton.ghost(
+                  icon: Icons.close_rounded,
+                  iconColor: theme.colorScheme.onSurface,
                   onPressed: controller.navigateBack,
-                  icon: const Icon(Icons.close_rounded),
                 ),
               ],
             ),
-            const SizedBox(height: 16),
+            AppUIConstants.widgets.verticalBox$16,
             AppTextField(
               label: AppStrings.dashboard.doctorNameLabel,
               controller: doctorController,
               hintText: AppStrings.dashboard.doctorNameHint,
             ),
-            const SizedBox(height: 12),
+            AppUIConstants.widgets.verticalBox$12,
             AppTextField(
               label: AppStrings.dashboard.specialtyLabel,
               controller: specialtyController,
               hintText: AppStrings.dashboard.specialtyHint,
             ),
-            const SizedBox(height: 12),
+            AppUIConstants.widgets.verticalBox$12,
             Row(
+              spacing: AppUIConstants.spacing.space$12,
               children: [
                 Expanded(
                   child: GestureDetector(
@@ -112,7 +116,6 @@ class _BookAppointmentSheetState extends State<BookAppointmentSheet> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 12),
                 Expanded(
                   child: GestureDetector(
                     onTap: () async {
@@ -147,7 +150,7 @@ class _BookAppointmentSheetState extends State<BookAppointmentSheet> {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+            AppUIConstants.widgets.verticalBox$24,
             AppButton.filled(
               text: AppStrings.dashboard.confirmBookingButton,
               onPressed: () {

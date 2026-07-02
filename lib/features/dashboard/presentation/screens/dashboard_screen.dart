@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inspirelymd_patient/core/common/widgets/navigation/app_bottom_navigation_bar.dart';
 import 'package:inspirelymd_patient/features/dashboard/presentation/controllers/dashboard_controller.dart';
 import 'package:inspirelymd_patient/features/dashboard/presentation/widgets/dashboard_shimmer.dart';
-import 'package:inspirelymd_patient/features/dashboard/presentation/widgets/dashboard_content.dart';
-import 'package:inspirelymd_patient/features/programs/presentation/widgets/programs_content.dart';
-import 'package:inspirelymd_patient/features/messages/presentation/widgets/messages_content.dart';
-import 'package:inspirelymd_patient/features/pharmacy/presentation/widgets/pharmacy_content.dart';
-import 'package:inspirelymd_patient/features/account/presentation/widgets/account_content.dart';
-import 'package:inspirelymd_patient/core/common/widgets/navigation/app_bottom_navigation_bar.dart';
+import 'package:inspirelymd_patient/features/dashboard/presentation/widgets/dashboard_tab_body.dart';
 
 class DashboardScreen extends GetView<DashboardController> {
   const DashboardScreen({super.key});
@@ -30,20 +26,9 @@ class DashboardScreen extends GetView<DashboardController> {
           ),
           body: controller.isLoading.value
               ? const DashboardShimmer()
-              : _buildTabBody(navIndex),
+              : DashboardTabBody(navIndex: navIndex),
         ),
       );
     });
-  }
-
-  Widget _buildTabBody(int navIndex) {
-    return switch (navIndex) {
-      0 => const DashboardContent(),
-      1 => const ProgramsContent(),
-      2 => const MessagesContent(),
-      3 => const PharmacyContent(),
-      4 => const AccountContent(),
-      _ => const DashboardContent(),
-    };
   }
 }

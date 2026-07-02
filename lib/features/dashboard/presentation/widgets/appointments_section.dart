@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:inspirelymd_patient/core/common/widgets/button/app_button.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
+import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
 import 'package:inspirelymd_patient/features/dashboard/presentation/controllers/dashboard_controller.dart';
 
@@ -19,10 +21,13 @@ class AppointmentsSection extends GetView<DashboardController> {
           .toList();
       if (upcoming.isEmpty) {
         return Container(
-          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+          padding: EdgeInsets.symmetric(
+            vertical: AppUIConstants.spacing.space$24,
+            horizontal: AppUIConstants.spacing.containerPadding,
+          ),
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(AppUIConstants.radius.lg),
             border: Border.all(color: theme.colorScheme.outlineVariant),
           ),
           child: Center(
@@ -33,25 +38,23 @@ class AppointmentsSection extends GetView<DashboardController> {
                   size: 40,
                   color: theme.colorScheme.textMuted,
                 ),
-                const SizedBox(height: 12),
+                AppUIConstants.widgets.verticalBox$12,
                 Text(
                   AppStrings.dashboard.noUpcomingAppts,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.textMuted,
                   ),
                 ),
-                const SizedBox(height: 12),
-                TextButton(
-                  onPressed: onBookNew,
-                  style: TextButton.styleFrom(
-                    minimumSize: Size.zero,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                AppUIConstants.widgets.verticalBox$12,
+                AppButton.ghost(
+                  text: AppStrings.dashboard.bookNow,
+                  width: null,
+                  height: null,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppUIConstants.spacing.space$16,
+                    vertical: AppUIConstants.spacing.space$8,
                   ),
-                  child: Text(AppStrings.dashboard.bookNow),
+                  onPressed: onBookNew,
                 ),
               ],
             ),
@@ -63,7 +66,7 @@ class AppointmentsSection extends GetView<DashboardController> {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: upcoming.length,
-        separatorBuilder: (_, _) => const SizedBox(height: 12),
+        separatorBuilder: (_, _) => AppUIConstants.widgets.verticalBox$12,
         itemBuilder: (context, index) {
           final appt = upcoming[index];
           final rawDate = appt['dateTime'] as String;
@@ -78,10 +81,10 @@ class AppointmentsSection extends GetView<DashboardController> {
           );
 
           return Container(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(AppUIConstants.spacing.space$16),
             decoration: BoxDecoration(
               color: theme.colorScheme.surface,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(AppUIConstants.radius.lg),
               border: Border.all(
                 color: theme.colorScheme.outlineVariant,
                 width: 1,
@@ -89,9 +92,10 @@ class AppointmentsSection extends GetView<DashboardController> {
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: AppUIConstants.spacing.space$16,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(12),
+                  padding: EdgeInsets.all(AppUIConstants.spacing.space$12),
                   decoration: BoxDecoration(
                     color:
                         (isVideo
@@ -110,7 +114,6 @@ class AppointmentsSection extends GetView<DashboardController> {
                     size: 24,
                   ),
                 ),
-                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,36 +122,37 @@ class AppointmentsSection extends GetView<DashboardController> {
                         appt['doctorName'] ?? '',
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
                         ),
                       ),
-                      const SizedBox(height: 2),
+                      AppUIConstants.widgets.verticalBox$4,
                       Text(
                         '${appt['specialty'] ?? ""} • ${appt['type'] ?? ""}',
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: theme.colorScheme.textMuted,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      AppUIConstants.widgets.verticalBox$8,
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppUIConstants.spacing.space$8,
+                          vertical: AppUIConstants.spacing.space$4,
                         ),
                         decoration: BoxDecoration(
                           color: theme.colorScheme.surfaceContainerHighest
                               .withValues(alpha: 0.4),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(
+                            AppUIConstants.radius.sm,
+                          ),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
+                          spacing: AppUIConstants.spacing.space$4,
                           children: [
                             Icon(
                               Icons.access_time_rounded,
                               size: 14,
                               color: theme.colorScheme.textMuted,
                             ),
-                            const SizedBox(width: 6),
                             Text(
                               formattedDate,
                               style: theme.textTheme.labelSmall?.copyWith(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
+import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
 import 'package:inspirelymd_patient/features/dashboard/presentation/controllers/dashboard_controller.dart';
 
@@ -14,10 +15,10 @@ class PrescriptionsSection extends GetView<DashboardController> {
     return Obx(() {
       if (controller.prescriptions.isEmpty) {
         return Container(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(AppUIConstants.spacing.space$16),
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(AppUIConstants.radius.lg),
             border: Border.all(color: theme.colorScheme.outlineVariant),
           ),
           child: Center(
@@ -35,7 +36,7 @@ class PrescriptionsSection extends GetView<DashboardController> {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: controller.prescriptions.length,
-        separatorBuilder: (_, _) => const SizedBox(height: 12),
+        separatorBuilder: (_, _) => AppUIConstants.widgets.verticalBox$12,
         itemBuilder: (context, index) {
           final presc = controller.prescriptions[index];
           final rawDate = presc['date'] as String;
@@ -46,55 +47,51 @@ class PrescriptionsSection extends GetView<DashboardController> {
           } catch (_) {}
 
           return Container(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(AppUIConstants.spacing.space$16),
             decoration: BoxDecoration(
               color: theme.colorScheme.surface,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(AppUIConstants.radius.lg),
               border: Border.all(
                 color: theme.colorScheme.outlineVariant,
                 width: 1,
               ),
             ),
             child: Row(
+              spacing: AppUIConstants.spacing.space$16,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(10),
+                  padding: EdgeInsets.all(AppUIConstants.spacing.space$8),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF007D55).withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(10),
+                    color: theme.colorScheme.completed.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(AppUIConstants.radius.sm),
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.medication_rounded,
-                    color: Color(0xFF007D55),
+                    color: theme.colorScheme.completed,
                     size: 24,
                   ),
                 ),
-                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: AppUIConstants.spacing.space$2,
                     children: [
                       Text(
                         presc['medicineName'] ?? '',
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
                         ),
                       ),
-                      const SizedBox(height: 2),
                       Text(
                         '${presc['dosage'] ?? ""} • ${presc['frequency'] ?? ""}',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: theme.colorScheme.textMuted,
-                          fontSize: 14,
                         ),
                       ),
-                      const SizedBox(height: 4),
                       Text(
                         '${AppStrings.dashboard.prescribedBy} ${presc['doctorName'] ?? ""} ${AppStrings.dashboard.on} $formattedDate',
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: theme.colorScheme.textMuted,
-                          fontSize: 11,
                         ),
                       ),
                     ],

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspirelymd_patient/core/common/widgets/button/app_button.dart';
-import 'package:inspirelymd_patient/core/common/widgets/text_field/app_text_field.dart';
+import 'package:inspirelymd_patient/core/common/widgets/button/app_icon_button.dart';
 import 'package:inspirelymd_patient/core/common/widgets/snackbar/app_snackbar.dart';
+import 'package:inspirelymd_patient/core/common/widgets/text_field/app_text_field.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
+import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/features/dashboard/presentation/controllers/dashboard_controller.dart';
 
 class RecordVitalsSheet extends StatefulWidget {
@@ -34,12 +36,12 @@ class _RecordVitalsSheetState extends State<RecordVitalsSheet> {
     final controller = Get.find<DashboardController>();
 
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.all(AppUIConstants.spacing.space$24),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(AppUIConstants.radius.xl),
+          topRight: Radius.circular(AppUIConstants.radius.xl),
         ),
       ),
       child: SingleChildScrollView(
@@ -56,14 +58,16 @@ class _RecordVitalsSheetState extends State<RecordVitalsSheet> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                IconButton(
+                AppIconButton.ghost(
+                  icon: Icons.close_rounded,
+                  iconColor: theme.colorScheme.onSurface,
                   onPressed: controller.navigateBack,
-                  icon: const Icon(Icons.close_rounded),
                 ),
               ],
             ),
-            const SizedBox(height: 16),
+            AppUIConstants.widgets.verticalBox$16,
             Row(
+              spacing: AppUIConstants.spacing.space$12,
               children: [
                 Expanded(
                   child: AppTextField(
@@ -73,7 +77,6 @@ class _RecordVitalsSheetState extends State<RecordVitalsSheet> {
                     hintText: AppStrings.dashboard.heartRateInputHint,
                   ),
                 ),
-                const SizedBox(width: 12),
                 Expanded(
                   child: AppTextField(
                     label: AppStrings.dashboard.bpInputLabel,
@@ -83,8 +86,9 @@ class _RecordVitalsSheetState extends State<RecordVitalsSheet> {
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            AppUIConstants.widgets.verticalBox$12,
             Row(
+              spacing: AppUIConstants.spacing.space$12,
               children: [
                 Expanded(
                   child: AppTextField(
@@ -96,7 +100,6 @@ class _RecordVitalsSheetState extends State<RecordVitalsSheet> {
                     hintText: AppStrings.dashboard.tempInputHint,
                   ),
                 ),
-                const SizedBox(width: 12),
                 Expanded(
                   child: AppTextField(
                     label: AppStrings.dashboard.weightInputLabel,
@@ -109,7 +112,7 @@ class _RecordVitalsSheetState extends State<RecordVitalsSheet> {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+            AppUIConstants.widgets.verticalBox$24,
             AppButton.filled(
               text: AppStrings.dashboard.saveVitalsButton,
               onPressed: () {

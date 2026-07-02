@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
+import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/features/dashboard/presentation/controllers/dashboard_controller.dart';
 
 class DashboardHeader extends GetView<DashboardController> {
@@ -38,26 +39,25 @@ class DashboardHeader extends GetView<DashboardController> {
                 Text(
                   AppStrings.dashboard.welcomeBack,
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.75),
+                    color: theme.colorScheme.onPrimary.withValues(alpha: 0.75),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 4),
+                AppUIConstants.widgets.verticalBox$4,
                 Obx(
                   () => Text(
                     controller.userName.value,
                     style: theme.textTheme.titleLarge?.copyWith(
-                      color: Colors.white,
-                      fontSize: 22,
+                      color: theme.colorScheme.onPrimary,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
+                AppUIConstants.widgets.verticalBox$8,
                 Text(
                   AppStrings.dashboard.localDbStatus,
                   style: theme.textTheme.labelSmall?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.65),
+                    color: theme.colorScheme.onPrimary.withValues(alpha: 0.65),
                   ),
                 ),
               ],
@@ -67,14 +67,17 @@ class DashboardHeader extends GetView<DashboardController> {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.15),
+              color: theme.colorScheme.onPrimary.withValues(alpha: 0.15),
               shape: BoxShape.circle,
-              border: Border.all(color: Colors.white30, width: 1.5),
+              border: Border.all(
+                color: theme.colorScheme.onPrimary.withValues(alpha: 0.3),
+                width: 1.5,
+              ),
             ),
-            child: const Center(
+            child: Center(
               child: Icon(
                 Icons.health_and_safety_rounded,
-                color: Colors.white,
+                color: theme.colorScheme.onPrimary,
                 size: 28,
               ),
             ),

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inspirelymd_patient/app/routes/app_routes.dart';
+import 'package:inspirelymd_patient/core/common/widgets/button/app_button.dart';
+import 'package:inspirelymd_patient/core/common/widgets/button/app_icon_button.dart';
+import 'package:inspirelymd_patient/core/common/widgets/card/app_card.dart';
+import 'package:inspirelymd_patient/core/common/widgets/icon/app_icon_box.dart';
+import 'package:inspirelymd_patient/core/common/widgets/scaffold/app_scaffold.dart';
+import 'package:inspirelymd_patient/core/common/widgets/snackbar/app_snackbar.dart';
+import 'package:inspirelymd_patient/core/common/widgets/tag/app_tag.dart';
+import 'package:inspirelymd_patient/core/constants/app_strings.dart';
 import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
-import 'package:inspirelymd_patient/core/common/widgets/card/app_card.dart';
-import 'package:inspirelymd_patient/core/common/widgets/tag/app_tag.dart';
-import 'package:inspirelymd_patient/core/common/widgets/icon/app_icon_box.dart';
-import 'package:inspirelymd_patient/core/common/widgets/button/app_pill_button.dart';
-import 'package:inspirelymd_patient/core/common/widgets/button/app_button.dart';
 import 'package:inspirelymd_patient/features/dashboard/presentation/controllers/dashboard_controller.dart';
-import 'package:inspirelymd_patient/core/common/widgets/scaffold/app_scaffold.dart';
-import 'package:inspirelymd_patient/core/constants/app_icons.dart';
-import 'package:inspirelymd_patient/app/routes/app_routes.dart';
-import 'package:inspirelymd_patient/core/common/widgets/snackbar/app_snackbar.dart';
 
 class DashboardContent extends GetView<DashboardController> {
   const DashboardContent({super.key});
@@ -19,27 +19,27 @@ class DashboardContent extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
+    final strings = AppStrings.dashboard;
 
     return AppScaffold(
       useScrollView: true,
-      titleWidget: Column(
+      title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            controller.greeting,
+            strings.welcomeBack,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.textMuted,
               height: 1.2,
             ),
           ),
-          const SizedBox(height: 2),
+          AppUIConstants.widgets.verticalBox$4,
           Obx(
             () => Text(
               controller.userName.value,
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
-                fontSize: 24,
                 height: 1.2,
               ),
             ),
@@ -47,61 +47,31 @@ class DashboardContent extends GetView<DashboardController> {
         ],
       ),
       centerTitle: false,
-      titleSpacing: 16,
+      titleSpacing: AppUIConstants.spacing.space$16,
       automaticallyImplyLeading: false,
       actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 16, left: 8),
-          child: GestureDetector(
-            onTap: () => Get.toNamed(AppRoutes.notifications),
-            child: Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: theme.colorScheme.surface,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: theme.colorScheme.outlineVariant,
-                  width: 1,
-                ),
-              ),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Icon(
-                    AppIcons.common.bellInactive,
-                    color: theme.colorScheme.onSurface,
-                    size: 22,
-                  ),
-                  Positioned(
-                    top: 10,
-                    right: 12,
-                    child: Container(
-                      width: 8,
-                      height: 8,
-                      decoration: BoxDecoration(
-                        color: theme.colorScheme.error,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+        AppIconButton.ghost(
+          icon: Icons.notifications_none_rounded,
+          iconColor: theme.colorScheme.onSurface,
+          iconSize: 24,
+          onPressed: () => Get.toNamed(AppRoutes.notifications),
         ),
+        AppUIConstants.widgets.horizontalBox$8,
       ],
-      child: RefreshIndicator(
-        onRefresh: controller.refreshData,
-        color: theme.colorScheme.primary,
-        child: Column(
+      child: Obx(() {
+        if (controller.isLoading.value) {
+          return const SizedBox.shrink();
+        }
+
+        return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // ── Card 1: Weight Loss Progress ─────────────────────────────────
+            // ── Card 1: Main Weight Goal Progress ────────────────────────────
             GestureDetector(
               onTap: () => controller.changeNavIndex(1),
               child: AppCard(
                 child: Row(
+                  spacing: AppUIConstants.spacing.space$16,
                   children: [
                     // Circular Progress Ring
                     const SizedBox(
@@ -112,11 +82,11 @@ class DashboardContent extends GetView<DashboardController> {
                         strokeWidth: 6,
                       ),
                     ),
-                    const SizedBox(width: 16),
                     // Text Block
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: AppUIConstants.spacing.space$4,
                         children: [
                           AppTag(
                             text: 'Week 4 of 24',
@@ -124,7 +94,6 @@ class DashboardContent extends GetView<DashboardController> {
                                 .withValues(alpha: 0.1),
                             textColor: theme.colorScheme.primary,
                           ),
-                          const SizedBox(height: 6),
                           Text(
                             '14 lb lost',
                             style: theme.textTheme.titleMedium?.copyWith(
@@ -132,7 +101,6 @@ class DashboardContent extends GetView<DashboardController> {
                               color: theme.colorScheme.onSurface,
                             ),
                           ),
-                          const SizedBox(height: 2),
                           Text(
                             '18 lb to your goal of 180',
                             style: theme.textTheme.bodySmall?.copyWith(
@@ -141,11 +109,6 @@ class DashboardContent extends GetView<DashboardController> {
                           ),
                         ],
                       ),
-                    ),
-                    // Trailing chevron
-                    Icon(
-                      Icons.chevron_right_rounded,
-                      color: theme.colorScheme.textMuted,
                     ),
                   ],
                 ),
@@ -158,35 +121,30 @@ class DashboardContent extends GetView<DashboardController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Header tag & next dose
+                  // Card Header: Label & Status Tag
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const AppTag(
-                        text: 'Active treatment',
-                        backgroundColor: Color(0xFFE8F5E9),
-                        textColor: Color(0xFF2E7D32),
-                        dotColor: Color(0xFF2E7D32),
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme.colorScheme.textMuted,
-                          ),
-                          children: const [
-                            TextSpan(text: 'Next dose · '),
-                            TextSpan(
-                              text: 'Sunday',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                      Text(
+                        'Active treatment',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.textMuted,
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
+                      AppTag(
+                        text: 'Active',
+                        backgroundColor: theme.colorScheme.completed
+                            .withValues(alpha: 0.1),
+                        textColor: theme.colorScheme.completed,
+                        dotColor: theme.colorScheme.completed,
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  AppUIConstants.widgets.verticalBox$16,
                   // Treatment detail: Icon, Title, Description
                   Row(
+                    spacing: AppUIConstants.spacing.space$16,
                     children: [
                       AppIconBox(
                         icon: Icons.view_stream_rounded,
@@ -195,10 +153,10 @@ class DashboardContent extends GetView<DashboardController> {
                         ),
                         iconColor: theme.colorScheme.primary,
                       ),
-                      const SizedBox(width: 16),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: AppUIConstants.spacing.space$2,
                           children: [
                             Text(
                               'Semaglutide',
@@ -206,7 +164,6 @@ class DashboardContent extends GetView<DashboardController> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(height: 2),
                             Text(
                               '0.5 mg / week · weekly injection',
                               style: theme.textTheme.bodySmall?.copyWith(
@@ -218,11 +175,11 @@ class DashboardContent extends GetView<DashboardController> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  AppUIConstants.widgets.verticalBox$16,
                   // Dose log button
                   AppButton.filled(
                     text: '✓    Log this week\'s dose',
-                    onPressed: () => Get.toNamed(AppRoutes.chat),
+                    onPressed: () => controller.changeNavIndex(3),
                   ),
                 ],
               ),
@@ -234,16 +191,17 @@ class DashboardContent extends GetView<DashboardController> {
               onTap: () => controller.changeNavIndex(3),
               child: AppCard(
                 child: Row(
+                  spacing: AppUIConstants.spacing.space$16,
                   children: [
-                    const AppIconBox(
+                    AppIconBox(
                       icon: Icons.local_shipping_outlined,
-                      backgroundColor: Color(0xFFE3F2FD),
-                      iconColor: Color(0xFF1E88E5),
+                      backgroundColor: theme.colorScheme.inProgress.withValues(alpha: 0.1),
+                      iconColor: theme.colorScheme.inProgress,
                     ),
-                    const SizedBox(width: 16),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: AppUIConstants.spacing.space$2,
                         children: [
                           Text(
                             'Refill on the way',
@@ -251,7 +209,6 @@ class DashboardContent extends GetView<DashboardController> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 2),
                           Text(
                             'Shipped · arrives Thu, Jun 12',
                             style: theme.textTheme.bodySmall?.copyWith(
@@ -261,12 +218,26 @@ class DashboardContent extends GetView<DashboardController> {
                         ],
                       ),
                     ),
-                    // Track button
-                    AppPillButton(
-                      text: 'Track',
-                      backgroundColor: const Color(0xFFE3F2FD),
-                      textColor: const Color(0xFF1E88E5),
+                    // Track chip
+                    GestureDetector(
                       onTap: () => controller.changeNavIndex(3),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.inProgress.withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Text(
+                          'Track',
+                          style: theme.textTheme.labelMedium?.copyWith(
+                            color: theme.colorScheme.inProgress,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -274,35 +245,58 @@ class DashboardContent extends GetView<DashboardController> {
             ),
             AppUIConstants.widgets.verticalBox$16,
 
-            // ── Card 4: Doctor Message ───────────────────────────────────────
+            // ── Card 4: Unread Message Banner ────────────────────────────────
             GestureDetector(
               onTap: () => controller.changeNavIndex(2),
               child: AppCard(
                 child: Row(
+                  spacing: AppUIConstants.spacing.space$16,
                   children: [
-                    // Initial circle avatar
-                    Container(
-                      width: 48,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: theme.colorScheme.primary.withValues(alpha: 0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: Text(
-                          'AR',
-                          style: TextStyle(
-                            color: theme.colorScheme.primary,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                    // Doctor avatar with badge
+                    Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          width: 48,
+                          height: 48,
+                          decoration: BoxDecoration(
+                            color: theme.colorScheme.primary.withValues(
+                              alpha: 0.1,
+                            ),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: Text(
+                              'AR',
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                color: theme.colorScheme.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            width: 12,
+                            height: 12,
+                            decoration: BoxDecoration(
+                              color: theme.colorScheme.completed,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: theme.colorScheme.surface,
+                                width: 2,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 16),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: AppUIConstants.spacing.space$2,
                         children: [
                           Text(
                             'Dr. Reyes',
@@ -310,7 +304,6 @@ class DashboardContent extends GetView<DashboardController> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 2),
                           Text(
                             'Eat smaller meals and stay hydrated...',
                             style: theme.textTheme.bodySmall?.copyWith(
@@ -325,15 +318,14 @@ class DashboardContent extends GetView<DashboardController> {
                     // Timestamp and unread status dot
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
+                      spacing: AppUIConstants.spacing.space$6,
                       children: [
                         Text(
                           '9:40 AM',
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: theme.colorScheme.textMuted,
-                            fontSize: 11,
                           ),
                         ),
-                        const SizedBox(height: 6),
                         Container(
                           width: 8,
                           height: 8,
@@ -352,10 +344,11 @@ class DashboardContent extends GetView<DashboardController> {
 
             // ── Double Grid Row: Actions ─────────────────────────────────────
             Row(
+              spacing: AppUIConstants.spacing.space$16,
               children: [
                 Expanded(
                   child: AppCard(
-                    padding: const EdgeInsets.all(16),
+                    padding: EdgeInsets.all(AppUIConstants.spacing.space$16),
                     onTap: () {
                       AppSnackbar.success(
                         'Refill request submitted successfully.',
@@ -384,10 +377,9 @@ class DashboardContent extends GetView<DashboardController> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 16),
                 Expanded(
                   child: AppCard(
-                    padding: const EdgeInsets.all(16),
+                    padding: EdgeInsets.all(AppUIConstants.spacing.space$16),
                     onTap: controller.showBookAppointmentSheet,
                     child: SizedBox(
                       height: 66,
@@ -396,12 +388,12 @@ class DashboardContent extends GetView<DashboardController> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Icon(
-                            Icons.calendar_month_rounded,
+                            Icons.calendar_today_rounded,
                             color: theme.colorScheme.primary,
-                            size: 24,
+                            size: 22,
                           ),
                           Text(
-                            'Book check-in',
+                            'Book visit',
                             style: theme.textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: theme.colorScheme.onSurface,
@@ -414,9 +406,10 @@ class DashboardContent extends GetView<DashboardController> {
                 ),
               ],
             ),
+            AppUIConstants.widgets.verticalBox$32,
           ],
-        ),
-      ),
+        );
+      }),
     );
   }
 }

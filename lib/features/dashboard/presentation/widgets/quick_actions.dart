@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
+import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
 
 class QuickActions extends StatelessWidget {
@@ -17,25 +18,27 @@ class QuickActions extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Row(
+      spacing: AppUIConstants.spacing.space$12,
       children: [
         Expanded(
           child: InkWell(
             onTap: onBookAppointment,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(AppUIConstants.radius.lg),
             child: Container(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(AppUIConstants.spacing.space$16),
               decoration: BoxDecoration(
                 color: theme.colorScheme.primary.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(AppUIConstants.radius.lg),
                 border: Border.all(
                   color: theme.colorScheme.primary.withValues(alpha: 0.15),
                   width: 1,
                 ),
               ),
               child: Row(
+                spacing: AppUIConstants.spacing.space$12,
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(10),
+                    padding: EdgeInsets.all(AppUIConstants.spacing.space$8),
                     decoration: BoxDecoration(
                       color: theme.colorScheme.primary.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
@@ -46,7 +49,6 @@ class QuickActions extends StatelessWidget {
                       size: 22,
                     ),
                   ),
-                  const SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +64,6 @@ class QuickActions extends StatelessWidget {
                           AppStrings.dashboard.bookApptSub,
                           style: theme.textTheme.labelSmall?.copyWith(
                             color: theme.colorScheme.textMuted,
-                            fontSize: 10,
                           ),
                         ),
                       ],
@@ -73,25 +74,25 @@ class QuickActions extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(width: 12),
         Expanded(
           child: InkWell(
             onTap: onRecordVitals,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(AppUIConstants.radius.lg),
             child: Container(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(AppUIConstants.spacing.space$16),
               decoration: BoxDecoration(
                 color: theme.colorScheme.tertiary.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(AppUIConstants.radius.lg),
                 border: Border.all(
                   color: theme.colorScheme.tertiary.withValues(alpha: 0.15),
                   width: 1,
                 ),
               ),
               child: Row(
+                spacing: AppUIConstants.spacing.space$12,
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(10),
+                    padding: EdgeInsets.all(AppUIConstants.spacing.space$8),
                     decoration: BoxDecoration(
                       color: theme.colorScheme.tertiary.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
@@ -102,7 +103,6 @@ class QuickActions extends StatelessWidget {
                       size: 22,
                     ),
                   ),
-                  const SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,7 +118,6 @@ class QuickActions extends StatelessWidget {
                           AppStrings.dashboard.recordVitalsSub,
                           style: theme.textTheme.labelSmall?.copyWith(
                             color: theme.colorScheme.textMuted,
-                            fontSize: 10,
                           ),
                         ),
                       ],

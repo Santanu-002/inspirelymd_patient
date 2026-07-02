@@ -22,10 +22,10 @@ class DashboardShimmer extends StatelessWidget {
           AppUIConstants.widgets.verticalBox$12,
 
           // Quick actions row
-          const Row(
-            children: [
+          Row(
+            spacing: AppUIConstants.spacing.space$12,
+            children: const [
               Expanded(child: AppSkeletonContainer(height: 80)),
-              SizedBox(width: 12),
               Expanded(child: AppSkeletonContainer(height: 80)),
             ],
           ),
@@ -38,8 +38,8 @@ class DashboardShimmer extends StatelessWidget {
             crossAxisCount: 2,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 12,
+            mainAxisSpacing: AppUIConstants.spacing.space$12,
+            crossAxisSpacing: AppUIConstants.spacing.space$12,
             childAspectRatio: 1.4,
             children: const [
               AppSkeletonContainer(),
