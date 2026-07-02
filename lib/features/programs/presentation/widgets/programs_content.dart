@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inspirelymd_patient/core/common/widgets/card/app_card.dart';
+import 'package:inspirelymd_patient/core/common/widgets/scaffold/app_scaffold.dart';
+import 'package:inspirelymd_patient/core/common/widgets/tag/app_tag.dart';
 import 'package:inspirelymd_patient/core/constants/app_strings.dart';
 import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
-import 'package:inspirelymd_patient/core/common/widgets/card/app_card.dart';
-import 'package:inspirelymd_patient/core/common/widgets/tag/app_tag.dart';
-import 'package:inspirelymd_patient/core/common/widgets/icon/app_icon_box.dart';
-import 'package:inspirelymd_patient/features/dashboard/presentation/controllers/dashboard_controller.dart';
-import 'package:inspirelymd_patient/core/common/widgets/scaffold/app_scaffold.dart';
+import 'package:inspirelymd_patient/features/programs/presentation/widgets/program_plan_item.dart';
 
-class ProgramsContent extends GetView<DashboardController> {
+class ProgramsContent extends StatelessWidget {
   const ProgramsContent({super.key});
 
   @override
@@ -17,34 +16,69 @@ class ProgramsContent extends GetView<DashboardController> {
     final theme = context.theme;
     final strings = AppStrings.programs;
 
+    final planItems = [
+      {
+        'icon': Icons.calendar_today_outlined,
+        'iconColor': theme.colorScheme.primary,
+        'iconBg': theme.colorScheme.primary.withValues(alpha: 0.1),
+        'title': strings.taskDose,
+        'subtitle': strings.taskDoseSub,
+        'isCompleted': false,
+      },
+      {
+        'icon': Icons.scale_outlined,
+        'iconColor': theme.colorScheme.inProgress,
+        'iconBg': theme.colorScheme.inProgress.withValues(alpha: 0.1),
+        'title': strings.taskWeight,
+        'subtitle': strings.taskWeightSub,
+        'isCompleted': false,
+      },
+      {
+        'icon': Icons.auto_awesome,
+        'iconColor': theme.colorScheme.textMuted,
+        'iconBg': theme.colorScheme.outlineVariant,
+        'title': strings.taskLesson,
+        'subtitle': strings.taskLessonSub,
+        'isCompleted': true,
+      },
+      {
+        'icon': Icons.water_drop_outlined,
+        'iconColor': theme.colorScheme.textMuted,
+        'iconBg': theme.colorScheme.outlineVariant,
+        'title': strings.taskHydration,
+        'subtitle': strings.taskHydrationSub,
+        'isCompleted': true,
+      },
+    ];
+
     return AppScaffold(
       useScrollView: true,
-      titleWidget: Column(
+      title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             strings.sectionTitle,
-            style: theme.textTheme.labelMedium?.copyWith(
+            style: theme.textTheme.labelSmall?.copyWith(
+              color: theme.colorScheme.textMuted,
               fontWeight: FontWeight.bold,
-              color: theme.colorScheme.primary,
-              letterSpacing: 1.2,
+              letterSpacing: 0.8,
               height: 1.1,
             ),
           ),
-          const SizedBox(height: 2),
+          AppUIConstants.widgets.verticalBox$4,
           Text(
-            strings.programTitle,
+            strings.programName,
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
-              color: const Color(0xFF0D253F), // Dark blue header color
+              color: theme.colorScheme.onSurface,
               height: 1.1,
             ),
           ),
         ],
       ),
       centerTitle: false,
-      titleSpacing: 16,
+      titleSpacing: AppUIConstants.spacing.space$16,
       automaticallyImplyLeading: false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -72,7 +106,7 @@ class ProgramsContent extends GetView<DashboardController> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                AppUIConstants.widgets.verticalBox$16,
                 RichText(
                   text: TextSpan(
                     style: theme.textTheme.displayMedium?.copyWith(
@@ -90,7 +124,7 @@ class ProgramsContent extends GetView<DashboardController> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 16),
+                AppUIConstants.widgets.verticalBox$16,
                 // Thick progress bar
                 ClipRRect(
                   borderRadius: BorderRadius.circular(999),
@@ -103,7 +137,7 @@ class ProgramsContent extends GetView<DashboardController> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
+                AppUIConstants.widgets.verticalBox$8,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -133,7 +167,7 @@ class ProgramsContent extends GetView<DashboardController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.all(AppUIConstants.spacing.space$16),
                   child: Text(
                     strings.planTitle,
                     style: theme.textTheme.titleMedium?.copyWith(
@@ -143,52 +177,22 @@ class ProgramsContent extends GetView<DashboardController> {
                 ),
                 const Divider(height: 1),
 
-                // Item 1: Take weekly dose
-                _buildPlanItem(
-                  context: context,
-                  icon: Icons.calendar_today_outlined,
-                  iconColor: theme.colorScheme.primary,
-                  iconBg: theme.colorScheme.primary.withValues(alpha: 0.1),
-                  title: strings.taskDose,
-                  subtitle: strings.taskDoseSub,
-                  isCompleted: false,
-                ),
-                const Divider(height: 1),
-
-                // Item 2: Log weight
-                _buildPlanItem(
-                  context: context,
-                  icon: Icons.scale_outlined,
-                  iconColor: const Color(0xFF1E88E5),
-                  iconBg: const Color(0xFFE3F2FD),
-                  title: strings.taskWeight,
-                  subtitle: strings.taskWeightSub,
-                  isCompleted: false,
-                ),
-                const Divider(height: 1),
-
-                // Item 3: Managing nausea lesson (Completed)
-                _buildPlanItem(
-                  context: context,
-                  icon: Icons.auto_awesome,
-                  iconColor: theme.colorScheme.textMuted,
-                  iconBg: theme.colorScheme.outlineVariant,
-                  title: strings.taskLesson,
-                  subtitle: strings.taskLessonSub,
-                  isCompleted: true,
-                ),
-                const Divider(height: 1),
-
-                // Item 4: Hydration goal (Completed)
-                _buildPlanItem(
-                  context: context,
-                  icon: Icons.water_drop_outlined,
-                  iconColor: theme.colorScheme.textMuted,
-                  iconBg: theme.colorScheme.outlineVariant,
-                  title: strings.taskHydration,
-                  subtitle: strings.taskHydrationSub,
-                  isCompleted: true,
-                ),
+                ...List.generate(planItems.length, (index) {
+                  final item = planItems[index];
+                  return Column(
+                    children: [
+                      ProgramPlanItem(
+                        icon: item['icon'] as IconData,
+                        iconColor: item['iconColor'] as Color,
+                        iconBg: item['iconBg'] as Color,
+                        title: item['title'] as String,
+                        subtitle: item['subtitle'] as String,
+                        isCompleted: item['isCompleted'] as bool,
+                      ),
+                      if (index < planItems.length - 1) const Divider(height: 1),
+                    ],
+                  );
+                }),
               ],
             ),
           ),
@@ -197,40 +201,55 @@ class ProgramsContent extends GetView<DashboardController> {
           // ── Card 3: Care Team Card ───────────────────────────────────────
           AppCard(
             child: Row(
+              spacing: AppUIConstants.spacing.space$16,
               children: [
-                // Initials avatar
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary.withValues(alpha: 0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'AR',
-                      style: TextStyle(
+                // Doctor Avatar with green online badge
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    CircleAvatar(
+                      radius: 26,
+                      backgroundColor: theme.colorScheme.primary.withValues(
+                        alpha: 0.1,
+                      ),
+                      child: Icon(
+                        Icons.medical_services_rounded,
                         color: theme.colorScheme.primary,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                        size: 26,
                       ),
                     ),
-                  ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        width: 14,
+                        height: 14,
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.completed,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: theme.colorScheme.surface,
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 16),
+                // Doctor info
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: AppUIConstants.spacing.space$2,
                     children: [
                       Text(
-                        strings.drAlanaReyes('Dr. Alana Reyes, MD'),
+                        strings.assignedProvider,
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 2),
                       Text(
-                        strings.drSpecialty,
+                        strings.assignedProviderSub,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.textMuted,
                         ),
@@ -239,82 +258,16 @@ class ProgramsContent extends GetView<DashboardController> {
                   ),
                 ),
                 // Care team tag chip
-                const AppTag(
+                AppTag(
                   text: 'Care team',
-                  backgroundColor: Color(0xFFE8F5E9),
-                  textColor: Color(0xFF2E7D32),
-                  dotColor: Color(0xFF2E7D32),
+                  backgroundColor: theme.colorScheme.completed.withValues(alpha: 0.1),
+                  textColor: theme.colorScheme.completed,
+                  dotColor: theme.colorScheme.completed,
                 ),
               ],
             ),
           ),
           AppUIConstants.widgets.verticalBox$32,
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPlanItem({
-    required BuildContext context,
-    required IconData icon,
-    required Color iconColor,
-    required Color iconBg,
-    required String title,
-    required String subtitle,
-    required bool isCompleted,
-  }) {
-    final theme = context.theme;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Row(
-        children: [
-          // Icon Container
-          AppIconBox(icon: icon, backgroundColor: iconBg, iconColor: iconColor),
-          const SizedBox(width: 16),
-          // Text block
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    decoration: isCompleted ? TextDecoration.lineThrough : null,
-                    color: isCompleted
-                        ? theme.colorScheme.textMuted
-                        : theme.colorScheme.onSurface,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  subtitle,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.textMuted,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // Circular status checkbox
-          Container(
-            width: 24,
-            height: 24,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isCompleted ? const Color(0xFF2E7D32) : Colors.transparent,
-              border: isCompleted
-                  ? null
-                  : Border.all(
-                      color: theme.colorScheme.outlineVariant,
-                      width: 2,
-                    ),
-            ),
-            child: isCompleted
-                ? const Icon(Icons.check, color: Colors.white, size: 14)
-                : null,
-          ),
         ],
       ),
     );

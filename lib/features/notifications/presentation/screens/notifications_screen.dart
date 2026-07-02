@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspirelymd_patient/core/common/widgets/scaffold/app_scaffold.dart';
+import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
 import 'package:inspirelymd_patient/core/common/widgets/card/app_card.dart';
 import 'package:inspirelymd_patient/core/common/widgets/icon/app_icon_box.dart';
@@ -23,12 +24,11 @@ class NotificationsScreen extends GetView<NotificationsController> {
         useScrollView: true,
         automaticallyImplyLeading: true,
         onBackPressed: controller.triggerBack,
-        titleWidget: Text(
+        title: Text(
           'Notifications',
-          style: theme.textTheme.titleLarge?.copyWith(
+          style: theme.textTheme.headlineLarge?.copyWith(
             fontWeight: FontWeight.bold,
-            color: const Color(0xFF0D253F),
-            fontSize: 24,
+            color: theme.colorScheme.onSurface,
           ),
         ),
         child: Obx(() {
@@ -44,7 +44,11 @@ class NotificationsScreen extends GetView<NotificationsController> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 8, bottom: 8, left: 4),
+                    padding: EdgeInsets.only(
+                      top: AppUIConstants.spacing.space$8,
+                      bottom: AppUIConstants.spacing.space$8,
+                      left: AppUIConstants.spacing.space$4,
+                    ),
                     child: Text(
                       groupTitle.toUpperCase(),
                       style: theme.textTheme.labelMedium?.copyWith(
@@ -74,28 +78,28 @@ class NotificationsScreen extends GetView<NotificationsController> {
                             break;
                           case 'shipping':
                             notifyIcon = Icons.local_shipping_outlined;
-                            iconBg = const Color(0xFFE3F2FD);
-                            iconColor = const Color(0xFF1E88E5);
+                            iconBg = theme.colorScheme.inProgress.withValues(alpha: 0.1);
+                            iconColor = theme.colorScheme.inProgress;
                             break;
                           case 'reply':
                             notifyIcon = Icons.chat_bubble_outline_rounded;
-                            iconBg = const Color(0xFFE8F5E9);
-                            iconColor = const Color(0xFF2E7D32);
+                            iconBg = theme.colorScheme.completed.withValues(alpha: 0.1);
+                            iconColor = theme.colorScheme.completed;
                             break;
                           case 'lesson':
                           default:
                             notifyIcon = Icons.auto_awesome;
-                            iconBg = const Color(0xFFFFF8E1);
-                            iconColor = const Color(0xFFFFB300);
+                            iconBg = theme.colorScheme.pending.withValues(alpha: 0.1);
+                            iconColor = theme.colorScheme.pending;
                             break;
                         }
 
                         return Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 14,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: AppUIConstants.spacing.space$16,
+                                vertical: AppUIConstants.spacing.space$12,
                               ),
                               child: InkWell(
                                 onTap: () => controller.openNotificationAction(
@@ -103,17 +107,18 @@ class NotificationsScreen extends GetView<NotificationsController> {
                                 ),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  spacing: AppUIConstants.spacing.space$16,
                                   children: [
                                     AppIconBox(
                                       icon: notifyIcon,
                                       backgroundColor: iconBg,
                                       iconColor: iconColor,
                                     ),
-                                    const SizedBox(width: 16),
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
+                                        spacing: AppUIConstants.spacing.space$4,
                                         children: [
                                           Text(
                                             item['title'],
@@ -122,7 +127,6 @@ class NotificationsScreen extends GetView<NotificationsController> {
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                           ),
-                                          const SizedBox(height: 4),
                                           Text(
                                             item['subtitle'],
                                             style: theme.textTheme.bodySmall
@@ -136,13 +140,11 @@ class NotificationsScreen extends GetView<NotificationsController> {
                                         ],
                                       ),
                                     ),
-                                    const SizedBox(width: 8),
                                     Text(
                                       item['time'],
                                       style: theme.textTheme.bodySmall
                                           ?.copyWith(
                                             color: theme.colorScheme.textMuted,
-                                            fontSize: 10,
                                           ),
                                     ),
                                   ],
@@ -156,7 +158,7 @@ class NotificationsScreen extends GetView<NotificationsController> {
                       }),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  AppUIConstants.widgets.verticalBox$16,
                 ],
               );
             }).toList(),

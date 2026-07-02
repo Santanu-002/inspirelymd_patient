@@ -5,8 +5,8 @@ import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
 import 'package:inspirelymd_patient/core/common/widgets/card/app_card.dart';
 import 'package:inspirelymd_patient/core/common/widgets/tag/app_tag.dart';
-import 'package:inspirelymd_patient/core/common/widgets/icon/app_icon_box.dart';
 import 'package:inspirelymd_patient/features/account/presentation/controllers/account_controller.dart';
+import 'package:inspirelymd_patient/features/account/presentation/widgets/account_settings_item.dart';
 import 'package:inspirelymd_patient/core/common/widgets/button/app_button.dart';
 import 'package:inspirelymd_patient/core/common/widgets/scaffold/app_scaffold.dart';
 
@@ -20,12 +20,11 @@ class AccountContent extends GetView<AccountController> {
 
     return AppScaffold(
       useScrollView: true,
-      titleWidget: Text(
+      title: Text(
         strings.title,
-        style: theme.textTheme.titleLarge?.copyWith(
+        style: theme.textTheme.headlineLarge?.copyWith(
           fontWeight: FontWeight.bold,
-          color: const Color(0xFF0D253F),
-          fontSize: 24,
+          color: theme.colorScheme.onSurface,
         ),
       ),
       centerTitle: false,
@@ -37,6 +36,7 @@ class AccountContent extends GetView<AccountController> {
           // ── Profile Card ─────────────────────────────────────────────────
           AppCard(
             child: Row(
+              spacing: AppUIConstants.spacing.space$16,
               children: [
                 // JA Avatar
                 Container(
@@ -46,18 +46,16 @@ class AccountContent extends GetView<AccountController> {
                     color: theme.colorScheme.primary,
                     shape: BoxShape.circle,
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'JA',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        color: theme.colorScheme.onPrimary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,14 +66,14 @@ class AccountContent extends GetView<AccountController> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 2),
+                      AppUIConstants.widgets.verticalBox$4,
                       Text(
                         strings.email,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.textMuted,
                         ),
                       ),
-                      const SizedBox(height: 6),
+                      AppUIConstants.widgets.verticalBox$8,
                       AppTag(
                         text: strings.memberTag,
                         backgroundColor: theme.colorScheme.outlineVariant
@@ -95,53 +93,53 @@ class AccountContent extends GetView<AccountController> {
             padding: EdgeInsets.zero,
             child: Column(
               children: [
-                _buildSettingsItem(
-                  context: context,
+                AccountSettingsItem(
                   title: strings.personalProfile,
                   subtitle: strings.personalProfileSub,
                   icon: Icons.person_outline_rounded,
+                  onTap: () => controller.openSettingsSection(strings.personalProfile),
                 ),
                 const Divider(height: 1),
-                _buildSettingsItem(
-                  context: context,
+                AccountSettingsItem(
                   title: strings.paymentBilling,
                   subtitle: strings.paymentBillingSub,
                   icon: Icons.credit_card_outlined,
+                  onTap: () => controller.openSettingsSection(strings.paymentBilling),
                 ),
                 const Divider(height: 1),
-                _buildSettingsItem(
-                  context: context,
+                AccountSettingsItem(
                   title: strings.subscriptions,
                   subtitle: strings.subscriptionsSub,
                   icon: Icons.sync_rounded,
+                  onTap: () => controller.openSettingsSection(strings.subscriptions),
                 ),
                 const Divider(height: 1),
-                _buildSettingsItem(
-                  context: context,
+                AccountSettingsItem(
                   title: strings.medicalRecords,
                   subtitle: strings.medicalRecordsSub,
                   icon: Icons.description_outlined,
+                  onTap: () => controller.openSettingsSection(strings.medicalRecords),
                 ),
                 const Divider(height: 1),
-                _buildSettingsItem(
-                  context: context,
+                AccountSettingsItem(
                   title: strings.consents,
                   subtitle: strings.consentsSub,
                   icon: Icons.shield_outlined,
+                  onTap: () => controller.openSettingsSection(strings.consents),
                 ),
                 const Divider(height: 1),
-                _buildSettingsItem(
-                  context: context,
+                AccountSettingsItem(
                   title: strings.notifications,
                   subtitle: strings.notificationsSub,
                   icon: Icons.notifications_none_rounded,
+                  onTap: () => controller.openSettingsSection(strings.notifications),
                 ),
                 const Divider(height: 1),
-                _buildSettingsItem(
-                  context: context,
+                AccountSettingsItem(
                   title: strings.helpSupport,
                   subtitle: strings.helpSupportSub,
                   icon: Icons.help_outline_rounded,
+                  onTap: () => controller.openSettingsSection(strings.helpSupport),
                 ),
               ],
             ),
@@ -158,20 +156,18 @@ class AccountContent extends GetView<AccountController> {
           // Centered Muted Footer
           Center(
             child: Column(
+              spacing: AppUIConstants.spacing.space$2,
               children: [
                 Text(
                   strings.footerPhysician,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.textMuted,
-                    fontSize: 11,
                   ),
                 ),
-                const SizedBox(height: 2),
                 Text(
                   strings.footerLicensed,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.textMuted,
-                    fontSize: 11,
                   ),
                 ),
               ],
@@ -179,56 +175,6 @@ class AccountContent extends GetView<AccountController> {
           ),
           AppUIConstants.widgets.verticalBox$32,
         ],
-      ),
-    );
-  }
-
-  Widget _buildSettingsItem({
-    required BuildContext context,
-    required String title,
-    required String subtitle,
-    required IconData icon,
-  }) {
-    final theme = context.theme;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: InkWell(
-        onTap: () => controller.openSettingsSection(title),
-        child: Row(
-          children: [
-            AppIconBox(
-              icon: icon,
-              backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
-              iconColor: theme.colorScheme.primary,
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    subtitle,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.textMuted,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Icon(
-              Icons.chevron_right_rounded,
-              color: theme.colorScheme.textMuted,
-            ),
-          ],
-        ),
       ),
     );
   }
