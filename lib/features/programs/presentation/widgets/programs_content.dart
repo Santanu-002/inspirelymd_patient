@@ -8,8 +8,15 @@ import 'package:inspirelymd_patient/core/constants/app_ui_constants.dart';
 import 'package:inspirelymd_patient/core/theme/color_scheme_extension.dart';
 import 'package:inspirelymd_patient/features/programs/presentation/widgets/program_plan_item.dart';
 
-class ProgramsContent extends StatelessWidget {
+class ProgramsContent extends StatefulWidget {
   const ProgramsContent({super.key});
+
+  @override
+  State<ProgramsContent> createState() => _ProgramsContentState();
+}
+
+class _ProgramsContentState extends State<ProgramsContent> {
+  final List<bool> _completionStates = [false, false, true, true];
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,6 @@ class ProgramsContent extends StatelessWidget {
         'iconBg': theme.colorScheme.primary.withValues(alpha: 0.1),
         'title': strings.taskDose,
         'subtitle': strings.taskDoseSub,
-        'isCompleted': false,
       },
       {
         'icon': Icons.scale_outlined,
@@ -31,23 +37,20 @@ class ProgramsContent extends StatelessWidget {
         'iconBg': theme.colorScheme.inProgress.withValues(alpha: 0.1),
         'title': strings.taskWeight,
         'subtitle': strings.taskWeightSub,
-        'isCompleted': false,
       },
       {
         'icon': Icons.auto_awesome,
-        'iconColor': theme.colorScheme.textMuted,
-        'iconBg': theme.colorScheme.outlineVariant,
+        'iconColor': theme.colorScheme.primary,
+        'iconBg': theme.colorScheme.primary.withValues(alpha: 0.1),
         'title': strings.taskLesson,
         'subtitle': strings.taskLessonSub,
-        'isCompleted': true,
       },
       {
         'icon': Icons.water_drop_outlined,
-        'iconColor': theme.colorScheme.textMuted,
-        'iconBg': theme.colorScheme.outlineVariant,
+        'iconColor': theme.colorScheme.primary,
+        'iconBg': theme.colorScheme.primary.withValues(alpha: 0.1),
         'title': strings.taskHydration,
         'subtitle': strings.taskHydrationSub,
-        'isCompleted': true,
       },
     ];
 
@@ -179,15 +182,28 @@ class ProgramsContent extends StatelessWidget {
 
                 ...List.generate(planItems.length, (index) {
                   final item = planItems[index];
+                  final isCompleted = _completionStates[index];
+                  
+                  final activeColor = item['iconColor'] as Color;
+                  final activeBg = item['iconBg'] as Color;
+                  
+                  final iconColor = isCompleted ? theme.colorScheme.textMuted : activeColor;
+                  final iconBg = isCompleted ? theme.colorScheme.outlineVariant : activeBg;
+
                   return Column(
                     children: [
                       ProgramPlanItem(
                         icon: item['icon'] as IconData,
-                        iconColor: item['iconColor'] as Color,
-                        iconBg: item['iconBg'] as Color,
+                        iconColor: iconColor,
+                        iconBg: iconBg,
                         title: item['title'] as String,
                         subtitle: item['subtitle'] as String,
-                        isCompleted: item['isCompleted'] as bool,
+                        isCompleted: isCompleted,
+                        onTap: () {
+                          setState(() {
+                            _completionStates[index] = !_completionStates[index];
+                          });
+                        },
                       ),
                       if (index < planItems.length - 1) const Divider(height: 1),
                     ],
